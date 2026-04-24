@@ -1,1 +1,677 @@
-Hello!
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minari Portfolio</title>
+  <meta name="description" content="Minari의 GitHub Pages 포트폴리오 사이트">
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: rgba(255, 250, 244, 0.72);
+      --paper-strong: rgba(255, 250, 244, 0.92);
+      --ink: #1c1917;
+      --muted: #5f564d;
+      --line: rgba(52, 43, 35, 0.12);
+      --accent: #c75c2f;
+      --accent-soft: #f0c7a8;
+      --accent-deep: #7c2d12;
+      --shadow: 0 24px 60px rgba(62, 39, 24, 0.12);
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(199, 92, 47, 0.18), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(120, 160, 132, 0.18), transparent 24%),
+        linear-gradient(180deg, #f8f2ea 0%, #efe6da 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(28, 25, 23, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 90%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 248, 240, 0.7);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(62, 39, 24, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), #e6a26b);
+      color: white;
+      box-shadow: 0 12px 24px rgba(199, 92, 47, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: var(--paper);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -60px;
+      top: -90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(199, 92, 47, 0.24), transparent 66%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(199, 92, 47, 0.18);
+      color: var(--accent-deep);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.9rem, 7vw, 6.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-copy p {
+      margin: 20px 0 0;
+      max-width: 40rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: #fff7f0;
+      box-shadow: 0 14px 26px rgba(28, 25, 23, 0.18);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.45);
+      color: var(--ink);
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .profile-card {
+      padding: 22px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 248, 240, 0.88)),
+        linear-gradient(135deg, rgba(199, 92, 47, 0.12), transparent 60%);
+      border: 1px solid rgba(199, 92, 47, 0.14);
+    }
+
+    .profile-art {
+      height: 220px;
+      border-radius: 24px;
+      margin-bottom: 16px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 25%),
+        linear-gradient(135deg, #d36a3a, #f1c27d 52%, #8ab19b);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-art::before,
+    .profile-art::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255, 250, 244, 0.72);
+    }
+
+    .profile-art::before {
+      width: 180px;
+      height: 180px;
+      left: -30px;
+      bottom: -38px;
+    }
+
+    .profile-art::after {
+      width: 120px;
+      height: 120px;
+      right: 18px;
+      top: 12px;
+    }
+
+    .mini-label {
+      color: var(--accent-deep);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .profile-title {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+    }
+
+    .profile-card p,
+    .stat p,
+    .project p,
+    .contact-card p,
+    .about-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.54);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .about-card,
+    .stack-card,
+    .projects,
+    .contact-card {
+      padding: 30px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-title span {
+      color: var(--accent-deep);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      font-size: 0.92rem;
+    }
+
+    .projects {
+      margin-bottom: 24px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .project {
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.56);
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      border-color: rgba(199, 92, 47, 0.32);
+      box-shadow: 0 18px 34px rgba(62, 39, 24, 0.08);
+    }
+
+    .project-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(199, 92, 47, 0.12);
+      color: var(--accent-deep);
+      font-size: 0.84rem;
+      margin-bottom: 18px;
+    }
+
+    .project h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+
+    .project-footer {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.54);
+    }
+
+    .contact-item span:first-child {
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding: 18px 8px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 700ms ease forwards;
+    }
+
+    .delay-1 { animation-delay: 120ms; }
+    .delay-2 { animation-delay: 220ms; }
+    .delay-3 { animation-delay: 320ms; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .section-grid,
+      .contact-layout,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .about-card,
+      .stack-card,
+      .projects,
+      .contact-card {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(var(--max-width), calc(100% - 18px));
+        padding-top: 12px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 15vw, 4.2rem);
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav fade-up">
+      <a class="brand" href="#top">
+        <span class="brand-mark">M</span>
+        <span>Minari Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <section class="panel hero-copy fade-up delay-1">
+        <div class="eyebrow">GitHub Pages Portfolio</div>
+        <h1>Designing<br>calm, useful<br>digital work.</h1>
+        <p>
+          안녕하세요, Minari입니다. 이곳은 작업 방식과 프로젝트를 정리하는 개인 포트폴리오 공간입니다.
+          웹, 콘텐츠, 브랜딩, 개발 학습 기록까지 한 화면 안에서 담을 수 있도록 구성했습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">프로젝트 보기</a>
+          <a class="button secondary" href="#contact">연락하기</a>
+        </div>
+      </section>
+
+      <aside class="panel hero-side fade-up delay-2">
+        <div class="profile-card">
+          <div class="profile-art" aria-hidden="true"></div>
+          <div class="mini-label">Profile Snapshot</div>
+          <h2 class="profile-title">Creative Portfolio Base</h2>
+          <p>
+            추후 이름, 한 줄 소개, 프로필 이미지, 링크드인이나 GitHub 주소를 이 영역에 바로 교체하면 됩니다.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <strong>03+</strong>
+            <p>대표 프로젝트 영역</p>
+          </div>
+          <div class="stat">
+            <strong>24/7</strong>
+            <p>언제든 업데이트 가능한 정적 사이트</p>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section class="section-grid">
+      <article class="panel about-card fade-up delay-2" id="about">
+        <div class="section-title">
+          <h2>About Me</h2>
+          <span>Introduction</span>
+        </div>
+        <p>
+          사용자 경험과 시각적 완성도를 함께 다루는 포트폴리오를 목표로 합니다. 아직 경력과 프로젝트가
+          정리 중이라면, 이 섹션에는 관심 분야, 작업 태도, 만들고 싶은 결과를 중심으로 작성하는 편이 좋습니다.
+        </p>
+        <div class="pill-list">
+          <span class="pill">UI / UX</span>
+          <span class="pill">Frontend</span>
+          <span class="pill">Brand Mood</span>
+          <span class="pill">Visual Storytelling</span>
+        </div>
+      </article>
+
+      <article class="panel stack-card fade-up delay-3" id="stack">
+        <div class="section-title">
+          <h2>Stack & Tools</h2>
+          <span>Toolkit</span>
+        </div>
+        <p>
+          현재 익숙한 도구와 앞으로 확장할 기술을 함께 배치해 두었습니다. 실제 사용하는 항목만 남기고 정리하면
+          포트폴리오 신뢰도가 더 올라갑니다.
+        </p>
+        <div class="pill-list">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">GitHub Pages</span>
+          <span class="pill">Figma</span>
+          <span class="pill">Unity</span>
+          <span class="pill">Photoshop</span>
+          <span class="pill">Notion</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel projects fade-up delay-2" id="projects">
+      <div class="section-title">
+        <h2>Selected Projects</h2>
+        <span>Works</span>
+      </div>
+      <div class="project-grid">
+        <article class="project">
+          <div>
+            <div class="project-tag">Project 01</div>
+            <h3>Portfolio Website Refresh</h3>
+            <p>
+              개인 포트폴리오 사이트를 기획하고 시각 톤을 정리한 프로젝트. 소개 문구, 컬러 시스템, 반응형 레이아웃을 포함합니다.
+            </p>
+          </div>
+          <div class="project-footer">HTML / CSS / GitHub Pages</div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-tag">Project 02</div>
+            <h3>Brand Mood Archive</h3>
+            <p>
+              좋아하는 무드와 레퍼런스를 수집해 브랜드 톤으로 정리하는 아카이브. 감도 높은 비주얼 큐레이션 용도로 사용할 수 있습니다.
+            </p>
+          </div>
+          <div class="project-footer">Visual Curation / Content Design</div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-tag">Project 03</div>
+            <h3>Interactive Study Log</h3>
+            <p>
+              프론트엔드, 게임, 디자인 학습 기록을 축적하는 실험용 섹션. 나중에 블로그형 구조나 카테고리 페이지로 확장할 수 있습니다.
+            </p>
+          </div>
+          <div class="project-footer">JavaScript / Documentation</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-layout">
+      <article class="panel contact-card fade-up delay-2" id="contact">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <span>Reach Out</span>
+        </div>
+        <p>
+          아래 연락처는 자리표시자입니다. 실제 이메일과 GitHub 주소로 교체하면 이 페이지를 바로 명함처럼 사용할 수 있습니다.
+        </p>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span>Email</span>
+            <span>hello.minari@example.com</span>
+          </div>
+          <div class="contact-item">
+            <span>GitHub</span>
+            <span>github.com/Minari</span>
+          </div>
+          <div class="contact-item">
+            <span>Location</span>
+            <span>Seoul, Korea</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel contact-card fade-up delay-3">
+        <div class="section-title">
+          <h2>Next Step</h2>
+          <span>Customize</span>
+        </div>
+        <p>
+          다음 단계로는 이름, 자기소개, 프로젝트 링크, 실제 작업 이미지, 연락처를 채우면 됩니다. 원하면 이어서 제가
+          내용까지 맞춤형으로 바꿔드릴 수 있습니다.
+        </p>
+        <div class="pill-list">
+          <span class="pill">이름 교체</span>
+          <span class="pill">프로젝트 링크 추가</span>
+          <span class="pill">이미지 삽입</span>
+          <span class="pill">배포 확인</span>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer fade-up delay-3">
+      © 2026 Minari Portfolio. Built for GitHub Pages.
+    </footer>
+  </div>
+</body>
+</html>
