@@ -20,6 +20,8 @@
       --gold: #c99b42;
       --shadow: 0 24px 60px rgba(31, 41, 36, 0.12);
       --max-width: 920px;
+      --font-display: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      --font-body: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
     }
 
     * {
@@ -39,7 +41,9 @@
       margin: 0;
       min-height: 100vh;
       color: var(--ink);
-      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 400;
       background:
         radial-gradient(900px 520px at 72% -18%, rgba(47, 111, 94, 0.13), transparent 60%),
         radial-gradient(760px 520px at 8% 18%, rgba(201, 155, 66, 0.12), transparent 58%),
@@ -172,28 +176,13 @@
       box-shadow:
         0 28px 70px rgba(31, 41, 36, 0.13),
         inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      transition: box-shadow 180ms ease;
     }
 
-    .hero-copy::after {
-      content: "";
-      position: absolute;
-      right: 24px;
-      bottom: 24px;
-      width: 128px;
-      height: 76px;
-      border-right: 1px solid rgba(47, 111, 94, 0.18);
-      border-bottom: 1px solid rgba(47, 111, 94, 0.18);
-      background-image: repeating-linear-gradient(
-        -35deg,
-        rgba(47, 111, 94, 0.11) 0 1px,
-        transparent 1px 9px
-      );
-      opacity: 0.72;
-    }
-
-    .hero-copy > div {
-      position: relative;
-      z-index: 1;
+    .hero-copy:hover {
+      box-shadow:
+        0 32px 76px rgba(31, 41, 36, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
     }
 
     .eyebrow {
@@ -207,8 +196,9 @@
       border-radius: 999px;
       color: var(--accent-deep);
       background: rgba(255, 255, 255, 0.74);
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
       box-shadow: 0 8px 20px rgba(31, 79, 67, 0.06);
     }
 
@@ -221,8 +211,10 @@
 
     h1 {
       max-width: 760px;
-      margin-bottom: 18px;
-      font-size: 4.4rem;
+      margin-bottom: 20px;
+      font-family: var(--font-display);
+      font-size: 4.45rem;
+      font-weight: 760;
       line-height: 0.98;
       letter-spacing: 0;
       color: #171916;
@@ -233,12 +225,17 @@
       max-width: 36rem;
       margin-bottom: 0;
       color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.68;
+      font-size: 1.03rem;
+      font-weight: 400;
+      line-height: 1.74;
     }
 
     .mobile-break {
       display: none;
+    }
+
+    .desktop-only {
+      display: inline;
     }
 
     .hero-actions {
@@ -256,8 +253,9 @@
       padding: 11px 17px;
       border: 1px solid transparent;
       border-radius: 999px;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 800;
+      letter-spacing: 0.01em;
       text-align: center;
       transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
     }
@@ -298,6 +296,7 @@
     }
 
     .card p,
+    .activity-card p,
     .project p,
     .process-step p,
     .contact-card p {
@@ -343,6 +342,7 @@
     }
 
     .card,
+    .activities,
     .projects,
     .process,
     .contact-card {
@@ -359,22 +359,86 @@
 
     .section-title h2 {
       margin-bottom: 0;
-      font-size: 1.45rem;
+      font-family: var(--font-display);
+      font-size: 1.52rem;
+      font-weight: 720;
       letter-spacing: 0;
     }
 
     .section-title span {
       color: var(--accent-deep);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
+    .activities,
     .projects,
     .process {
+      width: min(100%, 640px);
+      margin-right: auto;
+      margin-left: auto;
       margin-bottom: 24px;
+    }
+
+    .activity-card {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.48));
+    }
+
+    .activity-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: var(--accent-deep);
+      background: rgba(47, 111, 94, 0.1);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .activity-card h3 {
+      margin: 12px 0 10px;
+      font-family: var(--font-display);
+      font-size: 1.58rem;
+      font-weight: 720;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+
+    .activity-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.78;
+    }
+
+    .activity-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 10px;
+      color: var(--accent-deep);
+      font-size: 0.96rem;
+      font-weight: 800;
+    }
+
+    .activity-link::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform: rotate(45deg);
     }
 
     .project {
@@ -424,6 +488,8 @@
       padding-bottom: 12px;
       border-bottom: 1px solid var(--line);
       color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .meta-list li:last-child {
@@ -433,6 +499,8 @@
 
     .meta-list strong {
       color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 720;
       white-space: nowrap;
     }
 
@@ -510,8 +578,8 @@
       display: block;
       min-width: 0;
       max-width: 100%;
-      font-size: 0.94rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 720;
       overflow-wrap: anywhere;
       word-break: break-word;
     }
@@ -521,6 +589,8 @@
       align-items: center;
       gap: 10px;
       color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 500;
     }
 
     .contact-icon {
@@ -585,8 +655,8 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-copy,
       .card,
+      .activities,
       .projects,
       .process,
       .contact-card {
@@ -594,7 +664,7 @@
       }
 
       .hero-copy {
-        min-height: auto;
+        min-height: 300px;
       }
     }
 
@@ -649,8 +719,8 @@
         margin-bottom: 16px;
       }
 
-      .hero-copy,
       .card,
+      .activities,
       .projects,
       .process,
       .contact-card {
@@ -664,25 +734,30 @@
 
       .eyebrow {
         margin-bottom: 18px;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
       }
 
       .hero-copy p,
       .card p,
+      .activity-card p,
       .project p,
       .process-step p,
       .contact-card p {
         font-size: 0.96rem;
-        line-height: 1.68;
+        line-height: 1.72;
       }
 
       .mobile-break {
         display: block;
       }
 
+      .desktop-only {
+        display: none;
+      }
+
       h1 {
-        font-size: 3.05rem;
-        line-height: 1.08;
+        font-size: 3.1rem;
+        line-height: 1.02;
       }
 
       .section-title {
@@ -692,7 +767,12 @@
       }
 
       .section-title h2 {
-        font-size: 1.35rem;
+        font-size: 1.38rem;
+      }
+
+      .activity-card h3 {
+        font-size: 1.42rem;
+        line-height: 1.3;
       }
 
       .hero-actions {
@@ -711,6 +791,7 @@
 
       .project-main,
       .project-side,
+      .activity-card,
       .focus-item,
       .process-step {
         padding: 16px;
@@ -739,12 +820,12 @@
       }
 
       h1 {
-        font-size: 2.7rem;
-        line-height: 1.1;
+        font-size: 2.72rem;
+        line-height: 1.06;
       }
 
-      .hero-copy,
       .card,
+      .activities,
       .projects,
       .process,
       .contact-card {
@@ -768,23 +849,79 @@
   <div class="page">
     <header class="hero" id="top">
       <section class="panel hero-copy fade-up delay-1">
-        <div>
-          <div class="eyebrow">Game System Designer</div>
-          <h1>Minari</h1>
-          <p>
-            가설을 재미로 증명하는
-            <br class="mobile-break">
-            코어 루프 설계자 Minari 입니다.
-            <br>
-            I am Minari, a core loop designer who proves hypotheses through fun.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#contact">연락처 보기</a>
-          </div>
+        <div class="eyebrow">Game System Designer</div>
+        <h1>Minari</h1>
+        <p>
+          가설을 재미로 증명하는
+          <br class="mobile-break">
+          코어 루프 설계자 Minari 입니다.
+          <br>
+          I am Minari, a core loop designer who proves hypotheses through fun.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#contact">연락처 보기</a>
         </div>
       </section>
 
     </header>
+
+    <section class="panel activities fade-up delay-2" id="activities">
+      <div class="section-title">
+        <h2>Activities</h2>
+        <span>Competition</span>
+      </div>
+      <article class="activity-card">
+        <div>
+          <span class="activity-tag">2020.04 - 2020.12</span>
+          <h3>넷마블게임아카데미 5기</h3>
+          <p>
+            정규반 및 심화반 과정에서 실무 전문가의 코칭을 받으며,
+            팀 단위 실제 게임 개발 프로젝트를 수행했습니다.
+          </p>
+        </div>
+        <ul class="meta-list">
+          <li>
+            <strong>Role</strong>
+            <span>기획자</span>
+          </li>
+          <li>
+            <strong>Result</strong>
+            <span>Rhythm Shooter / 우수상 수상</span>
+          </li>
+        </ul>
+        <a class="activity-link" href="https://www.youtube.com/watch?v=dL3yAmkrDJc" target="_blank" rel="noopener noreferrer">
+          프로젝트 영상 보기
+        </a>
+      </article>
+      <article class="activity-card">
+        <div>
+          <span class="activity-tag">2025.10 - 2025.12</span>
+          <h3>스토브 크루 2기</h3>
+          <p>
+            스토브 인디 게임 리뷰와 숏폼 마케팅 콘텐츠를 제작하며
+            실무 역량을 쌓았습니다.
+          </p>
+        </div>
+        <ul class="meta-list">
+          <li>
+            <strong>Role</strong>
+            <span>팀장</span>
+          </li>
+          <li>
+            <strong>Result</strong>
+            <span>
+              베스트 리더상 수상
+              <span class="desktop-only"> / </span>
+              <br class="mobile-break">
+              채널 총 조회수 180,952 달성
+            </span>
+          </li>
+        </ul>
+        <a class="activity-link" href="https://www.youtube.com/@%EC%93%B0%ED%86%A0%EB%A3%A8" target="_blank" rel="noopener noreferrer">
+          콘텐츠 채널 보기
+        </a>
+      </article>
+    </section>
 
     <section class="contact-layout">
       <article class="panel contact-card fade-up delay-2" id="contact">
