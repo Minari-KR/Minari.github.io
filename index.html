@@ -534,43 +534,48 @@
 
     @media (max-width: 640px) {
       .page {
-        width: min(var(--max-width), calc(100% - 16px));
+        width: min(var(--max-width), calc(100% - 20px));
         padding-top: 12px;
         padding-bottom: 40px;
       }
 
       .nav {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
         top: 8px;
         padding: 12px;
         border-radius: 16px;
       }
 
       .brand {
+        gap: 10px;
+        font-size: 0.78rem;
         white-space: normal;
       }
 
       .brand-mark {
-        flex: 0 0 38px;
-        width: 38px;
-        height: 38px;
+        flex: 0 0 34px;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
       }
 
       .nav-links {
-        display: grid;
-        grid-template-columns: 1fr;
-        width: 100%;
+        display: flex;
+        flex: 0 0 auto;
+        width: auto;
         gap: 8px;
       }
 
       .nav-links a {
-        padding: 9px 10px;
+        padding: 8px 10px;
         border: 1px solid var(--line);
         border-radius: 12px;
         background: rgba(255, 255, 255, 0.44);
         text-align: center;
-        font-size: 0.88rem;
+        font-size: 0.84rem;
       }
 
       .hero {
@@ -583,8 +588,17 @@
       .projects,
       .process,
       .contact-card {
-        padding: 18px;
+        padding: 22px;
         border-radius: 18px;
+      }
+
+      .hero-copy {
+        min-height: 260px;
+      }
+
+      .eyebrow {
+        margin-bottom: 18px;
+        font-size: 0.78rem;
       }
 
       .hero-copy p,
@@ -597,7 +611,7 @@
       }
 
       h1 {
-        font-size: 3rem;
+        font-size: 3.05rem;
         line-height: 1.08;
       }
 
@@ -612,12 +626,12 @@
       }
 
       .hero-actions {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        grid-template-columns: none;
       }
 
       .button {
-        width: 100%;
+        width: auto;
         min-height: 46px;
       }
 
@@ -639,20 +653,43 @@
 
       .contact-item,
       .meta-list li {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
+        align-items: center;
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .contact-item strong {
+        text-align: right;
       }
     }
 
     @media (max-width: 380px) {
       .nav-links {
-        grid-template-columns: 1fr;
+        gap: 6px;
       }
 
       h1 {
-        font-size: 2.55rem;
+        font-size: 2.7rem;
         line-height: 1.1;
+      }
+
+      .hero-copy,
+      .card,
+      .projects,
+      .process,
+      .contact-card {
+        padding: 18px;
+      }
+
+      .contact-item,
+      .meta-list li {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .contact-item strong {
+        text-align: left;
       }
     }
   </style>
