@@ -11,7 +11,7 @@
       --paper: rgba(255, 255, 252, 0.82);
       --paper-strong: rgba(255, 255, 252, 0.96);
       --ink: #20211f;
-      --muted: #62655f;
+      --muted: #4f544d;
       --line: rgba(32, 33, 31, 0.12);
       --accent: #2f6f5e;
       --accent-soft: #d9e6df;
@@ -168,9 +168,10 @@
       width: min(100%, 640px);
       padding: 34px;
       min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 150px;
+      align-items: center;
+      gap: 28px;
       background:
         linear-gradient(110deg, rgba(255, 255, 252, 0.96) 0%, rgba(255, 255, 252, 0.9) 58%, rgba(217, 230, 223, 0.58) 100%);
       box-shadow:
@@ -183,6 +184,33 @@
       box-shadow:
         0 32px 76px rgba(31, 41, 36, 0.16),
         inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .hero-profile {
+      position: relative;
+      align-self: center;
+      justify-self: end;
+      width: 140px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid rgba(47, 111, 94, 0.14);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.52);
+      box-shadow: 0 18px 38px rgba(31, 41, 36, 0.12);
+    }
+
+    .hero-profile img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 30%;
     }
 
     .eyebrow {
@@ -420,6 +448,12 @@
       color: var(--muted);
       font-size: 0.98rem;
       line-height: 1.78;
+    }
+
+    .pc-single-line {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: keep-all;
     }
 
     .activity-link {
@@ -729,7 +763,17 @@
       }
 
       .hero-copy {
+        grid-template-columns: 1fr;
         min-height: 260px;
+      }
+
+      .hero-profile {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        width: 86px;
+        border-radius: 18px;
+        opacity: 0.92;
       }
 
       .eyebrow {
@@ -753,6 +797,11 @@
 
       .desktop-only {
         display: none;
+      }
+
+      .pc-single-line {
+        font-size: 0.96rem;
+        white-space: normal;
       }
 
       h1 {
@@ -824,6 +873,13 @@
         line-height: 1.06;
       }
 
+      .hero-profile {
+        top: 18px;
+        right: 18px;
+        width: 72px;
+        border-radius: 16px;
+      }
+
       .card,
       .activities,
       .projects,
@@ -849,17 +905,22 @@
   <div class="page">
     <header class="hero" id="top">
       <section class="panel hero-copy fade-up delay-1">
-        <div class="eyebrow">Game System Designer</div>
-        <h1>Minari</h1>
-        <p>
-          가설을 재미로 증명하는
-          <br class="mobile-break">
-          코어 루프 설계자 Minari 입니다.
-          <br>
-          I am Minari, a core loop designer who proves hypotheses through fun.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#contact">연락처 보기</a>
+        <div class="hero-content">
+          <div class="eyebrow">Game System Designer</div>
+          <h1>Minari</h1>
+          <p>
+            가설을 재미로 증명하는
+            <br class="mobile-break">
+            코어 루프 설계자 Minari 입니다.
+            <br>
+            I am Minari, a core loop designer who proves hypotheses through fun.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">연락처 보기</a>
+          </div>
+        </div>
+        <div class="hero-profile" aria-hidden="true">
+          <img src="profile.jpg" alt="">
         </div>
       </section>
 
@@ -897,7 +958,7 @@
         <div>
           <span class="activity-tag">2025.10 - 2025.12</span>
           <h3>스토브 크루 2기</h3>
-          <p>
+          <p class="pc-single-line">
             스토브 인디 게임 리뷰와 숏폼 마케팅 콘텐츠를 제작하며
             실무 역량을 쌓았습니다.
           </p>
