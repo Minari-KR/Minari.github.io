@@ -98,6 +98,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
       font-size: 0.88rem;
       font-weight: 800;
       letter-spacing: 0.04em;
@@ -114,6 +115,11 @@
       color: #f7fbf7;
       background: var(--accent-deep);
       box-shadow: 0 10px 20px rgba(31, 79, 67, 0.18);
+    }
+
+    .brand span:last-child {
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .nav-links {
@@ -427,6 +433,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      min-width: 0;
       padding: 13px 14px;
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -434,8 +441,13 @@
     }
 
     .contact-item strong {
+      display: block;
+      min-width: 0;
+      max-width: 100%;
       font-size: 0.94rem;
       font-weight: 700;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .contact-label {
@@ -586,7 +598,7 @@
 
       h1 {
         font-size: 3rem;
-        line-height: 1;
+        line-height: 1.08;
       }
 
       .section-title {
@@ -640,6 +652,7 @@
 
       h1 {
         font-size: 2.55rem;
+        line-height: 1.1;
       }
     }
   </style>
