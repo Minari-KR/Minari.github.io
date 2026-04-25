@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minari Portfolio</title>
-  <meta name="description" content="Minari의 GitHub Pages 포트폴리오 사이트">
+  <title>Minari | Game System Designer</title>
+  <meta name="description" content="게임 시스템 기획자 Minari의 포트폴리오 사이트">
   <style>
     :root {
-      --bg: #f4efe7;
-      --paper: rgba(255, 250, 244, 0.72);
-      --paper-strong: rgba(255, 250, 244, 0.92);
-      --ink: #1c1917;
-      --muted: #5f564d;
-      --line: rgba(52, 43, 35, 0.12);
-      --accent: #c75c2f;
-      --accent-soft: #f0c7a8;
-      --accent-deep: #7c2d12;
-      --shadow: 0 24px 60px rgba(62, 39, 24, 0.12);
+      --bg: #f5f0e8;
+      --paper: rgba(255, 252, 247, 0.78);
+      --paper-strong: rgba(255, 252, 247, 0.94);
+      --ink: #1f1c18;
+      --muted: #655d53;
+      --line: rgba(53, 45, 37, 0.14);
+      --accent: #9b5b35;
+      --accent-soft: #d9b999;
+      --accent-deep: #59351f;
+      --green: #5f7f68;
+      --shadow: 0 22px 54px rgba(55, 41, 28, 0.12);
       --max-width: 1180px;
     }
 
     * {
+      box-sizing: border-box;
+    }
+
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
@@ -30,13 +36,14 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", "Apple SD Gothic Neo", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(199, 92, 47, 0.18), transparent 28%),
-        radial-gradient(circle at 85% 20%, rgba(120, 160, 132, 0.18), transparent 24%),
-        linear-gradient(180deg, #f8f2ea 0%, #efe6da 100%);
       min-height: 100vh;
+      color: var(--ink);
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background:
+        radial-gradient(circle at 16% 8%, rgba(155, 91, 53, 0.16), transparent 28%),
+        radial-gradient(circle at 84% 18%, rgba(95, 127, 104, 0.15), transparent 25%),
+        linear-gradient(180deg, #faf6ef 0%, var(--bg) 58%, #eee4d8 100%);
+      overflow-x: hidden;
     }
 
     body::before {
@@ -44,10 +51,11 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(28, 25, 23, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 90%);
+      background-image:
+        linear-gradient(rgba(31, 28, 24, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 28, 24, 0.025) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
     }
 
     a {
@@ -55,17 +63,22 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    h1,
+    h2,
+    h3,
+    p,
+    span,
+    strong,
+    a {
+      overflow-wrap: anywhere;
     }
 
     .page {
+      position: relative;
+      z-index: 1;
       width: min(var(--max-width), calc(100% - 32px));
       margin: 0 auto;
       padding: 24px 0 64px;
-      position: relative;
-      z-index: 1;
     }
 
     .nav {
@@ -73,119 +86,146 @@
       top: 16px;
       z-index: 10;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 20px;
       padding: 14px 18px;
       margin-bottom: 24px;
       border: 1px solid var(--line);
-      border-radius: 22px;
-      background: rgba(255, 248, 240, 0.7);
+      border-radius: 20px;
+      background: rgba(255, 250, 244, 0.74);
       backdrop-filter: blur(14px);
-      box-shadow: 0 10px 30px rgba(62, 39, 24, 0.08);
+      box-shadow: 0 10px 30px rgba(55, 41, 28, 0.08);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      white-space: nowrap;
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, var(--accent), #e6a26b);
-      color: white;
-      box-shadow: 0 12px 24px rgba(199, 92, 47, 0.28);
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      color: #fff9f2;
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      box-shadow: 0 12px 22px rgba(89, 53, 31, 0.22);
     }
 
     .nav-links {
       display: flex;
-      gap: 18px;
       flex-wrap: wrap;
-      font-size: 0.95rem;
+      gap: 16px;
       color: var(--muted);
+      font-size: 0.95rem;
+      min-width: 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-deep);
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      min-width: 0;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
       gap: 24px;
       align-items: stretch;
       margin-bottom: 24px;
     }
 
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: 34px;
-      background: var(--paper);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-    }
-
     .hero-copy {
-      padding: 42px;
       position: relative;
       overflow: hidden;
+      padding: 42px;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .hero-copy::after {
       content: "";
       position: absolute;
-      width: 300px;
-      height: 300px;
-      right: -60px;
-      top: -90px;
+      width: 340px;
+      height: 340px;
+      right: -120px;
+      top: -110px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(199, 92, 47, 0.24), transparent 66%);
+      background: radial-gradient(circle, rgba(155, 91, 53, 0.18), transparent 68%);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      width: fit-content;
       gap: 8px;
       padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(199, 92, 47, 0.18);
-      color: var(--accent-deep);
-      font-size: 0.88rem;
       margin-bottom: 18px;
+      border: 1px solid rgba(155, 91, 53, 0.18);
+      border-radius: 999px;
+      color: var(--accent-deep);
+      background: rgba(255, 255, 255, 0.58);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(2.9rem, 7vw, 6.4rem);
-      line-height: 0.94;
-      letter-spacing: -0.05em;
+      max-width: 760px;
+      margin-bottom: 22px;
+      font-size: clamp(3rem, 7vw, 6.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
     }
 
     .hero-copy p {
-      margin: 20px 0 0;
-      max-width: 40rem;
-      font-size: 1.05rem;
-      line-height: 1.8;
+      max-width: 42rem;
+      margin-bottom: 0;
       color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.82;
     }
 
     .hero-actions {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 28px;
+      gap: 12px;
+      margin-top: 30px;
     }
 
     .button {
-      padding: 14px 20px;
-      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 18px;
       border: 1px solid transparent;
-      font-weight: 700;
+      border-radius: 999px;
+      font-weight: 800;
+      text-align: center;
       transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
@@ -194,105 +234,114 @@
     }
 
     .button.primary {
+      color: #fff8ef;
       background: var(--ink);
-      color: #fff7f0;
-      box-shadow: 0 14px 26px rgba(28, 25, 23, 0.18);
+      box-shadow: 0 14px 26px rgba(31, 28, 24, 0.18);
     }
 
     .button.secondary {
-      border-color: var(--line);
-      background: rgba(255, 255, 255, 0.45);
       color: var(--ink);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.5);
     }
 
     .hero-side {
-      padding: 24px;
       display: grid;
       gap: 18px;
+      padding: 24px;
     }
 
-    .profile-card {
-      padding: 22px;
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 248, 240, 0.88)),
-        linear-gradient(135deg, rgba(199, 92, 47, 0.12), transparent 60%);
-      border: 1px solid rgba(199, 92, 47, 0.14);
-    }
-
-    .profile-art {
-      height: 220px;
-      border-radius: 24px;
-      margin-bottom: 16px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 25%),
-        linear-gradient(135deg, #d36a3a, #f1c27d 52%, #8ab19b);
+    .system-map {
       position: relative;
+      min-height: 290px;
+      padding: 22px;
+      border: 1px solid rgba(155, 91, 53, 0.16);
+      border-radius: 20px;
       overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(247, 238, 225, 0.86)),
+        linear-gradient(135deg, rgba(155, 91, 53, 0.11), rgba(95, 127, 104, 0.1));
     }
 
-    .profile-art::before,
-    .profile-art::after {
-      content: "";
+    .map-node {
       position: absolute;
+      display: grid;
+      place-items: center;
+      width: 106px;
+      min-height: 54px;
+      padding: 10px;
+      border: 1px solid rgba(53, 45, 37, 0.13);
+      border-radius: 16px;
+      color: var(--accent-deep);
+      background: rgba(255, 252, 247, 0.86);
+      box-shadow: 0 10px 24px rgba(55, 41, 28, 0.08);
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .map-node:nth-child(1) { left: 22px; top: 26px; }
+    .map-node:nth-child(2) { right: 24px; top: 62px; }
+    .map-node:nth-child(3) { left: 50%; top: 134px; transform: translateX(-50%); }
+    .map-node:nth-child(4) { left: 28px; bottom: 30px; }
+    .map-node:nth-child(5) { right: 28px; bottom: 24px; }
+
+    .map-line {
+      position: absolute;
+      inset: 42px 46px;
+      border: 1px dashed rgba(89, 53, 31, 0.22);
       border-radius: 999px;
-      background: rgba(255, 250, 244, 0.72);
-    }
-
-    .profile-art::before {
-      width: 180px;
-      height: 180px;
-      left: -30px;
-      bottom: -38px;
-    }
-
-    .profile-art::after {
-      width: 120px;
-      height: 120px;
-      right: 18px;
-      top: 12px;
+      transform: rotate(-8deg);
     }
 
     .mini-label {
+      margin-bottom: 8px;
       color: var(--accent-deep);
-      font-size: 0.85rem;
-      text-transform: uppercase;
+      font-size: 0.82rem;
+      font-weight: 800;
       letter-spacing: 0.08em;
-      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
     .profile-title {
-      margin: 0 0 8px;
+      margin-bottom: 8px;
       font-size: 1.45rem;
+      letter-spacing: -0.02em;
     }
 
-    .profile-card p,
-    .stat p,
+    .side-copy,
+    .card p,
     .project p,
-    .contact-card p,
-    .about-card p {
+    .process-step p,
+    .contact-card p {
       color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
+      line-height: 1.72;
     }
 
-    .stats {
+    .focus-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 14px;
     }
 
-    .stat {
+    .focus-item {
+      min-height: 118px;
       padding: 18px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.54);
       border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.55);
     }
 
-    .stat strong {
+    .focus-item strong {
       display: block;
-      font-size: 1.8rem;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .focus-item span {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
     }
 
     .section-grid {
@@ -302,32 +351,38 @@
       margin-bottom: 24px;
     }
 
-    .about-card,
-    .stack-card,
+    .about-section {
+      margin-bottom: 24px;
+    }
+
+    .card,
     .projects,
+    .process,
     .contact-card {
       padding: 30px;
     }
 
     .section-title {
       display: flex;
+      align-items: flex-end;
       justify-content: space-between;
-      align-items: end;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 18px;
     }
 
     .section-title h2 {
-      margin: 0;
+      margin-bottom: 0;
       font-size: clamp(1.8rem, 3vw, 2.6rem);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.035em;
     }
 
     .section-title span {
       color: var(--accent-deep);
-      font-size: 0.86rem;
-      text-transform: uppercase;
+      font-size: 0.82rem;
+      font-weight: 800;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .pill-list {
@@ -339,86 +394,131 @@
 
     .pill {
       padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.7);
       border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
       font-size: 0.92rem;
+      font-weight: 700;
     }
 
-    .projects {
+    .projects,
+    .process {
       margin-bottom: 24px;
     }
 
-    .project-grid {
+    .project {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 18px;
       margin-top: 18px;
     }
 
-    .project {
-      padding: 18px;
-      border-radius: 24px;
+    .project-main,
+    .project-side {
       border: 1px solid var(--line);
+      border-radius: 20px;
       background: rgba(255, 255, 255, 0.56);
-      min-height: 250px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-
-    .project:hover {
-      transform: translateY(-4px);
-      border-color: rgba(199, 92, 47, 0.32);
-      box-shadow: 0 18px 34px rgba(62, 39, 24, 0.08);
+      padding: 22px;
     }
 
     .project-tag {
       display: inline-flex;
-      align-self: flex-start;
-      padding: 8px 10px;
+      margin-bottom: 16px;
+      padding: 8px 11px;
       border-radius: 999px;
-      background: rgba(199, 92, 47, 0.12);
       color: var(--accent-deep);
+      background: rgba(155, 91, 53, 0.12);
       font-size: 0.84rem;
-      margin-bottom: 18px;
+      font-weight: 800;
     }
 
     .project h3 {
-      margin: 0 0 10px;
-      font-size: 1.3rem;
+      margin-bottom: 12px;
+      font-size: 1.7rem;
+      letter-spacing: -0.025em;
     }
 
-    .project-footer {
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+    .meta-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .meta-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.95rem;
+    }
+
+    .meta-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-list strong {
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .process-step {
+      min-height: 180px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      color: #fff8ef;
+      background: var(--accent-deep);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .process-step h3 {
+      margin-bottom: 8px;
+      font-size: 1.08rem;
     }
 
     .contact-layout {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1fr;
       gap: 24px;
     }
 
     .contact-list {
       display: grid;
-      gap: 14px;
+      gap: 12px;
       margin-top: 20px;
     }
 
     .contact-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 14px;
       padding: 16px 18px;
-      border-radius: 18px;
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.54);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.55);
     }
 
     .contact-item span:first-child {
@@ -427,7 +527,7 @@
 
     .footer {
       margin-top: 22px;
-      padding: 18px 8px 0;
+      padding-top: 18px;
       color: var(--muted);
       text-align: center;
       font-size: 0.92rem;
@@ -435,7 +535,7 @@
 
     .fade-up {
       opacity: 0;
-      transform: translateY(22px);
+      transform: translateY(20px);
       animation: fadeUp 700ms ease forwards;
     }
 
@@ -453,43 +553,181 @@
     @media (max-width: 980px) {
       .hero,
       .section-grid,
-      .contact-layout,
-      .project-grid {
+      .project,
+      .process-grid,
+      .contact-layout {
         grid-template-columns: 1fr;
       }
 
       .hero-copy,
-      .about-card,
-      .stack-card,
+      .card,
       .projects,
+      .process,
       .contact-card {
         padding: 24px;
+      }
+
+      .hero-copy {
+        min-height: auto;
       }
     }
 
     @media (max-width: 640px) {
       .page {
-        width: min(var(--max-width), calc(100% - 18px));
+        width: min(var(--max-width), calc(100% - 16px));
         padding-top: 12px;
+        padding-bottom: 40px;
       }
 
       .nav {
         align-items: flex-start;
-        gap: 12px;
         flex-direction: column;
+        top: 8px;
+        padding: 12px;
+        border-radius: 16px;
+      }
+
+      .brand {
+        white-space: normal;
+      }
+
+      .brand-mark {
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 8px;
+      }
+
+      .nav-links a {
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.44);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      .hero {
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .hero-copy,
+      .hero-side,
+      .card,
+      .projects,
+      .process,
+      .contact-card {
+        padding: 18px;
+        border-radius: 18px;
+      }
+
+      .hero-copy p,
+      .card p,
+      .project p,
+      .process-step p,
+      .contact-card p,
+      .side-copy {
+        font-size: 0.96rem;
+        line-height: 1.68;
       }
 
       h1 {
-        font-size: clamp(2.4rem, 15vw, 4.2rem);
+        font-size: clamp(2.35rem, 18vw, 4rem);
+        line-height: 1;
       }
 
-      .stats {
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .section-title h2 {
+        font-size: clamp(1.65rem, 9vw, 2.2rem);
+      }
+
+      .hero-actions {
+        display: grid;
         grid-template-columns: 1fr;
       }
 
-      .contact-item {
-        flex-direction: column;
+      .button {
+        width: 100%;
+        min-height: 46px;
+      }
+
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .system-map {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .map-node {
+        position: static;
+        width: 100%;
+        min-height: 48px;
+        font-size: 0.8rem;
+        transform: none !important;
+      }
+
+      .map-node:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .map-line {
+        display: none;
+      }
+
+      .project-main,
+      .project-side,
+      .focus-item,
+      .process-step {
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      .project h3 {
+        font-size: 1.35rem;
+      }
+
+      .pill {
+        max-width: 100%;
+        padding: 9px 12px;
+        font-size: 0.86rem;
+      }
+
+      .contact-item,
+      .meta-list li {
         align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .nav-links {
+        grid-template-columns: 1fr;
+      }
+
+      .system-map {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(2.1rem, 17vw, 3.2rem);
       }
     }
   </style>
@@ -502,169 +740,66 @@
         <span>Minari Portfolio</span>
       </a>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#stack">Stack</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
 
     <header class="hero" id="top">
       <section class="panel hero-copy fade-up delay-1">
-        <div class="eyebrow">GitHub Pages Portfolio</div>
-        <h1>Designing<br>calm, useful<br>digital work.</h1>
-        <p>
-          안녕하세요, Minari입니다. 이곳은 작업 방식과 프로젝트를 정리하는 개인 포트폴리오 공간입니다.
-          웹, 콘텐츠, 브랜딩, 개발 학습 기록까지 한 화면 안에서 담을 수 있도록 구성했습니다.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#projects">프로젝트 보기</a>
-          <a class="button secondary" href="#contact">연락하기</a>
+        <div>
+          <div class="eyebrow">Game System Designer</div>
+          <h1>Minari</h1>
+          <p>
+            플레이어의 선택이 의미 있는 결과로 이어지도록 게임의 규칙과 성장 구조를 설계합니다.
+            반복 플레이, 보상 흐름, 시스템 구조를 차분하게 정리하는 게임 시스템 기획자를 지향합니다.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">연락처 보기</a>
+          </div>
         </div>
       </section>
 
       <aside class="panel hero-side fade-up delay-2">
-        <div class="profile-card">
-          <div class="profile-art" aria-hidden="true"></div>
-          <div class="mini-label">Profile Snapshot</div>
-          <h2 class="profile-title">Creative Portfolio Base</h2>
-          <p>
-            추후 이름, 한 줄 소개, 프로필 이미지, 링크드인이나 GitHub 주소를 이 영역에 바로 교체하면 됩니다.
-          </p>
+        <div class="system-map" aria-label="시스템 기획 흐름">
+          <div class="map-line" aria-hidden="true"></div>
+          <div class="map-node">규칙</div>
+          <div class="map-node">선택</div>
+          <div class="map-node">성장</div>
+          <div class="map-node">보상</div>
+          <div class="map-node">재도전</div>
         </div>
-        <div class="stats">
-          <div class="stat">
-            <strong>03+</strong>
-            <p>대표 프로젝트 영역</p>
-          </div>
-          <div class="stat">
-            <strong>24/7</strong>
-            <p>언제든 업데이트 가능한 정적 사이트</p>
-          </div>
+        <div>
+          <div class="mini-label">Portfolio Direction</div>
+          <h2 class="profile-title">시스템의 흐름을 설계하는 기획자</h2>
+          <p class="side-copy">
+            기능을 나열하기보다 플레이어가 어떤 선택을 하고, 어떤 피드백을 받으며, 왜 다시 플레이하는지를 중심으로 구조를 바라봅니다.
+          </p>
         </div>
       </aside>
     </header>
-
-    <section class="section-grid">
-      <article class="panel about-card fade-up delay-2" id="about">
-        <div class="section-title">
-          <h2>About Me</h2>
-          <span>Introduction</span>
-        </div>
-        <p>
-          사용자 경험과 시각적 완성도를 함께 다루는 포트폴리오를 목표로 합니다. 아직 경력과 프로젝트가
-          정리 중이라면, 이 섹션에는 관심 분야, 작업 태도, 만들고 싶은 결과를 중심으로 작성하는 편이 좋습니다.
-        </p>
-        <div class="pill-list">
-          <span class="pill">UI / UX</span>
-          <span class="pill">Frontend</span>
-          <span class="pill">Brand Mood</span>
-          <span class="pill">Visual Storytelling</span>
-        </div>
-      </article>
-
-      <article class="panel stack-card fade-up delay-3" id="stack">
-        <div class="section-title">
-          <h2>Stack & Tools</h2>
-          <span>Toolkit</span>
-        </div>
-        <p>
-          현재 익숙한 도구와 앞으로 확장할 기술을 함께 배치해 두었습니다. 실제 사용하는 항목만 남기고 정리하면
-          포트폴리오 신뢰도가 더 올라갑니다.
-        </p>
-        <div class="pill-list">
-          <span class="pill">HTML</span>
-          <span class="pill">CSS</span>
-          <span class="pill">JavaScript</span>
-          <span class="pill">GitHub Pages</span>
-          <span class="pill">Figma</span>
-          <span class="pill">Unity</span>
-          <span class="pill">Photoshop</span>
-          <span class="pill">Notion</span>
-        </div>
-      </article>
-    </section>
-
-    <section class="panel projects fade-up delay-2" id="projects">
-      <div class="section-title">
-        <h2>Selected Projects</h2>
-        <span>Works</span>
-      </div>
-      <div class="project-grid">
-        <article class="project">
-          <div>
-            <div class="project-tag">Project 01</div>
-            <h3>Portfolio Website Refresh</h3>
-            <p>
-              개인 포트폴리오 사이트를 기획하고 시각 톤을 정리한 프로젝트. 소개 문구, 컬러 시스템, 반응형 레이아웃을 포함합니다.
-            </p>
-          </div>
-          <div class="project-footer">HTML / CSS / GitHub Pages</div>
-        </article>
-
-        <article class="project">
-          <div>
-            <div class="project-tag">Project 02</div>
-            <h3>Brand Mood Archive</h3>
-            <p>
-              좋아하는 무드와 레퍼런스를 수집해 브랜드 톤으로 정리하는 아카이브. 감도 높은 비주얼 큐레이션 용도로 사용할 수 있습니다.
-            </p>
-          </div>
-          <div class="project-footer">Visual Curation / Content Design</div>
-        </article>
-
-        <article class="project">
-          <div>
-            <div class="project-tag">Project 03</div>
-            <h3>Interactive Study Log</h3>
-            <p>
-              프론트엔드, 게임, 디자인 학습 기록을 축적하는 실험용 섹션. 나중에 블로그형 구조나 카테고리 페이지로 확장할 수 있습니다.
-            </p>
-          </div>
-          <div class="project-footer">JavaScript / Documentation</div>
-        </article>
-      </div>
-    </section>
 
     <section class="contact-layout">
       <article class="panel contact-card fade-up delay-2" id="contact">
         <div class="section-title">
           <h2>Contact</h2>
-          <span>Reach Out</span>
+          <span>Links</span>
         </div>
         <p>
-          아래 연락처는 자리표시자입니다. 실제 이메일과 GitHub 주소로 교체하면 이 페이지를 바로 명함처럼 사용할 수 있습니다.
+          프로젝트 관련 문의나 추가 자료 확인은 아래 링크를 통해 확인할 수 있습니다. 기획 문서와 상세 프로젝트 자료는 추후 업데이트 예정입니다.
         </p>
         <div class="contact-list">
-          <div class="contact-item">
+          <a class="contact-item" href="mailto:bkpark0226@naver.com">
             <span>Email</span>
-            <span>hello.minari@example.com</span>
-          </div>
-          <div class="contact-item">
+            <strong>bkpark0226@naver.com</strong>
+          </a>
+          <a class="contact-item" href="https://github.com/Minari-KR" target="_blank" rel="noopener noreferrer">
             <span>GitHub</span>
-            <span>github.com/Minari</span>
-          </div>
-          <div class="contact-item">
-            <span>Location</span>
-            <span>Seoul, Korea</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="panel contact-card fade-up delay-3">
-        <div class="section-title">
-          <h2>Next Step</h2>
-          <span>Customize</span>
-        </div>
-        <p>
-          다음 단계로는 이름, 자기소개, 프로젝트 링크, 실제 작업 이미지, 연락처를 채우면 됩니다. 원하면 이어서 제가
-          내용까지 맞춤형으로 바꿔드릴 수 있습니다.
-        </p>
-        <div class="pill-list">
-          <span class="pill">이름 교체</span>
-          <span class="pill">프로젝트 링크 추가</span>
-          <span class="pill">이미지 삽입</span>
-          <span class="pill">배포 확인</span>
+            <strong>github.com/Minari-KR</strong>
+          </a>
+          <a class="contact-item" href="https://www.youtube.com/@Minari_KR" target="_blank" rel="noopener noreferrer">
+            <span>YouTube</span>
+            <strong>@Minari_KR</strong>
+          </a>
         </div>
       </article>
     </section>
