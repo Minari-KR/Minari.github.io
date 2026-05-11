@@ -531,14 +531,13 @@
       list-style: none;
       display: grid;
       gap: 8px;
-      justify-items: start;
     }
 
     .award-list li {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 10px;
       padding: 11px 14px;
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -547,13 +546,13 @@
       line-height: 1.5;
       font-weight: 600;
       letter-spacing: -0.005em;
-      width: fit-content;
-      max-width: 100%;
+      width: 100%;
     }
 
     .award-event {
       color: var(--ink);
       font-weight: 700;
+      min-width: 0;
     }
 
     .award-badge {
@@ -928,49 +927,6 @@
         font-size: 1.38rem;
       }
 
-      #activities .section-title h2 {
-        font-size: 1.72rem;
-      }
-
-      .activity-card h3 {
-        font-size: 1.62rem;
-        line-height: 1.18;
-      }
-
-      .activity-card {
-        gap: 12px;
-        padding: 20px 18px 18px;
-        border-radius: 18px;
-      }
-
-      .activity-card p {
-        font-size: 0.99rem;
-        line-height: 1.58;
-      }
-
-      .activity-link {
-        font-size: 0.95rem;
-      }
-
-      .awards {
-        padding: 18px 16px;
-      }
-
-      #awards .section-title h2 {
-        font-size: 1.48rem;
-      }
-
-      .award-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 12px;
-        font-size: 0.95rem;
-      }
-
-      .award-badge {
-        font-size: 0.8rem;
-      }
-
       .hero-actions {
         display: flex;
         grid-template-columns: none;
@@ -1049,17 +1005,6 @@
         font-size: 0.82rem;
       }
 
-      #activities .section-title h2 {
-        font-size: 1.56rem;
-      }
-
-      .activity-card h3 {
-        font-size: 1.42rem;
-      }
-
-      .activity-tag {
-        font-size: 0.9rem;
-      }
     }
   </style>
 </head>
