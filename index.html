@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minari | Game System Designer</title>
   <meta name="description" content="게임 시스템 기획자 Minari의 포트폴리오 사이트">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f6f7f2;
@@ -20,8 +23,8 @@
       --gold: #c99b42;
       --shadow: 0 24px 60px rgba(31, 41, 36, 0.12);
       --max-width: 920px;
-      --font-display: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      --font-body: "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+      --font-display: "Manrope", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     }
 
     * {
@@ -258,6 +261,15 @@
       line-height: 1.74;
     }
 
+    .hero-korean-line {
+      display: block;
+      white-space: nowrap;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+      word-spacing: -0.02em;
+    }
+
     .mobile-break {
       display: none;
     }
@@ -411,43 +423,63 @@
       margin-bottom: 24px;
     }
 
+    #activities .section-title {
+      margin-bottom: 18px;
+    }
+
+    #activities .section-title h2 {
+      font-size: 2rem;
+      font-weight: 740;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+
     .activity-card {
       display: grid;
-      gap: 18px;
+      gap: 14px;
       margin-top: 18px;
-      padding: 22px;
+      padding: 24px 24px 22px;
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 22px;
       background:
         linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.48));
+    }
+
+    .activity-card > div {
+      display: grid;
+      gap: 10px;
     }
 
     .activity-tag {
       display: inline-flex;
       width: fit-content;
-      padding: 8px 11px;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
       border-radius: 999px;
       color: var(--accent-deep);
       background: rgba(47, 111, 94, 0.1);
-      font-size: 0.78rem;
+      font-size: 0.96rem;
       font-weight: 800;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
+      line-height: 1;
     }
 
     .activity-card h3 {
-      margin: 12px 0 10px;
+      margin: 0;
       font-family: var(--font-display);
-      font-size: 1.58rem;
-      font-weight: 720;
-      line-height: 1.24;
-      letter-spacing: 0;
+      font-size: 2rem;
+      font-weight: 750;
+      line-height: 1.16;
+      letter-spacing: -0.015em;
     }
 
     .activity-card p {
-      margin-bottom: 0;
+      margin: 0;
       color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.78;
+      font-size: 1.05rem;
+      line-height: 1.62;
+      letter-spacing: -0.005em;
     }
 
     .pc-single-line {
@@ -460,10 +492,12 @@
       display: inline-flex;
       align-items: center;
       width: fit-content;
-      gap: 10px;
+      gap: 8px;
+      margin-top: 2px;
       color: var(--accent-deep);
-      font-size: 0.96rem;
+      font-size: 1rem;
       font-weight: 800;
+      letter-spacing: 0;
     }
 
     .activity-link::after {
@@ -473,6 +507,67 @@
       border-top: 2px solid currentColor;
       border-right: 2px solid currentColor;
       transform: rotate(45deg);
+    }
+
+    .awards {
+      width: min(100%, 640px);
+      margin: 0 auto 24px;
+      padding: 20px 22px;
+    }
+
+    #awards .section-title {
+      margin-bottom: 14px;
+    }
+
+    #awards .section-title h2 {
+      font-size: 1.72rem;
+      font-weight: 740;
+      letter-spacing: -0.01em;
+    }
+
+    .award-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      justify-items: start;
+    }
+
+    .award-list li {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.58);
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .award-event {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .award-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(201, 155, 66, 0.2);
+      color: #6f4b17;
+      font-size: 0.84rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .project {
@@ -664,19 +759,29 @@
     }
 
     .fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 700ms ease forwards;
+      opacity: 1;
+      transform: none;
     }
 
-    .delay-1 { animation-delay: 120ms; }
-    .delay-2 { animation-delay: 220ms; }
-    .delay-3 { animation-delay: 320ms; }
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        animation: fadeUp 600ms ease both;
+      }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .delay-1 { animation-delay: 120ms; }
+      .delay-2 { animation-delay: 220ms; }
+      .delay-3 { animation-delay: 320ms; }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 1;
+          transform: translateY(14px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     }
 
@@ -791,6 +896,10 @@
         line-height: 1.72;
       }
 
+      .hero-korean-line {
+        font-size: 0.88rem;
+      }
+
       .mobile-break {
         display: block;
       }
@@ -819,9 +928,47 @@
         font-size: 1.38rem;
       }
 
+      #activities .section-title h2 {
+        font-size: 1.72rem;
+      }
+
       .activity-card h3 {
-        font-size: 1.42rem;
-        line-height: 1.3;
+        font-size: 1.62rem;
+        line-height: 1.18;
+      }
+
+      .activity-card {
+        gap: 12px;
+        padding: 20px 18px 18px;
+        border-radius: 18px;
+      }
+
+      .activity-card p {
+        font-size: 0.99rem;
+        line-height: 1.58;
+      }
+
+      .activity-link {
+        font-size: 0.95rem;
+      }
+
+      .awards {
+        padding: 18px 16px;
+      }
+
+      #awards .section-title h2 {
+        font-size: 1.48rem;
+      }
+
+      .award-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+      }
+
+      .award-badge {
+        font-size: 0.8rem;
       }
 
       .hero-actions {
@@ -840,7 +987,6 @@
 
       .project-main,
       .project-side,
-      .activity-card,
       .focus-item,
       .process-step {
         padding: 16px;
@@ -898,6 +1044,22 @@
       .contact-item strong {
         text-align: left;
       }
+
+      .hero-korean-line {
+        font-size: 0.82rem;
+      }
+
+      #activities .section-title h2 {
+        font-size: 1.56rem;
+      }
+
+      .activity-card h3 {
+        font-size: 1.42rem;
+      }
+
+      .activity-tag {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -909,11 +1071,7 @@
           <div class="eyebrow">Game System Designer</div>
           <h1>Minari</h1>
           <p>
-            가설을 재미로 증명하는
-            <br class="mobile-break">
-            코어 루프 설계자 Minari 입니다.
-            <br>
-            I am Minari, a core loop designer who proves hypotheses through fun.
+            <span class="hero-korean-line">가설을 재미로 증명하는 코어 루프 설계자 Minari 입니다.</span>
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#contact">연락처 보기</a>
@@ -928,60 +1086,57 @@
 
     <section class="panel activities fade-up delay-2" id="activities">
       <div class="section-title">
-        <h2>Activities</h2>
-        <span>Competition</span>
+        <h2>대외활동</h2>
       </div>
       <article class="activity-card">
         <div>
-          <span class="activity-tag">2020.04 - 2020.12</span>
+          <span class="activity-tag">2020</span>
           <h3>넷마블게임아카데미 5기</h3>
           <p>
-            정규반 및 심화반 과정에서 실무 전문가의 코칭을 받으며,
-            팀 단위 실제 게임 개발 프로젝트를 수행했습니다.
+            게임 개발 교육 과정에 참여해 팀 프로젝트 기획을 담당했습니다.
           </p>
         </div>
-        <ul class="meta-list">
-          <li>
-            <strong>Role</strong>
-            <span>기획자</span>
-          </li>
-          <li>
-            <strong>Result</strong>
-            <span>Rhythm Shooter / 우수상 수상</span>
-          </li>
-        </ul>
         <a class="activity-link" href="https://www.youtube.com/watch?v=dL3yAmkrDJc" target="_blank" rel="noopener noreferrer">
           프로젝트 영상 보기
         </a>
       </article>
       <article class="activity-card">
         <div>
-          <span class="activity-tag">2025.10 - 2025.12</span>
-          <h3>스토브 크루 2기</h3>
+          <span class="activity-tag">2025</span>
+          <h3>스마일게이트 스토브 크루 2기</h3>
           <p class="pc-single-line">
-            스토브 인디 게임 리뷰와 숏폼 마케팅 콘텐츠를 제작하며
-            실무 역량을 쌓았습니다.
+            인디 게임 리뷰와 숏폼 마케팅 콘텐츠를 제작했습니다.
           </p>
         </div>
-        <ul class="meta-list">
-          <li>
-            <strong>Role</strong>
-            <span>팀장</span>
-          </li>
-          <li>
-            <strong>Result</strong>
-            <span>
-              베스트 리더상 수상
-              <span class="desktop-only"> / </span>
-              <br class="mobile-break">
-              채널 총 조회수 180,952 달성
-            </span>
-          </li>
-        </ul>
         <a class="activity-link" href="https://www.youtube.com/@%EC%93%B0%ED%86%A0%EB%A3%A8" target="_blank" rel="noopener noreferrer">
           콘텐츠 채널 보기
         </a>
       </article>
+      <article class="activity-card">
+        <div>
+          <span class="activity-tag">2025</span>
+          <h3>인디(inD) 게임어스</h3>
+          <p>
+            게임기업 멘토링 기반 7개월 동아리 육성 과정에서 팀 프로젝트를 진행하고 공모전·전시 참가 경험을 확장했습니다.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel awards fade-up delay-2" id="awards">
+      <div class="section-title">
+        <h2>수상이력</h2>
+      </div>
+      <ul class="award-list">
+        <li>
+          <span class="award-event">넷마블게임아카데미 5기</span>
+          <span class="award-badge">우수상</span>
+        </li>
+        <li>
+          <span class="award-event">2025 대전 게임 브릿지</span>
+          <span class="award-badge">대상</span>
+        </li>
+      </ul>
     </section>
 
     <section class="contact-layout">
