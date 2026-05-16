@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Preview | Minari</title>
+  <style>
+    :root {
+      --bg: #eceee8;
+      --panel: #f7f8f4;
+      --line: rgba(24, 28, 25, 0.14);
+      --ink: #1a1f1b;
+      --muted: #5a605a;
+      --accent: #2b6e5d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 10% -20%, rgba(43, 110, 93, 0.1), transparent 55%),
+        radial-gradient(760px 420px at 90% 0%, rgba(191, 157, 86, 0.09), transparent 54%),
+        var(--bg);
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(247, 248, 244, 0.92);
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 8px 11px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .toolbar button.active {
+      border-color: rgba(43, 110, 93, 0.42);
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .hint {
+      margin-left: auto;
+      font-size: 0.84rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .frame-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .frame-title {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .phone {
+      margin: 0 auto;
+      width: var(--phone-w);
+      max-width: 100%;
+      border: 1px solid rgba(20, 26, 23, 0.28);
+      border-radius: 22px;
+      padding: 9px;
+      background: #111;
+      box-shadow: 0 18px 40px rgba(20, 24, 21, 0.22);
+    }
+
+    iframe {
+      width: 100%;
+      height: var(--phone-h);
+      border: 0;
+      border-radius: 14px;
+      background: #fff;
+      display: block;
+    }
+
+    .w390 { --phone-w: 390px; --phone-h: 844px; }
+    .w412 { --phone-w: 412px; --phone-h: 915px; }
+    .w360 { --phone-w: 360px; --phone-h: 800px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="toolbar">
+      <button data-size="w390" class="active">iPhone 12 (390x844)</button>
+      <button data-size="w412">Pixel 7 (412x915)</button>
+      <button data-size="w360">Galaxy S8+ (360x800)</button>
+      <button id="reload">새로고침</button>
+      <span class="hint">`index.html` 저장 후 `새로고침` 클릭</span>
+    </div>
+
+    <div class="grid">
+      <section class="frame-card">
+        <h2 class="frame-title">모바일 미리보기</h2>
+        <div id="phoneA" class="phone w390">
+          <iframe id="frameA" src="./index.html" title="Mobile preview A"></iframe>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const sizes = ["w390", "w412", "w360"];
+    const buttons = [...document.querySelectorAll("[data-size]")];
+    const phoneA = document.getElementById("phoneA");
+    const frameA = document.getElementById("frameA");
+    const reloadBtn = document.getElementById("reload");
+
+    function setSize(size) {
+      phoneA.classList.remove(...sizes);
+      phoneA.classList.add(size);
+      buttons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.size === size);
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => setSize(btn.dataset.size));
+    });
+
+    reloadBtn.addEventListener("click", () => {
+      const stamp = Date.now();
+      frameA.src = `./index.html?v=${stamp}`;
+    });
+  </script>
+</body>
+</html>
