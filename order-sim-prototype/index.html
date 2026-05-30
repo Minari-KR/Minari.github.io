@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>동네 제작소</title>
+  <style>
+    :root {
+      --ink: #1d2630;
+      --muted: #68737f;
+      --paper: #fffaf0;
+      --counter: #f0d4ad;
+      --wood: #9a6741;
+      --line: #26313b;
+      --green: #4b8f6a;
+      --red: #d9564f;
+      --amber: #e5a43a;
+      --blue: #4f7ea8;
+      --tile: #f7efe1;
+      --shadow: 0 18px 36px rgba(42, 31, 20, .18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+      background:
+        linear-gradient(180deg, #7fb7a6 0 36%, #e9c790 36% 69%, #765038 69% 100%);
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .game {
+      width: min(1240px, calc(100vw - 28px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 18px 0 22px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 240, .94);
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .stat {
+      min-width: 92px;
+      padding: 8px 10px;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      text-align: center;
+      box-shadow: 3px 4px 0 rgba(38, 49, 59, .16);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 19px;
+    }
+
+    .scene {
+      position: relative;
+      min-height: 420px;
+      border: 4px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,0) 35%),
+        linear-gradient(90deg, rgba(255,255,255,.25) 0 2px, transparent 2px 120px),
+        linear-gradient(180deg, #bfe1d2 0 54%, #f4d19b 54% 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .awning {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 66px;
+      background: repeating-linear-gradient(90deg, #fdf1d0 0 72px, #be4d4a 72px 144px);
+      border-bottom: 4px solid var(--line);
+    }
+
+    .window {
+      position: absolute;
+      left: 30px;
+      top: 100px;
+      width: 170px;
+      height: 132px;
+      border: 4px solid var(--line);
+      background: linear-gradient(135deg, #b9ddf2, #eaf8ff);
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,.35);
+    }
+
+    .shelf {
+      position: absolute;
+      right: 34px;
+      top: 96px;
+      width: 228px;
+      height: 132px;
+      border: 4px solid var(--line);
+      border-radius: 7px;
+      background: #d79f63;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .jar {
+      border: 3px solid var(--line);
+      border-radius: 7px 7px 14px 14px;
+      background: linear-gradient(180deg, #fff6d4 0 25%, #81a76a 25% 100%);
+    }
+
+    .jar:nth-child(2) { background: linear-gradient(180deg, #fff6d4 0 25%, #bd6a54 25% 100%); }
+    .jar:nth-child(3) { background: linear-gradient(180deg, #fff6d4 0 25%, #e0c44f 25% 100%); }
+    .jar:nth-child(4) { background: linear-gradient(180deg, #fff6d4 0 25%, #7e6f9c 25% 100%); }
+
+    .counter {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 142px;
+      border-top: 4px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.12) 0 2px, transparent 2px 118px),
+        linear-gradient(180deg, var(--counter), #bc8352);
+    }
+
+    .bell {
+      position: absolute;
+      left: 42%;
+      bottom: 108px;
+      width: 66px;
+      height: 38px;
+      border: 4px solid var(--line);
+      border-bottom-width: 7px;
+      border-radius: 42px 42px 8px 8px;
+      background: var(--amber);
+    }
+
+    .customer {
+      position: absolute;
+      left: clamp(28px, 10vw, 142px);
+      bottom: 116px;
+      width: 170px;
+      height: 230px;
+      transform-origin: bottom center;
+      animation: enter .42s cubic-bezier(.2, .9, .25, 1);
+    }
+
+    @keyframes enter {
+      from { transform: translateX(-210px) scale(.98); opacity: .2; }
+      to { transform: translateX(0) scale(1); opacity: 1; }
+    }
+
+    .head {
+      position: absolute;
+      left: 44px;
+      top: 10px;
+      width: 82px;
+      height: 82px;
+      border: 4px solid var(--line);
+      border-radius: 50%;
+      background: #f1bd8b;
+      z-index: 2;
+    }
+
+    .hair {
+      position: absolute;
+      inset: -12px 6px 50px -7px;
+      border: 4px solid var(--line);
+      border-radius: 44px 44px 20px 20px;
+      background: var(--hair, #31435a);
+    }
+
+    .face {
+      position: absolute;
+      left: 22px;
+      top: 35px;
+      width: 38px;
+      height: 14px;
+      border-top: 4px solid var(--line);
+    }
+
+    .face:before,
+    .face:after {
+      content: "";
+      position: absolute;
+      top: -18px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .face:before { left: 0; }
+    .face:after { right: 0; }
+
+    .body {
+      position: absolute;
+      left: 24px;
+      top: 84px;
+      width: 122px;
+      height: 124px;
+      border: 4px solid var(--line);
+      border-radius: 30px 30px 12px 12px;
+      background: var(--shirt, #608eb1);
+    }
+
+    .body:before,
+    .body:after {
+      content: "";
+      position: absolute;
+      top: 20px;
+      width: 34px;
+      height: 82px;
+      border: 4px solid var(--line);
+      border-radius: 22px;
+      background: #f1bd8b;
+    }
+
+    .body:before { left: -28px; transform: rotate(15deg); }
+    .body:after { right: -28px; transform: rotate(-15deg); }
+
+    .speech {
+      position: absolute;
+      left: clamp(180px, 28vw, 360px);
+      top: 88px;
+      width: min(470px, calc(100% - 230px));
+      min-height: 160px;
+      padding: 18px 18px 14px;
+      border: 4px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf6;
+      box-shadow: 8px 10px 0 rgba(38, 49, 59, .16);
+    }
+
+    .speech:before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      bottom: 38px;
+      width: 36px;
+      height: 36px;
+      border-left: 4px solid var(--line);
+      border-bottom: 4px solid var(--line);
+      background: #fffdf6;
+      transform: rotate(45deg);
+    }
+
+    .customer-name {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .order-text {
+      margin: 8px 0 10px;
+      font-size: clamp(18px, 2.1vw, 26px);
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .patience {
+      height: 15px;
+      padding: 2px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #f3e5ca;
+    }
+
+    .patience-fill {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), var(--amber), var(--red));
+      transition: width .15s linear;
+    }
+
+    .ticket {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .workbench {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+    }
+
+    .panel {
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 240, .96);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 3px solid var(--line);
+      background: #fff5d9;
+      font-weight: 1000;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .make-area {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .product-preview {
+      min-height: 244px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(255,255,255,.6), transparent 45%),
+        #d7eadb;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .plate {
+      position: absolute;
+      width: 138px;
+      height: 106px;
+      border: 4px solid var(--line);
+      border-radius: 50%;
+      background: #f7f7f0;
+      box-shadow: inset 0 -12px 0 rgba(38,49,59,.08);
+    }
+
+    .item {
+      position: relative;
+      width: 108px;
+      height: 82px;
+      border: 4px solid var(--line);
+      border-radius: 22px;
+      background: #d79a4d;
+      box-shadow: inset 0 -10px 0 rgba(0,0,0,.08);
+      display: grid;
+      place-items: center;
+      font-size: 42px;
+      transform: translateY(-4px);
+    }
+
+    .item.toast { border-radius: 18px 18px 28px 28px; background: #d68d42; }
+    .item.bowl { width: 118px; height: 78px; border-radius: 20px 20px 42px 42px; background: #fff8e8; }
+    .item.drink { width: 76px; height: 112px; border-radius: 12px 12px 24px 24px; background: #bee0e7; }
+
+    .toppings {
+      position: absolute;
+      inset: 12px;
+      pointer-events: none;
+    }
+
+    .dot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--line);
+      border-radius: 50%;
+      background: var(--c);
+    }
+
+    .dot:nth-child(1) { left: 16px; top: 18px; }
+    .dot:nth-child(2) { right: 18px; top: 20px; }
+    .dot:nth-child(3) { left: 44px; bottom: 16px; }
+    .dot:nth-child(4) { right: 36px; bottom: 22px; }
+
+    .state-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      padding: 8px;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-title {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .choice,
+    .action {
+      min-height: 58px;
+      padding: 7px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: var(--tile);
+      box-shadow: 3px 4px 0 rgba(38,49,59,.16);
+      font-weight: 900;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 3px;
+      transition: transform .08s ease, box-shadow .08s ease, background .12s ease;
+    }
+
+    .choice .icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .choice small,
+    .action small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .choice:hover,
+    .action:hover {
+      transform: translateY(-1px);
+      box-shadow: 4px 5px 0 rgba(38,49,59,.2);
+    }
+
+    .choice.active {
+      background: #d7eadb;
+      outline: 4px solid rgba(75, 143, 106, .34);
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .action {
+      min-height: 64px;
+      background: #fff;
+    }
+
+    .action.primary { background: #d7eadb; }
+    .action.warn { background: #fde5bc; }
+    .action.danger { background: #f7c7c4; }
+
+    .side {
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .log {
+      padding: 12px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      max-height: 330px;
+      overflow: auto;
+    }
+
+    .log-entry {
+      padding: 9px 10px;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .recipes {
+      padding: 12px;
+      border-top: 3px solid var(--line);
+      background: #fff8e8;
+    }
+
+    .recipe-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .recipe {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .recipe span:first-child {
+      width: 36px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+    }
+
+    .toast-msg {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(90px);
+      padding: 12px 16px;
+      border: 3px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-weight: 1000;
+      transition: transform .2s ease;
+      z-index: 10;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 880px) {
+      .topbar,
+      .workbench,
+      .make-area {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        justify-content: stretch;
+      }
+
+      .stat {
+        flex: 1 1 120px;
+      }
+
+      .scene {
+        min-height: 390px;
+      }
+
+      .shelf,
+      .window {
+        display: none;
+      }
+
+      .speech {
+        left: 130px;
+        width: calc(100% - 150px);
+        top: 82px;
+      }
+
+      .customer {
+        left: 10px;
+        width: 138px;
+        transform: scale(.86);
+      }
+
+      .button-grid,
+      .action-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .game {
+        width: min(100vw - 14px, 480px);
+        padding-top: 8px;
+      }
+
+      .topbar {
+        padding: 10px;
+      }
+
+      .scene {
+        min-height: 430px;
+      }
+
+      .customer {
+        bottom: 98px;
+        transform: scale(.74);
+        transform-origin: left bottom;
+      }
+
+      .speech {
+        left: 14px;
+        right: 14px;
+        top: 92px;
+        width: auto;
+        min-height: 150px;
+      }
+
+      .speech:before {
+        display: none;
+      }
+
+      .make-area,
+      .log,
+      .recipes {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="game">
+    <header class="topbar">
+      <h1>동네 제작소</h1>
+      <div class="stats" aria-label="가게 상태">
+        <div class="stat"><span>매출</span><strong id="money">0원</strong></div>
+        <div class="stat"><span>평판</span><strong id="rep">5.0</strong></div>
+        <div class="stat"><span>손님</span><strong id="served">0/8</strong></div>
+        <div class="stat"><span>시간</span><strong id="clock">09:00</strong></div>
+      </div>
+    </header>
+
+    <section class="scene" aria-label="가게">
+      <div class="awning"></div>
+      <div class="window"></div>
+      <div class="shelf" aria-hidden="true">
+        <div class="jar"></div><div class="jar"></div><div class="jar"></div><div class="jar"></div>
+      </div>
+      <div id="customer" class="customer">
+        <div class="head"><div class="hair"></div><div class="face"></div></div>
+        <div class="body"></div>
+      </div>
+      <div class="speech">
+        <div class="customer-name"><span id="customerName">손님</span><span id="mood">보통</span></div>
+        <p id="orderText" class="order-text"></p>
+        <div class="patience" aria-label="인내심"><div id="patience" class="patience-fill"></div></div>
+        <div id="ticket" class="ticket"></div>
+      </div>
+      <div class="bell"></div>
+      <div class="counter"></div>
+    </section>
+
+    <section class="workbench">
+      <div class="panel">
+        <div class="panel-head">
+          <span>제작대</span>
+          <span id="currentValue" class="badge">빈 접시</span>
+        </div>
+        <div class="make-area">
+          <div class="product-preview" aria-label="현재 제작물">
+            <div class="plate"></div>
+            <div id="item" class="item toast">
+              <span id="itemIcon">🍞</span>
+              <div id="dots" class="toppings"></div>
+            </div>
+            <div id="stateTag" class="state-tag">재료를 선택하세요</div>
+          </div>
+          <div class="controls">
+            <div>
+              <div class="section-title">기본 메뉴</div>
+              <div id="bases" class="button-grid"></div>
+            </div>
+            <div>
+              <div class="section-title">추가 재료</div>
+              <div id="extras" class="button-grid"></div>
+            </div>
+            <div class="action-row">
+              <button id="cookBtn" class="action warn" type="button">🔥<strong>가열</strong><small>완성도 +</small></button>
+              <button id="packBtn" class="action" type="button">📦<strong>포장</strong><small>제공 준비</small></button>
+              <button id="serveBtn" class="action primary" type="button">✅<strong>제공</strong><small>평가 받기</small></button>
+              <button id="clearBtn" class="action danger" type="button">↺<strong>초기화</strong><small>다시 만들기</small></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side">
+        <div>
+          <div class="panel-head">
+            <span>영업 기록</span>
+            <button id="restartBtn" class="badge" type="button">새 영업</button>
+          </div>
+          <div id="log" class="log"></div>
+        </div>
+        <div class="recipes">
+          <div class="section-title">메뉴 노트</div>
+          <div class="recipe-grid">
+            <div class="recipe"><span>🍞</span><div>토스트: 기본 메뉴에 토마토, 치즈, 바질 조합이 자주 붙습니다.</div></div>
+            <div class="recipe"><span>🍜</span><div>따뜻한 그릇: 면, 버섯, 달걀, 파를 섞어 든든하게 만듭니다.</div></div>
+            <div class="recipe"><span>🥤</span><div>차가운 음료: 얼음, 레몬, 민트, 베리를 곁들입니다.</div></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="toast" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <script>
+    const bases = [
+      { id: "toast", name: "토스트", icon: "🍞", price: 4500, className: "toast" },
+      { id: "bowl", name: "따뜻한 그릇", icon: "🍜", price: 6200, className: "bowl" },
+      { id: "drink", name: "차가운 음료", icon: "🥤", price: 3800, className: "drink" }
+    ];
+
+    const extras = [
+      { id: "tomato", name: "토마토", icon: "🍅", color: "#dc554e", price: 700 },
+      { id: "cheese", name: "치즈", icon: "🧀", color: "#f0c94d", price: 900 },
+      { id: "basil", name: "바질", icon: "🌿", color: "#4b8f6a", price: 600 },
+      { id: "egg", name: "달걀", icon: "🥚", color: "#fff4b5", price: 1000 },
+      { id: "mushroom", name: "버섯", icon: "🍄", color: "#b88668", price: 800 },
+      { id: "lemon", name: "레몬", icon: "🍋", color: "#f2d64f", price: 600 },
+      { id: "mint", name: "민트", icon: "🍃", color: "#62a978", price: 500 },
+      { id: "berry", name: "베리", icon: "🫐", color: "#6570b6", price: 900 }
+    ];
+
+    const customerPool = [
+      { name: "민서", hair: "#2f3949", shirt: "#d96f56" },
+      { name: "준호", hair: "#6d4c3d", shirt: "#4f7ea8" },
+      { name: "서윤", hair: "#242b32", shirt: "#d79f63" },
+      { name: "하린", hair: "#4d355e", shirt: "#4b8f6a" },
+      { name: "도윤", hair: "#8a5b36", shirt: "#7e6f9c" }
+    ];
+
+    const orderTemplates = [
+      { base: "toast", extras: ["tomato", "cheese"], text: "토스트에 토마토랑 치즈 올려주세요." },
+      { base: "toast", extras: ["basil", "cheese"], text: "향이 좋은 토스트로 부탁해요. 바질과 치즈요." },
+      { base: "bowl", extras: ["egg", "mushroom"], text: "따뜻한 그릇에 달걀, 버섯 넣어주세요." },
+      { base: "bowl", extras: ["basil", "egg"], text: "든든한 그릇 하나요. 바질이랑 달걀이 좋아요." },
+      { base: "drink", extras: ["lemon", "mint"], text: "차가운 음료에 레몬이랑 민트 넣어주세요." },
+      { base: "drink", extras: ["berry", "lemon"], text: "상큼한 음료요. 베리랑 레몬으로요." },
+      { base: "toast", extras: ["tomato", "basil", "egg"], text: "토스트에 토마토, 바질, 달걀까지 올려주세요." },
+      { base: "bowl", extras: ["mushroom", "cheese", "egg"], text: "따뜻한 그릇에 버섯, 치즈, 달걀 넣어주세요." }
+    ];
+
+    const state = {
+      money: 0,
+      rep: 5,
+      served: 0,
+      minute: 9 * 60,
+      customer: null,
+      patience: 100,
+      making: { base: null, extras: [], cooked: false, packed: false },
+      timer: null,
+      closed: false
+    };
+
+    const el = {
+      money: document.querySelector("#money"),
+      rep: document.querySelector("#rep"),
+      served: document.querySelector("#served"),
+      clock: document.querySelector("#clock"),
+      customer: document.querySelector("#customer"),
+      customerName: document.querySelector("#customerName"),
+      mood: document.querySelector("#mood"),
+      orderText: document.querySelector("#orderText"),
+      ticket: document.querySelector("#ticket"),
+      patience: document.querySelector("#patience"),
+      bases: document.querySelector("#bases"),
+      extras: document.querySelector("#extras"),
+      item: document.querySelector("#item"),
+      itemIcon: document.querySelector("#itemIcon"),
+      dots: document.querySelector("#dots"),
+      stateTag: document.querySelector("#stateTag"),
+      currentValue: document.querySelector("#currentValue"),
+      cookBtn: document.querySelector("#cookBtn"),
+      packBtn: document.querySelector("#packBtn"),
+      serveBtn: document.querySelector("#serveBtn"),
+      clearBtn: document.querySelector("#clearBtn"),
+      restartBtn: document.querySelector("#restartBtn"),
+      log: document.querySelector("#log"),
+      toast: document.querySelector("#toast")
+    };
+
+    function formatWon(value) {
+      return `${value.toLocaleString("ko-KR")}원`;
+    }
+
+    function formatTime(minutes) {
+      const h = String(Math.floor(minutes / 60)).padStart(2, "0");
+      const m = String(minutes % 60).padStart(2, "0");
+      return `${h}:${m}`;
+    }
+
+    function byId(list, id) {
+      return list.find(item => item.id === id);
+    }
+
+    function log(message) {
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.textContent = message;
+      el.log.prepend(entry);
+    }
+
+    function toast(message) {
+      el.toast.textContent = message;
+      el.toast.classList.add("show");
+      window.clearTimeout(el.toast._timer);
+      el.toast._timer = window.setTimeout(() => el.toast.classList.remove("show"), 1300);
+    }
+
+    function renderButtons() {
+      el.bases.innerHTML = bases.map(base => `
+        <button class="choice" type="button" data-base="${base.id}">
+          <span class="icon">${base.icon}</span><strong>${base.name}</strong><small>${formatWon(base.price)}</small>
+        </button>
+      `).join("");
+
+      el.extras.innerHTML = extras.map(extra => `
+        <button class="choice" type="button" data-extra="${extra.id}">
+          <span class="icon">${extra.icon}</span><strong>${extra.name}</strong><small>+${formatWon(extra.price)}</small>
+        </button>
+      `).join("");
+    }
+
+    function orderLabel(order) {
+      const base = byId(bases, order.base).name;
+      const names = order.extras.map(id => byId(extras, id).name).join(", ");
+      return `${base} / ${names}`;
+    }
+
+    function newCustomer() {
+      const profile = customerPool[Math.floor(Math.random() * customerPool.length)];
+      const order = orderTemplates[state.served % orderTemplates.length];
+      const shuffledOrder = Math.random() > .45 ? order : orderTemplates[Math.floor(Math.random() * orderTemplates.length)];
+
+      state.customer = { ...profile, order: shuffledOrder };
+      state.patience = 100;
+      el.customer.style.setProperty("--hair", profile.hair);
+      el.customer.style.setProperty("--shirt", profile.shirt);
+      el.customerName.textContent = `${profile.name}의 주문`;
+      el.orderText.textContent = shuffledOrder.text;
+      el.ticket.textContent = orderLabel(shuffledOrder);
+      el.mood.textContent = "기다리는 중";
+      el.customer.style.animation = "none";
+      void el.customer.offsetWidth;
+      el.customer.style.animation = "";
+      resetMaking(false);
+      render();
+    }
+
+    function resetMaking(show = true) {
+      state.making = { base: null, extras: [], cooked: false, packed: false };
+      if (show) toast("접시를 비웠습니다");
+      render();
+    }
+
+    function itemValue() {
+      if (!state.making.base) return 0;
+      const base = byId(bases, state.making.base).price;
+      const add = state.making.extras.reduce((sum, id) => sum + byId(extras, id).price, 0);
+      return base + add;
+    }
+
+    function renderProduct() {
+      const base = byId(bases, state.making.base) || bases[0];
+      el.item.className = `item ${base.className}`;
+      el.itemIcon.textContent = state.making.base ? base.icon : "🍽️";
+      el.dots.innerHTML = state.making.extras.slice(0, 4).map(id => {
+        const extra = byId(extras, id);
+        return `<span class="dot" style="--c:${extra.color}"></span>`;
+      }).join("");
+
+      const tags = [];
+      if (!state.making.base) tags.push("재료를 선택하세요");
+      if (state.making.base) tags.push(byId(bases, state.making.base).name);
+      if (state.making.cooked) tags.push("가열 완료");
+      if (state.making.packed) tags.push("포장 완료");
+      el.stateTag.textContent = tags.join(" · ");
+      el.currentValue.textContent = state.making.base ? formatWon(itemValue()) : "빈 접시";
+    }
+
+    function render() {
+      el.money.textContent = formatWon(state.money);
+      el.rep.textContent = state.rep.toFixed(1);
+      el.served.textContent = `${state.served}/8`;
+      el.clock.textContent = formatTime(state.minute);
+      el.patience.style.width = `${Math.max(0, state.patience)}%`;
+      el.mood.textContent = state.patience > 65 ? "여유" : state.patience > 32 ? "초조" : "화남";
+
+      document.querySelectorAll("[data-base]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.base === state.making.base);
+      });
+      document.querySelectorAll("[data-extra]").forEach(btn => {
+        btn.classList.toggle("active", state.making.extras.includes(btn.dataset.extra));
+      });
+      renderProduct();
+    }
+
+    function selectBase(id) {
+      if (state.closed) return;
+      state.making.base = id;
+      state.making.cooked = false;
+      state.making.packed = false;
+      render();
+    }
+
+    function toggleExtra(id) {
+      if (state.closed) return;
+      const current = state.making.extras;
+      if (current.includes(id)) {
+        state.making.extras = current.filter(item => item !== id);
+      } else if (current.length < 4) {
+        state.making.extras = [...current, id];
+      } else {
+        toast("재료는 4개까지 올릴 수 있습니다");
+      }
+      state.making.packed = false;
+      render();
+    }
+
+    function cook() {
+      if (!state.making.base) return toast("기본 메뉴가 필요합니다");
+      state.making.cooked = true;
+      state.making.packed = false;
+      toast("따뜻하게 준비했습니다");
+      render();
+    }
+
+    function pack() {
+      if (!state.making.base) return toast("담을 물건이 없습니다");
+      if (!state.making.cooked && state.making.base !== "drink") return toast("먼저 가열해야 합니다");
+      state.making.packed = true;
+      toast("제공 준비 완료");
+      render();
+    }
+
+    function scoreOrder() {
+      const order = state.customer.order;
+      let score = 0;
+      if (state.making.base === order.base) score += 45;
+      const wanted = new Set(order.extras);
+      const made = new Set(state.making.extras);
+      wanted.forEach(id => { if (made.has(id)) score += 15; });
+      made.forEach(id => { if (!wanted.has(id)) score -= 8; });
+      if (state.making.packed) score += 10;
+      if (state.making.cooked || state.making.base === "drink") score += 10;
+      score += Math.floor(state.patience / 10);
+      return Math.max(0, Math.min(100, score));
+    }
+
+    function serve() {
+      if (state.closed) return;
+      if (!state.making.base) return toast("제공할 메뉴가 없습니다");
+
+      const score = scoreOrder();
+      const value = itemValue();
+      const tip = Math.max(0, Math.round(value * (score - 55) / 100));
+      const earned = score >= 45 ? value + tip : Math.round(value * .35);
+      state.money += earned;
+
+      const repDelta = score >= 88 ? .35 : score >= 70 ? .15 : score >= 50 ? -.15 : -.45;
+      state.rep = Math.max(1, Math.min(5, state.rep + repDelta));
+      state.served += 1;
+      state.minute += 18;
+
+      const verdict = score >= 88 ? "완벽한 주문" : score >= 70 ? "괜찮은 주문" : score >= 50 ? "아쉬운 주문" : "실패한 주문";
+      log(`${state.customer.name}: ${verdict} · ${formatWon(earned)} · 점수 ${score}`);
+
+      if (state.served >= 8) {
+        closeDay();
+      } else {
+        newCustomer();
+      }
+    }
+
+    function closeDay() {
+      state.closed = true;
+      window.clearInterval(state.timer);
+      el.orderText.textContent = `영업 종료! 매출 ${formatWon(state.money)}, 평판 ${state.rep.toFixed(1)}점`;
+      el.ticket.textContent = "새 영업 버튼으로 다시 시작";
+      el.customerName.textContent = "마감";
+      el.mood.textContent = "완료";
+      el.patience.style.width = "100%";
+      toast("하루 영업이 끝났습니다");
+      render();
+    }
+
+    function tick() {
+      if (state.closed) return;
+      state.patience -= .7;
+      if (state.patience <= 0) {
+        log(`${state.customer.name}: 너무 오래 기다려서 나갔습니다 · 평판 -0.4`);
+        state.rep = Math.max(1, state.rep - .4);
+        state.served += 1;
+        state.minute += 20;
+        if (state.served >= 8) closeDay();
+        else newCustomer();
+      }
+      render();
+    }
+
+    function restart() {
+      window.clearInterval(state.timer);
+      state.money = 0;
+      state.rep = 5;
+      state.served = 0;
+      state.minute = 9 * 60;
+      state.closed = false;
+      el.log.innerHTML = "";
+      log("영업을 시작했습니다.");
+      newCustomer();
+      state.timer = window.setInterval(tick, 450);
+    }
+
+    renderButtons();
+    el.bases.addEventListener("click", event => {
+      const button = event.target.closest("[data-base]");
+      if (button) selectBase(button.dataset.base);
+    });
+    el.extras.addEventListener("click", event => {
+      const button = event.target.closest("[data-extra]");
+      if (button) toggleExtra(button.dataset.extra);
+    });
+    el.cookBtn.addEventListener("click", cook);
+    el.packBtn.addEventListener("click", pack);
+    el.serveBtn.addEventListener("click", serve);
+    el.clearBtn.addEventListener("click", () => resetMaking(true));
+    el.restartBtn.addEventListener("click", restart);
+    restart();
+  </script>
+</body>
+</html>

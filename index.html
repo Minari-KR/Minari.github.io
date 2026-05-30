@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -594,6 +594,10 @@
       background: rgba(255, 255, 255, 0.58);
     }
 
+    .game-card + .game-card {
+      margin-top: 12px;
+    }
+
     .game-name {
       margin: 0;
       font-family: var(--font-display);
@@ -1115,9 +1119,6 @@
           <p>
             <span class="hero-korean-line">가설을 재미로 증명하는 코어 루프 설계자 Minari 입니다.</span>
           </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#contact">연락처 보기</a>
-          </div>
         </div>
         <div class="hero-profile" aria-hidden="true">
           <img src="profile.jpg" alt="">
@@ -1128,7 +1129,7 @@
 
     <section class="panel games fade-up delay-2" id="games">
       <div class="section-title">
-        <h2>제작 게임</h2>
+        <h2>제작 프로토 타입</h2>
       </div>
       <article class="game-card">
         <h3 class="game-name">Hyunwoo-Run</h3>
@@ -1137,6 +1138,12 @@
         </a>
         <a class="game-link" href="https://youtu.be/XZjlQo4ymLM" target="_blank" rel="noopener noreferrer">
           개발 일지 영상
+        </a>
+      </article>
+      <article class="game-card">
+        <h3 class="game-name">Undead Survival</h3>
+        <a class="game-link" href="https://minari-kr.itch.io/undead-survival" target="_blank" rel="noopener noreferrer">
+          게임 플레이 링크
         </a>
       </article>
     </section>
