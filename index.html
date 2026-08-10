@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f7f2;
+      --bg: #ffffff;
       --paper: rgba(255, 255, 252, 0.82);
       --paper-strong: rgba(255, 255, 252, 0.96);
       --ink: #20211f;
@@ -47,10 +47,7 @@
       font-family: var(--font-body);
       font-size: 16px;
       font-weight: 400;
-      background:
-        radial-gradient(900px 520px at 72% -18%, rgba(47, 111, 94, 0.13), transparent 60%),
-        radial-gradient(760px 520px at 8% 18%, rgba(201, 155, 66, 0.12), transparent 58%),
-        linear-gradient(180deg, #fbfbf7 0%, var(--bg) 58%, #ecefe8 100%);
+      background: var(--bg);
       overflow-x: hidden;
     }
 
@@ -60,10 +57,9 @@
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(31, 28, 24, 0.038) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(31, 28, 24, 0.032) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.48), transparent 86%);
+        linear-gradient(rgba(116, 186, 220, 0.24) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(116, 186, 220, 0.24) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
 
     a {
@@ -1042,25 +1038,15 @@
         <h2>제작 프로토 타입</h2>
       </div>
       <article class="game-card">
-        <h3 class="game-name">Hyunwoo-Run</h3>
-        <a class="game-link" href="https://minari-kr.github.io/hyunwoo-run/" target="_blank" rel="noopener noreferrer">
-          게임 플레이 링크
-        </a>
-        <a class="game-link" href="https://youtu.be/XZjlQo4ymLM" target="_blank" rel="noopener noreferrer">
-          개발 일지 영상
-        </a>
-      </article>
-      <article class="game-card">
-        <h3 class="game-name">Undead Survival</h3>
-        <a class="game-link" href="https://minari-kr.itch.io/undead-survival" target="_blank" rel="noopener noreferrer">
-          게임 플레이 링크
+        <a class="game-link" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer">
+          itch.io 프로필 보기
         </a>
       </article>
     </section>
 
     <section class="panel activities fade-up delay-2" id="activities">
       <div class="section-title">
-        <h2>대외활동</h2>
+        <h2>활동</h2>
       </div>
       <article class="activity-card">
         <div>
@@ -1095,6 +1081,12 @@
           </p>
         </div>
       </article>
+      <article class="activity-card">
+        <div>
+          <span class="activity-tag">2026</span>
+          <h3>대전 inD 게임잼</h3>
+        </div>
+      </article>
     </section>
 
     <section class="panel awards fade-up delay-2" id="awards">
@@ -1109,6 +1101,10 @@
         <li>
           <span class="award-event">2025 대전 게임 브릿지</span>
           <span class="award-badge">대상</span>
+        </li>
+        <li>
+          <span class="award-event">2026 대전 inD 게임잼</span>
+          <span class="award-badge">국가수리과학연구장상</span>
         </li>
       </ul>
     </section>
