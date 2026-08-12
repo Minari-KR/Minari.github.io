@@ -13,12 +13,17 @@
     .back-link { display: inline-flex; margin-bottom: 20px; color: var(--accent-deep); font-size: .95rem; font-weight: 800; text-decoration: none; }
     .back-link::before { content: "← "; }
     article { padding: 34px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); }
-    time { color: var(--accent-deep); font-size: .84rem; font-weight: 800; }
-    h1 { margin: 10px 0 24px; font-size: clamp(2rem, 7vw, 2.7rem); line-height: 1.12; letter-spacing: -.03em; }
-    h2 { margin: 32px 0 12px; color: var(--ink); font-size: 1.24rem; font-weight: 800; letter-spacing: -.02em; }
-    p { margin: 0; color: var(--muted); font-size: 1.1rem; font-weight: 500; line-height: 1.95; letter-spacing: -.012em; }
-    p + p { margin-top: 18px; }
-    @media (max-width: 520px) { article { padding: 28px 24px; } p { font-size: 1.06rem; line-height: 1.9; } }
+    time { display: block; color: var(--accent-deep); font-size: .84rem; font-weight: 800; line-height: 1; }
+    h1 { margin: 14px 0 32px; font-size: clamp(2rem, 7vw, 2.7rem); line-height: 1.12; letter-spacing: -.03em; }
+    h2 { margin: 40px 0 14px; color: var(--ink); font-size: 1.24rem; font-weight: 800; letter-spacing: -.02em; }
+    h1 + h2 { margin-top: 0; }
+    p { margin: 0; color: var(--muted); font-size: 1.1rem; font-weight: 500; line-height: 1.8; letter-spacing: -.012em; }
+    p + p { margin-top: 16px; }
+    @media (max-width: 520px) {
+      article { padding: 28px 16px; }
+      h1 { margin: 12px 0 28px; font-size: 6.3vw; line-height: 1.15; letter-spacing: -.06em; white-space: nowrap; }
+      p { font-size: 1.06rem; line-height: 1.8; }
+    }
   </style>
 </head>
 <body>
