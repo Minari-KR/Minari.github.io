@@ -64,6 +64,25 @@
       background: var(--accent);
     }
 
+    .page-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .page-select select {
+      min-height: 36px;
+      padding: 0 28px 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      font: inherit;
+      background: #fff;
+    }
+
     .hint {
       margin-left: auto;
       font-size: 0.84rem;
@@ -124,14 +143,22 @@
       <button data-size="w412">Pixel 7 (412x915)</button>
       <button data-size="w360">Galaxy S8+ (360x800)</button>
       <button id="reload">새로고침</button>
-      <span class="hint">`index.html` 저장 후 `새로고침` 클릭</span>
+      <label class="page-select" for="pageSelect">
+        <span>페이지</span>
+        <select id="pageSelect">
+          <option value="./index.html">홈</option>
+          <option value="./journal/2026-08-12-gamejam-retrospective.html">게임잼 일지</option>
+          <option value="./journal/2026-08-12-test.html">테스트 일지</option>
+        </select>
+      </label>
+      <span class="hint">저장 후 `새로고침` 클릭</span>
     </div>
 
     <div class="grid">
       <section class="frame-card">
         <h2 class="frame-title">모바일 미리보기</h2>
         <div id="phoneA" class="phone w390">
-          <iframe id="frameA" src="./index.html" title="Mobile preview A"></iframe>
+          <iframe id="frameA" src="./index.html" title="모바일 페이지 미리보기"></iframe>
         </div>
       </section>
     </div>
@@ -143,6 +170,12 @@
     const phoneA = document.getElementById("phoneA");
     const frameA = document.getElementById("frameA");
     const reloadBtn = document.getElementById("reload");
+    const pageSelect = document.getElementById("pageSelect");
+
+    function loadPage() {
+      const stamp = Date.now();
+      frameA.src = `${pageSelect.value}?v=${stamp}`;
+    }
 
     function setSize(size) {
       phoneA.classList.remove(...sizes);
@@ -156,10 +189,8 @@
       btn.addEventListener("click", () => setSize(btn.dataset.size));
     });
 
-    reloadBtn.addEventListener("click", () => {
-      const stamp = Date.now();
-      frameA.src = `./index.html?v=${stamp}`;
-    });
+    pageSelect.addEventListener("change", loadPage);
+    reloadBtn.addEventListener("click", loadPage);
   </script>
 </body>
 </html>
