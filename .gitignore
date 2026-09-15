@@ -1,0 +1,24 @@
+# Generated output: edit src/, content/ and public/ instead.
+/index.html
+/mobile-preview.html
+/journal/*.html
+/assets/
+/dist/
+/.generated-files.json
+
+# Private/local files must never enter the public repository.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+*.zip
+node_modules/
+.vs/
+.vscode/
+work/
+backups/
+.DS_Store
+Thumbs.db

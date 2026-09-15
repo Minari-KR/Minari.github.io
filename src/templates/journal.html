@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{security}}
+  <title>{{title}} | Minari</title>
+  <meta name="description" content="{{summary}}">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/journal.css">
+</head>
+<body>
+  <main>
+    <a class="back-link" href="../index.html#journal">일지 목록으로 돌아가기</a>
+    <article>
+      <time datetime="{{date}}">{{display_date}}</time>
+      <h1>{{title}}</h1>
+{{body}}
+    </article>
+  </main>
+</body>
+</html>

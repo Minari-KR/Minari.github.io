@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile Preview | Minari</title>
-  <style>
-    :root {
+:root {
       --bg: #eceee8;
       --panel: #f7f8f4;
       --line: rgba(24, 28, 25, 0.14);
@@ -102,6 +95,7 @@
       border-radius: 14px;
       background: var(--panel);
       padding: 12px;
+      overflow-x: auto;
     }
 
     .frame-title {
@@ -112,9 +106,10 @@
     }
 
     .phone {
+      box-sizing: content-box;
       margin: 0 auto;
       width: var(--phone-w);
-      max-width: 100%;
+      max-width: none;
       border: 1px solid rgba(20, 26, 23, 0.28);
       border-radius: 22px;
       padding: 9px;
@@ -131,66 +126,7 @@
       display: block;
     }
 
+    .w320 { --phone-w: 320px; --phone-h: 740px; }
     .w390 { --phone-w: 390px; --phone-h: 844px; }
     .w412 { --phone-w: 412px; --phone-h: 915px; }
     .w360 { --phone-w: 360px; --phone-h: 800px; }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <div class="toolbar">
-      <button data-size="w390" class="active">iPhone 12 (390x844)</button>
-      <button data-size="w412">Pixel 7 (412x915)</button>
-      <button data-size="w360">Galaxy S8+ (360x800)</button>
-      <button id="reload">새로고침</button>
-      <label class="page-select" for="pageSelect">
-        <span>페이지</span>
-        <select id="pageSelect">
-          <option value="./index.html">홈</option>
-          <option value="./journal/2026-08-12-gamejam-retrospective.html">게임잼 일지</option>
-          <option value="./journal/2026-08-12-test.html">테스트 일지</option>
-        </select>
-      </label>
-      <span class="hint">저장 후 `새로고침` 클릭</span>
-    </div>
-
-    <div class="grid">
-      <section class="frame-card">
-        <h2 class="frame-title">모바일 미리보기</h2>
-        <div id="phoneA" class="phone w390">
-          <iframe id="frameA" src="./index.html" title="모바일 페이지 미리보기"></iframe>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <script>
-    const sizes = ["w390", "w412", "w360"];
-    const buttons = [...document.querySelectorAll("[data-size]")];
-    const phoneA = document.getElementById("phoneA");
-    const frameA = document.getElementById("frameA");
-    const reloadBtn = document.getElementById("reload");
-    const pageSelect = document.getElementById("pageSelect");
-
-    function loadPage() {
-      const stamp = Date.now();
-      frameA.src = `${pageSelect.value}?v=${stamp}`;
-    }
-
-    function setSize(size) {
-      phoneA.classList.remove(...sizes);
-      phoneA.classList.add(size);
-      buttons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.size === size);
-      });
-    }
-
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => setSize(btn.dataset.size));
-    });
-
-    pageSelect.addEventListener("change", loadPage);
-    reloadBtn.addEventListener("click", loadPage);
-  </script>
-</body>
-</html>
