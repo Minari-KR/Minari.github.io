@@ -3,6 +3,7 @@ import path from 'node:path';
 import { escapeHtml, parsePost, fillTemplate } from './content.mjs';
 import { walk } from './files.mjs';
 import { addReferencedMedia } from './media.mjs';
+import { versionAssets } from './assets.mjs';
 import { checkSecrets, securityMeta, validateFiles } from './validation.mjs';
 
 export { walk } from './files.mjs';
@@ -34,6 +35,7 @@ export function compileSite(root) {
     }
   }
   addReferencedMedia(root, files);
+  versionAssets(files);
   files.set('.nojekyll', '');
   const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/js/preview.js'].includes(name)));
   validateFiles(files);

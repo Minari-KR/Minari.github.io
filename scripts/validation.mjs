@@ -1,6 +1,7 @@
 import path from 'node:path';
 import vm from 'node:vm';
 import { readHtmlTags, resourceReferences } from './html.mjs';
+import { assetVersion } from './assets.mjs';
 
 export function securityMeta(preview = false) {
   const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (preview ? "'self'" : "'none'");
@@ -44,7 +45,7 @@ export function validateFiles(files) {
     if (/<style\b|\sstyle\s*=|\son[a-z]+\s*=|<base\b|<form\b|<object\b|<embed\b|<svg\b/i.test(html)) throw new Error(`허용되지 않는 HTML 또는 인라인 코드: ${name}`);
     for (const { tag, attributes } of tags) {
       if (Object.hasOwn(attributes, 'srcset')) throw new Error(`srcset 리소스는 별도 검토가 필요합니다: ${name}`);
-      if (tag === 'script' && !/^(?:\.\/)?assets\/js\/[a-z-]+\.js$/.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
+      if (tag === 'script' && !/^(?:\.\/)?assets\/js\/[a-z-]+\.js(?:\?v=[a-f0-9]{12})?$/.test(attributes.src ?? '')) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
     }
     for (const m of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)) {
       if (m[2].trim()) throw new Error(`스크립트는 검토된 로컬 파일만 허용합니다: ${name}`);
@@ -65,9 +66,16 @@ export function validateFiles(files) {
         // Phone links contain only a number; service codes and parameters are not allowed.
       } else {
         if (/^[a-z][a-z0-9+.-]*:|^\/\//i.test(ref) || /[<>"'%]/.test(ref)) throw new Error(`허용되지 않는 주소: ${name}`);
-        const [relative, fragment] = ref.split('#');
+        let [relative, fragment] = ref.split('#');
+        let version;
+        if (relative.includes('?')) {
+          const query = /^(.*?)\?v=([a-f0-9]{12})$/.exec(relative);
+          if (!query || !['link', 'script'].includes(tag) || fragment) throw new Error(`허용되지 않는 리소스 버전 주소: ${name}`);
+          [, relative, version] = query;
+        }
         const target = relative ? path.posix.normalize(path.posix.join(path.posix.dirname(name), relative)) : name;
         if (!files.has(target)) throw new Error(`연결 대상이 없습니다: ${name} → ${target}`);
+        if (version && (!/^assets\/(?:css|js)\/.+\.(?:css|js)$/.test(target) || assetVersion(files.get(target)) !== version)) throw new Error(`리소스 버전이 실제 파일과 다릅니다: ${name} → ${target}`);
         if (fragment && !ids.get(target)?.has(fragment)) throw new Error(`연결된 위치가 없습니다: ${name} → ${target}#${fragment}`);
       }
     }

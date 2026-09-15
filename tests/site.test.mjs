@@ -236,6 +236,29 @@ test('same source produces byte-identical output', () => {
   for (const [key, value] of a.files) assert.ok(Buffer.from(value).equals(Buffer.from(b.files.get(key))));
 });
 
+test('CSS and script versions follow file contents and reject stale or arbitrary queries', t => {
+  const dir = fixture(t);
+  fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-version.md'), post('2026-09-15', '버전 검사'));
+  const before = compileSite(dir);
+  const versionOf = (result, page, file) => {
+    const ref = [...result.files.get(page).matchAll(/(?:href|src)="([^"]+)"/g)].map(m => m[1]).find(ref => ref.includes(file + '?'));
+    assert.ok(ref, `${page}: ${file}`);
+    return ref.split('?v=')[1];
+  };
+  const oldCss = versionOf(before, 'index.html', 'home.css');
+  const oldScript = versionOf(before, 'index.html', 'photos.js');
+  assert.equal(versionOf(before, 'index.html', 'common.css'), versionOf(before, 'journal/2026-09-15-version.html', 'common.css'));
+  fs.appendFileSync(path.join(dir, 'src/styles/home.css'), '\n/* cache revision */\n');
+  const after = compileSite(dir);
+  assert.notEqual(versionOf(after, 'index.html', 'home.css'), oldCss);
+  assert.equal(versionOf(after, 'index.html', 'photos.js'), oldScript);
+  for (const query of [`?v=${oldCss}`, '?v=../../private', '?anything=1']) {
+    const changed = new Map(after.files);
+    changed.set('index.html', changed.get('index.html').replace(/home\.css\?v=[a-f0-9]{12}/, 'home.css' + query));
+    assert.throws(() => validateFiles(changed));
+  }
+});
+
 function paginationFixture({ count = 11, storage = new Map(), pathname = '/index.html', blocked = false } = {}) {
   const cards = Array.from({ length: count }, () => ({ hidden: false }));
   const buttons = [];
