@@ -129,6 +129,42 @@ test('missing local links, duplicate IDs, inline handlers and external scripts f
   }
 });
 
+test('phone links permit numbers and reject service codes, parameters and non-link resources', () => {
+  const result = compileSite(root);
+  assert.ok(result.files.get('index.html').includes('href="tel:+821098926002"'));
+  for (const injection of ['<a href="tel:*123#">전화</a>', '<a href="tel:+821098926002;ext=1">전화</a>', '<a href="tel:+821098926002?body=test">전화</a>', '<img src="tel:+821098926002">']) {
+    const changed = new Map(result.files);
+    changed.set('index.html', changed.get('index.html').replace('</main>', injection + '</main>'));
+    assert.throws(() => validateFiles(changed), /허용되지 않는 주소/);
+  }
+});
+
+test('resource validation handles alternate quotes, case, entities and duplicate attributes', () => {
+  const { files } = compileSite(root);
+  const withMarkup = markup => new Map(files).set('index.html', files.get('index.html').replace('</main>', markup + '</main>'));
+  for (const markup of [
+    "<a href='missing.html'>link</a>", '<A HREF=missing.html>link</A>',
+    "<img SRC='https://example.com/picture.png'>", "<div ID='intro'></div>",
+    "<a HREF='java&#115;cript:evil'>link</a>",
+    "<a href='https://example.com' TARGET='_blank'>link</a>",
+    "<a href='#intro' HREF='missing.html'>link</a>",
+    "<script data-src='assets/js/journal.js'></script>",
+    "<img srcset='https://example.com/picture.png 2x'>"
+  ]) assert.throws(() => validateFiles(withMarkup(markup)), markup);
+  assert.doesNotThrow(() => validateFiles(withMarkup("<div ID='quoted' data-id='intro'></div><A HREF='#quoted'>link</A><a href='https://example.com?a=1&amp;b=2' target='_blank' rel='noreferrer noopener'>external</a>")));
+});
+
+test('media collection and link validation use the same attribute rules', t => {
+  const dir = fixture(t);
+  const home = path.join(dir, 'src/templates/home.html');
+  const source = fs.readFileSync(home, 'utf8').replaceAll('src="./assets/images/', "SRC='./assets/images/").replace(/(SRC='[^"\n]+)"/g, "$1'");
+  fs.writeFileSync(home, source.replace('src="./assets/videos/reflectory-gameplay.mp4"', "SRC='./assets/videos/reflectory-gameplay.mp4'"));
+  const result = compileSite(dir);
+  for (const name of ['assets/images/reflectory-gameplay.png', 'assets/videos/reflectory-gameplay.mp4']) {
+    assert.ok(result.publicFiles.get(name).equals(fs.readFileSync(path.join(dir, 'public', name))));
+  }
+});
+
 test('missing image and fake raster file fail before output is written', t => {
   const dir = fixture(t);
   fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '이미지') + '\n![화면](assets/images/missing.png)\n');
@@ -148,9 +184,50 @@ test('key-like content is blocked without echoing the value', t => {
 test('CSP denies inline execution and network requests, with preview-only frames', () => {
   assert.ok(securityMeta().includes("script-src 'self'"));
   assert.ok(securityMeta().includes("connect-src 'none'"));
+  assert.ok(securityMeta().includes("media-src 'self'"));
   assert.ok(securityMeta().includes("frame-src 'none'"));
   assert.ok(securityMeta(true).includes("frame-src 'self'"));
   assert.ok(!securityMeta().includes('unsafe-inline'));
+});
+
+test('published video is copied unchanged and unreferenced video is excluded', t => {
+  const dir = fixture(t);
+  const videos = path.join(dir, 'public/assets/videos');
+  const original = fs.readFileSync(path.join(videos, 'reflectory-gameplay.mp4'));
+  fs.writeFileSync(path.join(videos, 'unused.mp4'), original);
+  const result = compileSite(dir);
+  for (const files of [result.files, result.publicFiles]) {
+    assert.ok(files.get('assets/videos/reflectory-gameplay.mp4').equals(original));
+    assert.ok(!files.has('assets/videos/unused.mp4'));
+  }
+});
+
+test('video type and size are checked before publishing', t => {
+  const dir = fixture(t);
+  const video = path.join(dir, 'public/assets/videos/reflectory-gameplay.mp4');
+  fs.writeFileSync(video, 'version https://git-lfs.github.com/spec/v1\noid sha256:' + '0'.repeat(64) + '\nsize 1000\n');
+  assert.throws(() => compileSite(dir), /LFS 실제 영상/);
+  fs.writeFileSync(video, '<script>not a video</script>');
+  assert.throws(() => compileSite(dir), /영상 내용과 확장자/);
+  fs.truncateSync(video, 50 * 1024 * 1024 + 1);
+  assert.throws(() => compileSite(dir), /영상은 50MB/);
+  fs.unlinkSync(video);
+  assert.throws(() => compileSite(dir), /연결 대상/);
+});
+
+test('video sources and posters reject missing and external resources', () => {
+  const result = compileSite(root);
+  for (const injection of [
+    '<video src="./assets/videos/missing.mp4"></video>',
+    '<video src="./assets/videos/reflectory-gameplay.mp4" poster="./assets/images/missing.png"></video>',
+    '<video src="https://example.com/video.mp4"></video>',
+    '<video><source src="https://example.com/video.mp4"></video>',
+    '<video poster="https://example.com/poster.png"></video>'
+  ]) {
+    const changed = new Map(result.files);
+    changed.set('index.html', changed.get('index.html').replace('</main>', injection + '</main>'));
+    assert.throws(() => validateFiles(changed), /연결 대상|외부 리소스/);
+  }
 });
 
 test('same source produces byte-identical output', () => {
@@ -297,4 +374,23 @@ test('generated-file manifest cannot delete source through a parent path', t => 
   fs.writeFileSync(path.join(dir, '.generated-files.json'), JSON.stringify(['assets/css/../../src/styles/home.css']));
   assert.throws(() => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs')], { stdio: 'pipe' }));
   assert.ok(fs.readFileSync(target).equals(before));
+});
+
+test('rebuilding preserves unchanged file timestamps and repairs changed output', t => {
+  const dir = fixture(t);
+  fs.cpSync(path.join(root, 'scripts'), path.join(dir, 'scripts'), { recursive: true });
+  const build = (...args) => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs'), ...args], { stdio: 'pipe' });
+  build();
+  const names = ['index.html', 'dist/index.html', '.generated-files.json', 'assets/videos/reflectory-gameplay.mp4', 'dist/assets/videos/reflectory-gameplay.mp4'];
+  const oldTime = new Date('2020-01-01T00:00:00Z');
+  for (const name of names) fs.utimesSync(path.join(dir, name), oldTime, oldTime);
+  build();
+  for (const name of names) assert.equal(fs.statSync(path.join(dir, name)).mtimeMs, oldTime.getTime(), name);
+  const page = path.join(dir, 'dist/index.html');
+  const expected = fs.readFileSync(page, 'utf8');
+  fs.writeFileSync(page, expected.replace('Minari', 'Broken'));
+  assert.throws(() => build('--check'));
+  build();
+  assert.equal(fs.readFileSync(page, 'utf8'), expected);
+  build('--check');
 });

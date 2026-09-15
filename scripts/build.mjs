@@ -10,7 +10,7 @@ const manifestPath = path.join(root, '.generated-files.json');
 const previous = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
 
 function targetPath(base, name) {
-  if (typeof name !== 'string' || !/^(?:index\.html|mobile-preview\.html|\.nojekyll|journal\/[a-z0-9-]+\.html|assets\/(?:css|js|images)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
+  if (typeof name !== 'string' || !/^(?:index\.html|mobile-preview\.html|\.nojekyll|journal\/[a-z0-9-]+\.html|assets\/(?:css|js|images|videos)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
   if (name.split('/').some(part => part === '..' || part === '.')) throw new Error('상위 경로 이동은 허용되지 않습니다.');
   const target = path.resolve(base, name);
   if (!target.startsWith(path.resolve(base) + path.sep)) throw new Error('프로젝트 밖의 경로는 수정할 수 없습니다.');
@@ -24,9 +24,14 @@ function targetPath(base, name) {
 function writeFiles(base, files) {
   for (const [name, value] of files) {
     const target = targetPath(base, name);
+    if (matchesFile(target, value)) continue;
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, value);
   }
+}
+function matchesFile(target, value) {
+  const bytes = Buffer.isBuffer(value) ? value : Buffer.from(value);
+  return fs.existsSync(target) && fs.statSync(target).size === bytes.length && fs.readFileSync(target).equals(bytes);
 }
 // Check every removal and output directory before changing any generated file.
 if (!Array.isArray(previous)) throw new Error('생성 파일 목록은 배열이어야 합니다.');
@@ -50,7 +55,7 @@ if (checkOnly) {
   for (const [base, files] of [[root, compiled.files], [path.join(root, 'dist'), compiled.publicFiles]]) {
     for (const [name, value] of files) {
       const target = targetPath(base, name);
-      if (!fs.existsSync(target) || !fs.readFileSync(target).equals(Buffer.from(value))) throw new Error(`생성 결과가 최신이 아닙니다. npm run build 후 다시 확인하세요: ${name}`);
+      if (!matchesFile(target, value)) throw new Error(`생성 결과가 최신이 아닙니다. npm run build 후 다시 확인하세요: ${name}`);
     }
   }
 } else {
@@ -71,7 +76,8 @@ if (checkOnly) {
   }
   writeFiles(root, compiled.files);
   writeFiles(path.join(root, 'dist'), compiled.publicFiles);
-  fs.writeFileSync(manifestPath, JSON.stringify([...compiled.files.keys()].sort(), null, 2) + '\n');
+  const manifest = JSON.stringify([...compiled.files.keys()].sort(), null, 2) + '\n';
+  if (!matchesFile(manifestPath, manifest)) fs.writeFileSync(manifestPath, manifest);
 }
 const actualPublic = walk(path.join(root, 'dist')).map(file => path.relative(path.join(root, 'dist'), file).replaceAll('\\', '/')).sort();
 const expectedPublic = [...compiled.publicFiles.keys()].sort();
