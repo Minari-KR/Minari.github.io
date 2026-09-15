@@ -88,7 +88,11 @@
   .award-badge { max-width: 46%; white-space: normal; line-height: 1.5; text-align: center; }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .game-link::after, .activity-link::after { transition: transform 160ms ease; }
   .fade-up { animation: fadeUp 600ms ease both; }
   .delay-2 { animation-delay: 220ms; }
   @keyframes fadeUp { from { transform: translateY(14px); } to { transform: none; } }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .game-link:hover::after, .activity-link:hover::after { transform: translateX(3px) rotate(45deg); }
 }

@@ -1,0 +1,15 @@
+/* Progressive enhancement: photos keep their normal layout without JavaScript. */
+html { scrollbar-gutter: stable; }
+html.photo-viewer-open { overflow: hidden; }
+.photo-trigger { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: zoom-in; }
+.photo-trigger::after { content: "확대"; position: absolute; right: 10px; bottom: 10px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 252, .94); color: var(--accent-deep); font: 700 .75rem/1.5 var(--font-body); pointer-events: none; }
+.photo-trigger:active { opacity: .9; }
+.photo-viewer { position: fixed; max-width: calc(100% - 32px); max-height: calc(100% - 32px); margin: auto; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fffefa; color: var(--ink); overscroll-behavior: contain; }
+.photo-viewer::backdrop { background: rgba(15, 23, 20, .78); }
+.photo-viewer-close { position: sticky; top: 0; z-index: 1; display: block; min-width: 64px; min-height: 44px; margin: 0 0 8px auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--accent-deep); font: 700 .94rem/1.5 var(--font-body); cursor: pointer; }
+.photo-viewer-close:active { background: #e9efeb; }
+.photo-viewer-image { width: auto; height: auto; max-width: 100%; max-height: calc(100vh - 180px); max-height: calc(100dvh - 180px); margin: 0 auto; object-fit: contain; }
+.photo-viewer-caption { max-width: 70ch; max-height: 4.8em; margin: 12px auto 0; overflow-y: auto; color: var(--body-ink); font-size: var(--text-meta); line-height: 1.6; text-align: center; }
+@media (hover: hover) and (pointer: fine) {
+  .photo-trigger:hover::after, .photo-viewer-close:hover { background: #e9efeb; }
+}
