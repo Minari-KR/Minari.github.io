@@ -131,11 +131,21 @@ test('missing local links, duplicate IDs, inline handlers and external scripts f
 
 test('phone links permit numbers and reject service codes, parameters and non-link resources', () => {
   const result = compileSite(root);
-  assert.ok(result.files.get('index.html').includes('href="tel:+821098926002"'));
-  for (const injection of ['<a href="tel:*123#">전화</a>', '<a href="tel:+821098926002;ext=1">전화</a>', '<a href="tel:+821098926002?body=test">전화</a>', '<img src="tel:+821098926002">']) {
+  const valid = new Map(result.files);
+  valid.set('index.html', valid.get('index.html').replace('</main>', '<a href="tel:+12025550123">전화</a></main>'));
+  assert.doesNotThrow(() => validateFiles(valid));
+  for (const injection of ['<a href="tel:*123#">전화</a>', '<a href="tel:+12025550123;ext=1">전화</a>', '<a href="tel:+12025550123?body=test">전화</a>', '<img src="tel:+12025550123">']) {
     const changed = new Map(result.files);
     changed.set('index.html', changed.get('index.html').replace('</main>', injection + '</main>'));
     assert.throws(() => validateFiles(changed), /허용되지 않는 주소/);
+  }
+});
+
+test('published pages omit phone contact while preserving the email link', () => {
+  const { publicFiles } = compileSite(root);
+  assert.ok(publicFiles.get('index.html').includes('href="mailto:bkpark0226@naver.com">bkpark0226@naver.com</a>'));
+  for (const [name, value] of publicFiles) {
+    if (name.endsWith('.html')) assert.doesNotMatch(value.toString(), /href=["']tel:|contact-phone|010-9892-6002|821098926002/);
   }
 });
 
