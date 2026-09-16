@@ -9,7 +9,12 @@
   const close = document.createElement('button');
   close.type = 'button';
   close.className = 'photo-viewer-close';
-  close.textContent = '닫기 ×';
+  close.append(document.createTextNode('닫기'));
+  const closeIcon = document.createElement('img');
+  closeIcon.src = './assets/icons/x.svg';
+  closeIcon.alt = '';
+  closeIcon.setAttribute('aria-hidden', 'true');
+  close.append(closeIcon);
   const image = document.createElement('img');
   image.className = 'photo-viewer-image';
   viewer.append(close, image);
@@ -25,6 +30,14 @@
     button.setAttribute('aria-haspopup', 'dialog');
     photo.before(button);
     button.append(photo);
+    const zoomLabel = document.createElement('span');
+    zoomLabel.className = 'photo-trigger-label';
+    const zoomIcon = document.createElement('img');
+    zoomIcon.src = './assets/icons/zoom-in.svg';
+    zoomIcon.alt = '';
+    zoomIcon.setAttribute('aria-hidden', 'true');
+    zoomLabel.append(zoomIcon, document.createTextNode('확대'));
+    button.append(zoomLabel);
     button.addEventListener('click', () => {
       opener = button;
       image.src = photo.currentSrc || photo.src;

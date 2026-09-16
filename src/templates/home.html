@@ -34,12 +34,13 @@
             <p class="profile-school">우송대학교 <span class="profile-department">게임멀티미디어학과</span></p>
             <p class="profile-birthday"><span class="profile-label">생년월일</span> <time datetime="2003-02-26">2003.02.26</time></p>
           </div>
+          <a class="profile-itch" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/gamepad-2.svg" width="18" height="18" alt="" aria-hidden="true">itch.io 프로필</a>
         </div>
       </section>
       <nav class="section-shortcuts" aria-label="주요 섹션 바로가기">
-        <a href="#games">프로젝트</a>
-        <a href="#activities">활동</a>
-        <a href="#journal">일지</a>
+        <a href="#games"><img class="shortcut-icon" src="./assets/icons/briefcase.svg" width="16" height="16" alt="" aria-hidden="true">프로젝트</a>
+        <a href="#activities"><img class="shortcut-icon" src="./assets/icons/sparkles.svg" width="16" height="16" alt="" aria-hidden="true">활동</a>
+        <a href="#journal"><img class="shortcut-icon" src="./assets/icons/notebook-text.svg" width="16" height="16" alt="" aria-hidden="true">일지</a>
       </nav>
     </div>
 
@@ -69,8 +70,17 @@
       </div>
       <article class="game-card" aria-labelledby="reflectory-title">
         <div class="game-heading">
-          <h3 id="reflectory-title">Reflectory</h3>
-          <p class="game-meta">2026 대전 inD 게임잼 · 4인 팀 · 기획 담당</p>
+          <div class="game-identity">
+            <h3 id="reflectory-title">Reflectory</h3>
+            <p class="game-meta">
+              <span class="game-meta-event">2026 대전 inD 게임잼</span>
+              <span class="game-meta-details"><span>4인 팀</span> <span>기획 및 팀장</span> <span>퍼즐</span></span>
+            </p>
+          </div>
+          <div class="game-period">
+            <p class="game-period-label"><img class="calendar-icon" src="./assets/icons/calendar-days.svg" width="16" height="16" alt="" aria-hidden="true">개발 기간</p>
+            <p class="game-period-dates"><time datetime="2026-08-07">2026 . 8 . 7</time> <span class="game-period-end">~ <time datetime="2026-08-09">2026 . 8 . 9</time></span></p>
+          </div>
         </div>
         <figure class="game-figure game-video">
           <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/reflectory-gameplay.png" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
@@ -82,25 +92,97 @@
           <img src="./assets/images/reflectory-gameplay.png" width="954" height="596" alt="초록색 거울 사이로 파란 구체가 반사되는 Reflectory 플레이 화면. 왼쪽 위에 체력이 표시되고 적의 이동 방향은 화살표로 안내됩니다." decoding="async">
           <figcaption>인 게임 플레이 화면</figcaption>
         </figure>
-        <p class="game-description">웨이브가 시작되기 전, 적의 이동 경로를 파악하고 거울을 배치해 구체의 반사 경로를 설계하는 퍼즐 게임입니다. 구체가 적의 이동 경로를 지나도록 만들어 적을 물리칩니다.</p>
+        <hr class="game-divider">
         <div class="game-process">
-          <h4>‘무한’을 플레이로 표현하기</h4>
-          <p>기획 1명과 프로그래머 3명이 각자 AI로 프로토타입을 만들며 아이디어를 시험했습니다. 그 과정을 거쳐 거울을 비스듬히 배치하면 구체가 끊임없이 반사될 수 있다는 컨셉을 선택하고, 핵심 플레이와 게임 사이클을 고민했습니다.</p>
+          <h4>게임 소개</h4>
+          <p class="game-description">웨이브가 시작되기 전, 적의 이동 경로를 파악하고 거울을 배치해 구체의 반사 경로를 설계하는 퍼즐 게임입니다. 구체가 적의 이동 경로를 지나도록 만들어 적을 물리칩니다.</p>
         </div>
         <div class="game-process">
-          <h4>마지막 날 집중한 UI·UX 개선</h4>
-          <p>제한된 기간 안에 핵심 플레이를 경험할 수 있도록 만드는 데 우선순위를 두고, 마지막 날에는 플레이에 필요한 정보를 알아보기 쉽게 개선했습니다.</p>
+          <h4 class="game-process-heading"><span>담당 역할</span> <span>기획 및 팀장</span></h4>
+          <p>기획과 팀장을 맡아 게임 콘셉트·디자인 방향·UI를 조율하고 작업 우선순위를 정했습니다. 기획을 먼저 완성한 뒤 구현을 시작하기보다, 기획 1명과 프로그래머 3명이 각자 AI로 프로토타입을 만들며 아이디어를 시험했습니다. 저도 직접 프로토타입을 제작하고, 결과물을 함께 플레이하며 팀원들과 게임의 방향을 구체화했습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4>‘무한’을 플레이로 표현하기</h4>
+          <p>프로토타입을 비교하고 의견을 나눈 끝에, 팀은 거울을 비스듬히 배치하면 구체가 끊임없이 반사될 수 있다는 콘셉트를 선택했습니다. 게임잼 주제인 ‘무한’을 플레이로 표현하기 위해 핵심 플레이와 게임 사이클을 함께 고민했습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4>우선순위 조율과 테스트 기반 개선</h4>
+          <p>남은 시간 안에 큰 기능을 추가하기는 어렵다고 판단해, 세세한 레벨 디자인보다 핵심 플레이를 경험할 수 있도록 만드는 데 집중하도록 팀과 우선순위를 조율했습니다. 마지막 날에는 플레이에 필요한 정보를 명확히 전달하는 UI·UX 개선에 집중했습니다.</p>
+          <p>내부 빌드 테스트에서 체력 상태와 적의 이동 방향을 알아보기 어렵다는 의견이 나왔습니다. 팀원들과 논의하고 합의한 뒤 다음 내용을 반영했습니다.</p>
           <ul class="game-improvements">
             <li><strong>체력 표시</strong> — 피해를 받고 있는지 알아차리기 어려워 체력 UI의 색상과 배치를 조정했습니다.</li>
             <li><strong>이동 방향 안내</strong> — 적이 어느 방향으로 이동하는지 파악할 수 있도록 화살표를 추가했습니다.</li>
           </ul>
         </div>
         <div class="game-links">
-          <a class="game-link" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer">게임 플레이</a>
-          <a class="game-link" href="./journal/2026-08-12-gamejam-retrospective.html">게임잼 참여 후기</a>
+          <a class="game-link" href="./journal/2026-08-12-gamejam-retrospective.html"><span class="link-label">게임잼 참여 후기</span><img class="link-icon" src="./assets/icons/circle-arrow-right.svg" width="18" height="18" alt="" aria-hidden="true"></a>
         </div>
       </article>
-      <a class="game-profile" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer">itch.io 프로필 보기</a>
+      <article class="game-card" aria-labelledby="barrel-good-barrel-title">
+        <div class="game-heading">
+          <div class="game-identity">
+            <h3 id="barrel-good-barrel-title">Barrel Good Barrel</h3>
+            <p class="game-meta">
+              <span class="game-meta-event">대전 인디(inD) 게임어스</span>
+              <span class="game-meta-details"><span>3인 팀</span> <span>기획 및 팀장</span> <span>탑다운 슈팅</span></span>
+            </p>
+          </div>
+          <div class="game-period">
+            <p class="game-period-label"><img class="calendar-icon" src="./assets/icons/calendar-days.svg" width="16" height="16" alt="" aria-hidden="true">개발 기간</p>
+            <p class="game-period-dates"><time datetime="2025-03">2025 . 3</time> <span class="game-period-end">~ <time datetime="2025-10">2025 . 10</time></span></p>
+          </div>
+        </div>
+        <figure class="game-figure game-video">
+          <div class="game-media-placeholder">플레이 영상 준비 중</div>
+          <figcaption>Barrel Good Barrel 플레이 영상</figcaption>
+        </figure>
+        <figure class="game-figure">
+          <img src="./assets/images/barrel-good-barrel-prototype.png" width="1906" height="1104" alt="Barrel Good Barrel 프로토타입 플레이 화면. 어두운 공간에서 캐릭터와 체력·층수·장비 UI가 표시됩니다." loading="lazy" decoding="async">
+          <figcaption>Barrel Good Barrel 프로토타입</figcaption>
+        </figure>
+        <hr class="game-divider">
+        <div class="game-process">
+          <h4>게임 소개</h4>
+          <p class="game-description">Barrel Good Barrel은 전투 중 획득한 발사 방식과 강화 특성을 조합해 자신만의 탄창을 만드는 로그라이크 탑다운 슈팅 게임입니다. 플레이어는 특성 배치 화면에서 탄창의 6개 슬롯에 서로 다른 발사 방식을 지정하고, 특성을 직접 장착하거나 해제할 수 있습니다. 자신의 선택으로 공격 방식을 구성하고 점점 강해지는 재미를 중심으로 설계했습니다.</p>
+          <figure class="game-figure">
+            <img src="./assets/images/barrel-good-barrel-traits.png" width="1597" height="1030" alt="Barrel Good Barrel 프로토타입의 특성 배치 화면. 탄창 슬롯 6개와 슬롯 타입·특성 인벤토리가 표시됩니다." loading="lazy" decoding="async">
+            <figcaption>프로토타입의 탄창 특성 배치 화면</figcaption>
+          </figure>
+        </div>
+        <div class="game-process">
+          <h4 class="game-process-heading"><span>조합 사례</span> <span>산탄과 벽 반사</span></h4>
+          <p>여러 갈래로 탄을 발사하는 산탄형 특성과, 탄이 벽에 부딪히면 튕기도록 만드는 하위 특성을 함께 적용할 수 있습니다. 조합하면 퍼져 나간 탄들이 벽에서 반사되며 공격 경로가 달라집니다.</p>
+          <p>개인적으로 가장 마음에 들었던 조합으로, 서로 다른 특성이 맞물려 작동하는 모습을 통해 ‘플레이어가 자신만의 탄창을 구성한다’는 기획 의도를 구체적으로 확인할 수 있었습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4 class="game-process-heading"><span>담당 역할</span> <span>기획 및 팀장</span></h4>
+          <p>기획과 팀장을 맡아 탄창 조합 시스템의 아이디어를 제안하고 핵심 규칙을 직접 설계했습니다. 발사 방식에 추가 강화 특성을 조합할 수 있도록 구성해, 플레이어가 자신만의 조합을 만들고 성장을 체감하도록 기획했습니다.</p>
+          <p>초기에는 저와 프로그래머 1명이 함께 개발을 시작했습니다. 이후 아트 감각을 갖춘 프로그래머가 합류해 기획 1명·프로그래머 2명의 팀으로 진행했으며, 합류한 팀원과 아트 리소스와 시각적 분위기, 인게임 셰이더·효과 연출의 방향을 함께 조율했습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4 class="game-process-heading"><span>기획의 출발</span> <span>총이 아니라 총알이 강해진다면?</span></h4>
+          <p>로그라이크 탑다운 슈팅 게임의 성장 방식을 고민하던 중, ‘총이 아니라 총알이 강해지면 어떨까?’라는 질문에서 프로젝트를 시작했습니다. 무기 자체의 강화보다 총알의 발사 방식과 특성을 조합하는 경험에 집중하고자 했습니다. 초기 프로토타입은 완성된 아트 방향을 보여주기보다 게임의 방향과 핵심 플레이를 공유하기 위해 제작했습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4>제한된 아트 리소스 안에서 방향 잡기</h4>
+          <p>별도의 아트 담당자가 없는 학생 팀이었고, 유료 리소스 구매에도 부담이 있었습니다. 이를 고려해 무료 리소스 중 서로 분위기가 어울리는 것들을 선별하고 조합하는 방향으로 개발했습니다. 팀원과 리소스 선택과 연출 방향을 논의하며 게임의 시각적 분위기를 맞춰 나갔습니다.</p>
+        </div>
+        <div class="game-process">
+          <h4>BIC 출품을 준비하며 추가한 튜토리얼</h4>
+          <p>개발 초기에는 탄창을 구성하고 전투하는 핵심 플레이를 구현하는 데 집중했습니다. 이후 2025 BIC 출품을 준비하면서 튜토리얼이 있으면 좋겠다는 의견을 받아, 기본 조작과 탄창 구성 방법을 안내하는 간단한 튜토리얼을 추가했습니다.</p>
+          <p>아트 방향을 함께 조율했던 프로그래머와 튜토리얼을 논의하고, 직접 여러 차례 플레이하며 안내 흐름을 다듬었습니다. 각 단계에서 플레이어의 어떤 행동을 유도할지 고민하며, 자연스럽게 게임의 핵심 기능을 직접 조작하고 익힐 수 있도록 만드는 것을 목표로 했습니다.</p>
+          <figure class="game-figure">
+            <img src="./assets/images/barrel-good-barrel-tutorial.png" width="2559" height="1439" alt="Barrel Good Barrel의 인게임 튜토리얼 화면. 인벤토리 열기 조작과 다음 행동을 안내합니다." loading="lazy" decoding="async">
+            <figcaption>Barrel Good Barrel 인게임 튜토리얼</figcaption>
+          </figure>
+        </div>
+        <div class="game-process">
+          <h4>조합 설계에서 남은 과제</h4>
+          <p>초기에는 발사 방식과 하위 특성을 조합하는 구조를 비교적 단순하게 생각했습니다. 하지만 특성이 늘어나면서 서로 맞물리기보다 개별적으로 작동하는 경우가 많아졌습니다. 산탄과 벽 반사처럼 조합의 결과가 뚜렷한 사례도 있었지만, 모든 특성의 조합에서 어떤 반응이 일어날지 예상하며 설계하는 데 어려움이 있었습니다.</p>
+          <p>이 문제를 인지했지만 이후 개발이 이어지지 않아 개선까지 진행하지는 못했습니다. 이 경험을 통해 특성의 종류를 늘리는 것뿐 아니라, 특성 간 상호작용을 확인하고 다듬는 과정이 중요하다는 점을 배웠습니다.</p>
+        </div>
+        <!-- 게임 플레이·관련 기록 링크는 실제 주소를 받은 뒤 추가합니다. -->
+      </article>
     </section>
 
     <section class="panel activities fade-up delay-2" id="activities" tabindex="-1">
@@ -129,7 +211,7 @@
           <span class="activity-tag">2025</span>
           <h3>스토브 크루 2기</h3>
           <p>
-            스토브 인디 게임을 소개하는 숏폼 콘텐츠를 기획·제작했습니다. 누적 조회수 18만 회를 달성했습니다.
+            스토브 인디 게임을 소개하는 숏폼 콘텐츠를 기획·제작했습니다.
           </p>
         </div>
         <figure class="activity-figure">
@@ -196,7 +278,7 @@
     </section>
 
   </main>
-  <button class="back-to-top" type="button" aria-label="페이지 맨 위로 이동" title="맨 위로 이동" hidden><span aria-hidden="true"></span></button>
+  <button class="back-to-top" type="button" aria-label="페이지 맨 위로 이동" title="맨 위로 이동" hidden><img src="./assets/icons/circle-arrow-up.svg" width="18" height="18" alt="" aria-hidden="true"></button>
   <script src="./assets/js/journal.js" defer></script>
   <script src="./assets/js/photos.js" defer></script>
   <script src="./assets/js/home-actions.js" defer></script>

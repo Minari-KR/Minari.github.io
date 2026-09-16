@@ -18,7 +18,7 @@ export function compileSite(root) {
   if (new Set(allPosts.map(post => post.slug)).size !== allPosts.length) throw new Error('중복된 일지 주소가 있습니다.');
   const posts = allPosts.filter(post => !post.draft).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
   const files = new Map();
-  const cards = posts.map(post => `        <article class="journal-card">\n          <div>\n            <span class="activity-tag">${escapeHtml(post.display_date)}</span>\n            <h3>${escapeHtml(post.list_title)}</h3>\n          </div>\n          <a class="activity-link" href="./journal/${post.slug}.html">일지 보기</a>\n        </article>`).join('\n');
+  const cards = posts.map(post => `        <article class="journal-card">\n          <div>\n            <span class="activity-tag">${escapeHtml(post.display_date)}</span>\n            <h3>${escapeHtml(post.list_title)}</h3>\n          </div>\n          <a class="activity-link" href="./journal/${post.slug}.html"><span class="link-label">일지 보기</span><img class="link-icon" src="./assets/icons/circle-arrow-right.svg" width="18" height="18" alt="" aria-hidden="true"></a>\n        </article>`).join('\n');
   files.set('index.html', fillTemplate(template('home.html'), { security: securityMeta(), journal_cards: cards || '<p class="journal-empty">아직 등록된 일지가 없습니다.</p>' }));
   for (const post of posts) {
     files.set(`journal/${post.slug}.html`, fillTemplate(template('journal.html'), {
@@ -35,6 +35,11 @@ export function compileSite(root) {
     }
   }
   addReferencedMedia(root, files);
+  for (const file of walk(path.join(root, 'public/assets/icons'))) {
+    const relative = path.relative(path.join(root, 'public/assets/icons'), file).replaceAll('\\', '/');
+    if (!/^[a-z0-9_-]+\.(?:svg|txt)$/.test(relative)) throw new Error(`아이콘 파일명 또는 확장자를 확인하세요: ${relative}`);
+    files.set(`assets/icons/${relative}`, fs.readFileSync(file));
+  }
   versionAssets(files);
   files.set('.nojekyll', '');
   const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/js/preview.js'].includes(name)));

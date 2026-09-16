@@ -2,23 +2,27 @@
 :root { --paper: rgba(255, 255, 252, .97); --muted: #30352f; --line: rgba(32, 33, 31, .16); }
 main { position: relative; width: min(640px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 48px; }
 .back-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 20px; color: var(--accent-deep); font-size: .95rem; font-weight: 800; }
-.back-link::before { content: "←"; }
+.back-link img { flex: 0 0 18px; width: 18px; height: 18px; opacity: .62; }
 article { padding: 32px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); }
-time { display: block; color: var(--accent-deep); font-size: .84rem; font-weight: 800; line-height: 1; }
-h1 { margin: clamp(.75rem, 2vw, .875rem) 0 clamp(1.75rem, 4vw, 2rem); font-size: clamp(1.5rem, calc(.75rem + 3vw), 2.7rem); line-height: 1.4; letter-spacing: -.02em; }
-h2, h3 { margin: 40px 0 16px; color: var(--ink); font-size: 1.24rem; font-weight: 800; letter-spacing: -.02em; }
+time { display: block; color: var(--accent-deep); font-size: .84rem; font-weight: 800; line-height: 1.3; }
+h1 { margin: clamp(.75rem, 2vw, .875rem) 0 clamp(1.75rem, 4vw, 2rem); font-size: clamp(1.5rem, calc(.75rem + 3vw), 2.7rem); line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+h2, h3 { margin: var(--space-5) var(--space-2) var(--space-2); color: var(--ink); font-size: 1.24rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 h3 { font-size: 1.1rem; }
 h1 + h2 { margin-top: 0; }
-p, article li { margin: 0; color: var(--muted); font-size: 1.1rem; font-weight: 500; line-height: 1.8; letter-spacing: -.012em; }
+p, article li { margin: 0; color: var(--muted); font-size: 1.1rem; font-weight: 500; line-height: var(--line-reading); letter-spacing: var(--tracking-body); }
 article :is(ul, ol, figure) { margin: 0; }
 article :is(ul, ol) { padding-left: 24px; }
-article > :is(p, ul, ol, figure) + :is(p, ul, ol, figure) { margin-top: 16px; }
+article > :is(p, ul, ol, figure) + :is(p, ul, ol, figure) { margin-top: var(--space-2); }
 article li { word-break: keep-all; overflow-wrap: anywhere; }
-article li + li { margin-top: 8px; }
+article li + li { margin-top: var(--space-1); }
 article a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 4px; }
 figure img { border-radius: 12px; }
-figcaption { margin-top: 8px; color: var(--muted); font-size: .875rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+figcaption { margin-top: var(--space-1); color: var(--muted); font-size: .875rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
 @media (max-width: 520px) {
   article { padding: 28px 16px; }
-  p, article li { font-size: 1.06rem; line-height: 1.8; }
+  p, article li { font-size: 1.06rem; line-height: var(--line-reading); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .back-link img { transition: opacity 180ms ease, transform 180ms ease; }
+  .back-link:hover img { opacity: 1; transform: scale(1.04); }
 }

@@ -1,12 +1,14 @@
 /* Progressive enhancement: photos keep their normal layout without JavaScript. */
 html { scrollbar-gutter: stable; }
 html.photo-viewer-open { overflow: hidden; }
-.photo-trigger { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: zoom-in; }
-.photo-trigger::after { content: "확대"; position: absolute; right: 10px; bottom: 10px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 252, .94); color: var(--accent-deep); font: 700 .75rem/1.5 var(--font-body); pointer-events: none; }
+.photo-trigger { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: zoom-in; overflow: hidden; }
+.photo-trigger img { transition: transform 180ms ease; }
+.photo-trigger-label { position: absolute; right: 10px; bottom: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255, 255, 252, .94); color: var(--accent-deep); font: 700 .75rem/1.5 var(--font-body); pointer-events: none; }
+.photo-trigger-label img, .photo-viewer-close img { flex: 0 0 14px; width: 14px; height: 14px; }
 .photo-trigger:active { opacity: .9; }
 .photo-viewer { --viewer-edge: 16px; --viewer-padding: 16px; --viewer-close-height: max(44px, calc(1.41rem + 18px)); --viewer-ui-space: calc(var(--viewer-edge) + var(--viewer-edge) + var(--viewer-padding) + var(--viewer-padding) + 2px + var(--viewer-close-height) + 8px); position: fixed; max-width: calc(100% - var(--viewer-edge) - var(--viewer-edge)); max-height: calc(100% - var(--viewer-edge) - var(--viewer-edge)); margin: auto; padding: var(--viewer-padding); border: 1px solid var(--line); border-radius: 14px; background: #fffefa; color: var(--ink); overscroll-behavior: contain; }
 .photo-viewer::backdrop { background: rgba(15, 23, 20, .78); }
-.photo-viewer-close { position: sticky; top: 0; z-index: 1; display: block; min-width: 64px; min-height: var(--viewer-close-height); margin: 0 0 8px auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--accent-deep); font: 700 .94rem/1.5 var(--font-body); white-space: nowrap; cursor: pointer; }
+.photo-viewer-close { position: sticky; top: 0; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 64px; min-height: var(--viewer-close-height); margin: 0 0 8px auto; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--accent-deep); font: 700 .94rem/1.5 var(--font-body); white-space: nowrap; cursor: pointer; }
 .photo-viewer-close:active { background: #e9efeb; }
 .photo-viewer-image { width: auto; height: auto; max-width: 100%; max-height: calc(100vh - var(--viewer-ui-space)); max-height: calc(100dvh - var(--viewer-ui-space)); margin: 0 auto; object-fit: contain; }
 @media (max-width: 640px), (max-height: 480px) {
@@ -20,5 +22,8 @@ html.photo-viewer-open { overflow: hidden; }
   @keyframes photo-backdrop-in { from { background-color: transparent; } to { background-color: rgba(15, 23, 20, .78); } }
 }
 @media (hover: hover) and (pointer: fine) {
-  .photo-trigger:hover::after, .photo-viewer-close:hover { background: #e9efeb; }
+  .photo-trigger:hover .photo-trigger-label, .photo-viewer-close:hover { background: #e9efeb; }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .photo-trigger:hover img { transform: scale(1.015); }
 }

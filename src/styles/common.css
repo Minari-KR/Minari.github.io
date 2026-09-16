@@ -24,6 +24,11 @@
   --text-section-title: 1.72rem;
   --text-card-title-mobile: 1.34rem;
   --text-section-title-mobile: 1.5rem;
+  --line-heading: 1.4;
+  --line-body: 1.7;
+  --line-reading: 1.8;
+  --tracking-heading: -.02em;
+  --tracking-body: 0;
   --font-display: "Manrope", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
@@ -48,7 +53,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 a[href]:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 a[href]:active { background-color: rgba(47, 111, 94, .12); }
 @media (hover: hover) and (pointer: fine) {
-  a[href]:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+  a[href]:hover { text-decoration: none; }
 }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
