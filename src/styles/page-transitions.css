@@ -1,0 +1,13 @@
+/* Optional cross-document fade. Unsupported browsers keep normal navigation. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-group(root) { animation-duration: 200ms; }
+  ::view-transition-old(root) { animation: page-fade-out 200ms ease-out both; }
+  ::view-transition-new(root) { animation: page-fade-in 200ms ease-out both; }
+  @keyframes page-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

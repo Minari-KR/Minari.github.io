@@ -12,9 +12,7 @@
   close.textContent = '닫기 ×';
   const image = document.createElement('img');
   image.className = 'photo-viewer-image';
-  const caption = document.createElement('p');
-  caption.className = 'photo-viewer-caption';
-  viewer.append(close, image, caption);
+  viewer.append(close, image);
   document.body.append(viewer);
 
   let opener = null;
@@ -31,7 +29,6 @@
       opener = button;
       image.src = photo.currentSrc || photo.src;
       image.alt = photo.alt;
-      caption.textContent = description;
       viewer.showModal();
       document.documentElement.classList.add('photo-viewer-open');
       close.focus({ preventScroll: true });

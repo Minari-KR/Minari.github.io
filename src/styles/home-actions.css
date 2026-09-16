@@ -1,0 +1,14 @@
+/* Optional section shortcuts: remove this block and its nav without affecting other actions. */
+.section-shortcuts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: min(100%, 360px); margin: 16px auto 0; }
+.section-shortcuts a { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 4px; border: 1px solid rgba(31, 79, 67, .3); border-radius: 10px; background: #edf3ee; color: var(--accent-deep); font-size: .875rem; font-weight: 700; line-height: 1.5; text-align: center; }
+#games, #activities, #journal { scroll-margin-top: 16px; }
+@media (min-width: 641px) {
+  .section-shortcuts { width: 100%; gap: 12px; margin-top: 24px; }
+}
+
+.back-to-top { position: fixed; z-index: 2; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(31, 79, 67, .2); border-radius: 50%; background: #fffefa; color: var(--accent-deep); box-shadow: 0 2px 8px rgba(31, 41, 36, .08); cursor: pointer; }
+.back-to-top span { display: block; width: 10px; height: 10px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: translateY(2px) rotate(-45deg); }
+.section-shortcuts a:active, .back-to-top:active { background: #dce8df; }
+@media (hover: hover) and (pointer: fine) {
+  .section-shortcuts a:hover, .back-to-top:hover { background: #dce8df; }
+}

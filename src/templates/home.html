@@ -12,13 +12,15 @@
   <link rel="stylesheet" href="./assets/css/common.css">
   <link rel="stylesheet" href="./assets/css/home.css">
   <link rel="stylesheet" href="./assets/css/photos.css">
+  <link rel="stylesheet" href="./assets/css/home-actions.css">
+  <link rel="stylesheet" href="./assets/css/page-transitions.css">
 </head>
 <body>
   <main class="page">
     <section class="panel simple-intro" id="intro" aria-labelledby="intro-title">
       <div class="profile-heading">
         <div class="profile-name">
-          <h1 id="intro-title">Minari</h1>
+          <h1 id="intro-title" tabindex="-1">Minari</h1>
           <p class="profile-real-name">박종찬</p>
         </div>
         <dl class="profile-contact" id="contact">
@@ -31,6 +33,11 @@
         <p><span>생년월일</span> <time datetime="2003-02-26">2003.02.26</time></p>
       </div>
       <p class="simple-summary">아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.</p>
+      <nav class="section-shortcuts" aria-label="주요 섹션 바로가기">
+        <a href="#games">프로젝트</a>
+        <a href="#activities">활동</a>
+        <a href="#journal">일지</a>
+      </nav>
     </section>
 
     <section class="panel awards fade-up delay-2" id="awards">
@@ -53,7 +60,7 @@
       </ul>
     </section>
 
-    <section class="panel games fade-up delay-2" id="games">
+    <section class="panel games fade-up delay-2" id="games" tabindex="-1">
       <div class="section-title">
         <h2>참여 프로젝트</h2>
       </div>
@@ -66,7 +73,7 @@
           <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/reflectory-gameplay.png" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
             <a href="./assets/videos/reflectory-gameplay.mp4">Reflectory 플레이 영상 열기</a>
           </video>
-          <figcaption>Reflectory 플레이 영상 · 약 43초</figcaption>
+          <figcaption>Reflectory 플레이 영상</figcaption>
         </figure>
         <figure class="game-figure">
           <img src="./assets/images/reflectory-gameplay.png" width="954" height="596" alt="초록색 거울 사이로 파란 구체가 반사되는 Reflectory 플레이 화면. 왼쪽 위에 체력이 표시되고 적의 이동 방향은 화살표로 안내됩니다." decoding="async">
@@ -93,7 +100,7 @@
       <a class="game-profile" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer">itch.io 프로필 보기</a>
     </section>
 
-    <section class="panel activities fade-up delay-2" id="activities">
+    <section class="panel activities fade-up delay-2" id="activities" tabindex="-1">
       <div class="section-title">
         <h2>대외활동</h2>
       </div>
@@ -102,16 +109,16 @@
           <span class="activity-tag">2020</span>
           <h3>넷마블게임아카데미 5기</h3>
           <p>
-            게임 개발 교육을 받고 팀 프로젝트를 제작하는 활동으로, 게임 기획을 담당했습니다.
+            게임 개발 교육을 받고 팀 프로젝트를 제작하는 활동으로, ATM 팀에서 기획을 담당해 Rhythm Shooter를 제작했습니다.
           </p>
         </div>
         <figure class="activity-figure">
           <img src="./assets/images/netmarble-academy-5-ceremony.jpg" width="1000" height="667" alt="넷마블게임아카데미 5기 수료식에서 마스크를 쓴 참석자들이 상장과 수상 팻말을 들고 있는 모습" loading="lazy" decoding="async">
-          <figcaption>넷마블게임아카데미 5기 수료식은 코로나19로 인하여 대리수상으로 진행되었습니다.</figcaption>
+          <figcaption>넷마블게임아카데미 5기 수료식</figcaption>
         </figure>
         <figure class="activity-figure">
           <img src="./assets/images/rhythm-shooter-gameplay.jpg" width="1000" height="756" alt="ATM 팀의 Rhythm Shooter 플레이 화면. 총을 든 캐릭터와 콤보·점수가 표시됩니다." loading="lazy" decoding="async">
-          <figcaption>넷마블게임아카데미 5기 우수상작 ATM 팀 Rhythm Shooter</figcaption>
+          <figcaption>우수상 ATM 팀 Rhythm Shooter</figcaption>
         </figure>
       </article>
       <article class="activity-card">
@@ -127,9 +134,11 @@
         </figure>
         <figure class="activity-figure">
           <img src="./assets/images/stove-crew-2-group.png" width="866" height="453" alt="스토브 크루 행사에서 참가자들이 함께 촬영한 단체 사진" loading="lazy" decoding="async">
+          <figcaption>스토브 크루 수료식</figcaption>
         </figure>
         <figure class="activity-figure">
           <img src="./assets/images/stove-crew-2-ceremony.png" width="788" height="553" alt="스토브 크루 행사 무대에서 두 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
+          <figcaption>스토브 크루 베스트 리더상 수상</figcaption>
         </figure>
       </article>
       <article class="activity-card">
@@ -142,7 +151,7 @@
         </div>
         <figure class="activity-figure">
           <img src="./assets/images/daejeon-ind-gameus-award.jpg" width="2487" height="3162" alt="2025 대전 게임 브릿지 데이 인디 게임어스 대상 팻말을 들고 촬영한 기념사진" loading="lazy" decoding="async">
-          <figcaption>2025 대전게임브릿지대회</figcaption>
+          <figcaption>2025 대전게임브릿 대상</figcaption>
         </figure>
         <figure class="activity-figure">
           <img src="./assets/images/daejeon-ind-gameus-booth.jpg" width="3392" height="2544" alt="게임 홍보물과 플레이 화면이 있는 전시 부스에서 촬영한 사진" loading="lazy" decoding="async">
@@ -161,6 +170,7 @@
         </div>
         <figure class="activity-figure">
           <img src="./assets/images/daejeon-ind-gamejam-2026-award.jpg" width="4000" height="3000" alt="2026 대전 inD 게임잼 행사장에서 수상 팻말을 들고 함께 촬영한 기념사진" loading="lazy" decoding="async">
+          <figcaption>2026 대전 inD 게임잼 수상</figcaption>
         </figure>
         <figure class="activity-figure">
           <img src="./assets/images/daejeon-ind-gamejam-2026-team.jpg" width="4000" height="3000" alt="Reflectory 플레이 화면이 켜진 노트북을 들고 함께 촬영한 4인 팀 사진" loading="lazy" decoding="async">
@@ -168,7 +178,7 @@
       </article>
     </section>
 
-    <section class="panel journal fade-up delay-2" id="journal">
+    <section class="panel journal fade-up delay-2" id="journal" tabindex="-1">
       <div class="journal-intro">
         <div class="section-title">
           <h2>일지</h2>
@@ -183,7 +193,10 @@
     </section>
 
   </main>
+  <button class="back-to-top" type="button" aria-label="페이지 맨 위로 이동" title="맨 위로 이동" hidden><span aria-hidden="true"></span></button>
   <script src="./assets/js/journal.js" defer></script>
   <script src="./assets/js/photos.js" defer></script>
+  <script src="./assets/js/home-actions.js" defer></script>
+  <script src="./assets/js/image-loading.js" defer></script>
 </body>
 </html>

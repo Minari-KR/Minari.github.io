@@ -44,7 +44,7 @@
 .activity-card p { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: 1.7; letter-spacing: 0; }
 .award-list { display: grid; grid-auto-rows: 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .award-list li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1-5); width: 100%; padding: var(--card-padding); border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .58); color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: 1.7; letter-spacing: -.005em; }
-.award-event { min-width: 0; color: var(--ink); font-weight: 760; }
+.award-event { min-width: 0; color: var(--ink); font-weight: 760; white-space: nowrap; }
 .award-badge { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border-radius: 999px; background: rgba(201, 155, 66, .2); color: #6f4b17; font-size: var(--text-label); font-weight: 800; line-height: 1; white-space: nowrap; }
 .journal-intro { display: grid; gap: 8px; }
 .journal .section-title { margin: 0; }
@@ -66,9 +66,9 @@
   .section-title { align-items: flex-start; flex-direction: column; gap: 6px; }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
   .games, .awards, .activities, .journal { border-radius: 18px; }
-  .award-list li { gap: 8px; font-size: .96rem; }
-  .award-event { flex: 1 1 auto; font-size: .92rem; }
-  .award-badge { flex: 0 0 auto; padding: 5px 8px; font-size: .72rem; }
+  .award-list li { min-height: 56px; gap: 6px; padding: 10px clamp(8px, calc(5vw - 8px), 16px); font-size: clamp(.65rem, 3.3vw, .875rem); }
+  .award-event { flex: 0 0 auto; font-size: inherit; }
+  .award-badge { flex: 0 0 auto; padding: 6px; font-size: inherit; white-space: nowrap; line-height: 1.5; text-align: center; }
   .game-heading h3 { font-size: var(--text-card-title-mobile); }
   .game-description, .game-process p, .game-improvements { font-size: .96rem; }
   .activity-card { border-radius: 16px; }
@@ -85,7 +85,6 @@
   .profile-contact { gap: 0; padding-left: 0; border-left: 0; }
   .profile-contact > div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; }
   .simple-summary { margin-top: 14px; padding-top: 12px; }
-  .award-badge { max-width: 46%; white-space: normal; line-height: 1.5; text-align: center; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .game-link::after, .activity-link::after { transition: transform 160ms ease; }
