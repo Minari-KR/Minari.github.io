@@ -30,6 +30,20 @@ test('email remains a mail link without copy controls or clipboard code', () => 
   assert.doesNotMatch(source, /clipboard|email-copy|copy-status/);
 });
 
+test('profile A preserves information and puts shortcuts after the identity card', () => {
+  assert.match(template, /class="profile-school">우송대학교 <span class="profile-department">게임멀티미디어학과<\/span>/);
+  assert.match(template, /class="profile-label">생년월일<\/span>\s*<time datetime="2003-02-26">2003\.02\.26<\/time>/);
+  const card = template.slice(template.indexOf('<section class="profile-card"'), template.indexOf('<nav class="section-shortcuts"'));
+  assert.ok(card.indexOf('profile-name') < card.indexOf('simple-summary'));
+  assert.ok(card.indexOf('simple-summary') < card.indexOf('profile-contact'));
+  assert.ok(card.indexOf('profile-contact') < card.indexOf('profile-background'));
+  assert.match(card, /<\/section>\s*$/);
+  assert.match(card, /class="profile-identity"[\s\S]*class="profile-name"[\s\S]*class="simple-summary"/);
+  assert.match(card, /class="profile-details"[\s\S]*class="profile-contact"[\s\S]*class="profile-background"/);
+  assert.equal((card.match(/class="contact-email"/g) || []).length, 1);
+  assert.doesNotMatch(template, /profile-school-label/);
+});
+
 test('back-to-top follows scroll, resize and restored-page position', () => {
   const state = setup();
   assert.equal(state.top.hidden, true);

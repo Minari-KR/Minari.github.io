@@ -4,19 +4,23 @@
 .games, .activities, .awards, .journal, .simple-intro { width: min(100%, 640px); margin: 0 auto var(--panel-gap); padding: var(--panel-padding); }
 .section-title { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--heading-gap); }
 .section-title h2 { margin-bottom: 0; font-family: var(--font-display); font-size: var(--text-section-title); font-weight: 740; line-height: 1.3; letter-spacing: -.01em; }
-.simple-intro { padding: 32px; border-radius: 12px; border-top: 5px solid var(--accent-deep); background: #fffefa; box-shadow: 0 12px 32px rgba(31, 41, 36, .1); }
-.simple-intro h1 { margin: 0 0 12px; color: var(--accent-deep); font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; line-height: 1.15; letter-spacing: -.03em; }
-.profile-real-name { margin: 0 0 4px; font-size: 1.2rem; font-weight: 700; line-height: 1.5; }
-.simple-summary { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ink); font-size: var(--text-small); font-weight: 700; line-height: 1.8; }
+.simple-intro { padding: 0; }
+.simple-intro h1 { margin: 0; color: var(--accent-deep); font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -.03em; }
+.profile-real-name { margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
+.simple-summary { margin: 12px 0 0; color: var(--ink); font-size: 1rem; font-weight: 700; line-height: 1.7; }
+.summary-line { display: block; }
 .contact-email { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; color: #163b32; font-weight: 700; text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: 4px; overflow-wrap: anywhere; }
-.profile-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 24px; align-items: center; margin-bottom: 24px; }
-.profile-name { min-width: 0; }
-.profile-contact { display: grid; gap: 10px; margin: 0; padding-left: 24px; border-left: 1px solid var(--line); font-size: var(--text-small); line-height: 1.5; min-width: 0; }
-.profile-contact dt { color: var(--ink); font-size: .875rem; font-weight: 700; }
+.profile-card { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 24px; align-items: center; min-height: 250px; padding: 32px; border: 1px solid var(--line); border-top: 4px solid var(--accent-deep); border-radius: 12px; background: var(--paper-solid); box-shadow: var(--shadow); }
+.profile-identity, .profile-details { min-width: 0; }
+.profile-name { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; min-width: 0; }
+.profile-details { padding-left: 24px; border-left: 1px solid var(--line); }
+.profile-contact { margin: 0; font-size: 1rem; line-height: 1.5; min-width: 0; }
+.profile-contact dt { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .profile-contact dd { margin: 0; min-width: 0; }
-.profile-background { display: grid; gap: 6px; color: var(--ink); font-size: var(--text-small); font-weight: 700; line-height: 1.7; }
+.profile-background { display: grid; gap: 10px; margin-top: 8px; color: var(--ink); font-size: .9375rem; font-weight: 700; line-height: 1.7; }
+.profile-department { display: block; }
 .profile-background p { margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
-.profile-background span { margin-right: 8px; color: var(--ink); }
+.profile-background .profile-label { margin-right: 8px; color: var(--ink); }
 .game-card { display: grid; gap: var(--card-gap); padding: var(--card-padding); border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .58); }
 .game-card + .game-card { margin-top: var(--card-gap); }
 .game-heading { display: grid; gap: 8px; min-width: 0; }
@@ -32,7 +36,8 @@
 .game-improvements { display: grid; gap: 8px; padding-left: 20px; }
 .game-improvements li { word-break: keep-all; overflow-wrap: anywhere; }
 .game-links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
-.game-profile { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--muted); font-size: var(--text-meta); text-decoration: underline; text-underline-offset: 4px; }
+.game-profile { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding: 0 8px; border-radius: 6px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; text-decoration: none; }
+a.game-profile:focus-visible { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
 .game-link, .activity-link { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; min-height: 44px; gap: 8px; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: 1.7; letter-spacing: 0; }
 .game-link::after, .activity-link::after { content: ""; flex: 0 0 7px; width: 7px; height: 7px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: rotate(45deg); }
 .activity-link { margin-top: 2px; }
@@ -61,8 +66,15 @@
 .journal-empty { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--text-small); }
 @media (max-width: 640px) {
   .page { --panel-gap: 16px; --panel-padding: 18px; --card-gap: 12px; --heading-gap: 12px; width: min(var(--max-width), calc(100% - 18px)); padding-top: var(--space-1-5); padding-bottom: 32px; }
-  .simple-intro { padding: 24px; }
   .simple-intro h1 { font-size: 2rem; }
+  .profile-real-name { font-size: 1rem; }
+  .profile-card { display: block; min-height: 0; padding: 24px; }
+  .profile-name { column-gap: 14px; }
+  .simple-summary { margin-top: 14px; font-size: .875rem; line-height: 1.75; }
+  .profile-details { margin-top: 18px; padding: 10px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .profile-contact { font-size: .875rem; }
+  .profile-background { margin-top: 2px; gap: 6px; font-size: .8125rem; line-height: 1.65; }
+  .profile-department { display: inline-block; }
   .section-title { align-items: flex-start; flex-direction: column; gap: 6px; }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
   .games, .awards, .activities, .journal { border-radius: 18px; }
@@ -77,20 +89,15 @@
   .journal-intro p, .activity-link, .game-link { font-size: .96rem; }
   .journal-card .activity-link, .journal-pagination button, .journal-empty { font-size: var(--text-meta); }
 }
-@media (max-width: 520px) {
-  .profile-heading { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-bottom: 12px; }
-  .profile-name { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 20px; align-items: center; }
-  .profile-name h1 { margin: 0; }
-  .profile-real-name { margin: 0; }
-  .profile-contact { gap: 0; padding-left: 0; border-left: 0; }
-  .profile-contact > div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center; }
-  .simple-summary { margin-top: 14px; padding-top: 12px; }
-}
 @media (prefers-reduced-motion: no-preference) {
   .game-link::after, .activity-link::after { transition: transform 160ms ease; }
   .fade-up { animation: fadeUp 600ms ease both; }
   .delay-2 { animation-delay: 220ms; }
   @keyframes fadeUp { from { transform: translateY(14px); } to { transform: none; } }
+}
+@media (hover: hover) and (pointer: fine) {
+  a.game-profile:hover { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
+  a.game-profile:active { background-color: rgba(47, 111, 94, .12); }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .game-link:hover::after, .activity-link:hover::after { transform: translateX(3px) rotate(45deg); }

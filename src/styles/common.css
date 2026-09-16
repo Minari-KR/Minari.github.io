@@ -2,12 +2,13 @@
 :root {
   --bg: #fff;
   --paper: rgba(255, 255, 252, .82);
+  --paper-solid: #fffefa;
   --ink: #20211f;
   --muted: #4f544d;
   --body-ink: #363b35;
   --line: rgba(32, 33, 31, .12);
   --accent-deep: #1f4f43;
-  --shadow: 0 24px 60px rgba(31, 41, 36, .12);
+  --shadow: 0 24px 60px rgba(31, 41, 36, .096);
   --max-width: 920px;
   --space-1: 8px;
   --space-1-5: 12px;
