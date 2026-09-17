@@ -49,8 +49,6 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
 .game-description, .game-process p, .game-improvements { margin: 0; color: var(--body-ink); font-size: var(--text-body); line-height: var(--line-body); letter-spacing: var(--tracking-body); }
 .game-process { display: grid; gap: var(--space-1); min-width: 0; }
 .game-process h4 { margin: 0; font-size: 1rem; line-height: 1.5; letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; }
-.game-process-heading { display: flex; flex-wrap: wrap; gap: 4px var(--space-1); }
-.game-process-heading > span { min-width: 0; max-width: 100%; }
 .game-improvements { display: grid; gap: var(--space-1); padding-left: 20px; }
 .game-improvements li { word-break: keep-all; overflow-wrap: anywhere; }
 .game-links { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
@@ -107,7 +105,6 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
   .game-process h4 { line-height: 1.5; letter-spacing: var(--tracking-heading); }
   .game-meta-details { flex-wrap: nowrap; gap: 4px var(--space-1); }
   .game-meta-details > span { flex: 0 0 auto; max-width: none; white-space: nowrap; }
-  .game-process .game-process-heading { flex-wrap: nowrap; gap: 4px; font-size: clamp(.6rem, 3.1vw, .8125rem); letter-spacing: -.04em; }
   .activity-card { border-radius: 16px; }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
   .activity-card p { font-size: .96rem; }
