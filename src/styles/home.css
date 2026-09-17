@@ -96,16 +96,18 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
   .section-title { align-items: flex-start; flex-direction: column; gap: var(--space-1); }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
   .games, .awards, .activities, .journal { border-radius: 18px; }
-  .award-list li { flex-wrap: wrap; min-height: 56px; gap: var(--space-1); padding: 10px clamp(8px, calc(5vw - 8px), 16px); font-size: .875rem; }
-  .award-event { flex: 1 1 10rem; font-size: inherit; }
-  .award-badge { flex: 0 1 auto; margin-left: auto; padding: 6px; font-size: inherit; }
+  .award-list li { flex-wrap: nowrap; min-height: 56px; gap: 6px; padding: 10px clamp(8px, calc(5vw - 8px), 16px); font-size: clamp(.67rem, 3.25vw, .875rem); }
+  .award-event { flex: 1 1 auto; min-width: 0; font-size: inherit; white-space: nowrap; }
+  .award-badge { flex: 0 0 auto; margin-left: 0; padding: 6px; font-size: inherit; white-space: nowrap; }
   .game-heading h3 { font-size: var(--text-card-title-mobile); line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
   .game-heading { grid-template-columns: minmax(0, 1fr); gap: var(--space-1-5); }
   .game-meta, .game-period-label, .game-period-dates { line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-period { padding: var(--space-1) 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .game-description, .game-process p, .game-improvements { font-size: .96rem; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-process h4 { line-height: 1.5; letter-spacing: var(--tracking-heading); }
-  .game-process-heading > span { flex-basis: 100%; }
+  .game-meta-details { flex-wrap: nowrap; gap: 4px var(--space-1); }
+  .game-meta-details > span { flex: 0 0 auto; max-width: none; white-space: nowrap; }
+  .game-process .game-process-heading { flex-wrap: nowrap; gap: 4px; font-size: clamp(.6rem, 3.1vw, .8125rem); letter-spacing: -.04em; }
   .activity-card { border-radius: 16px; }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
   .activity-card p { font-size: .96rem; }
