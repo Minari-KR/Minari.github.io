@@ -112,6 +112,8 @@ body {
   color: var(--muted);
 }
 
+.preview-note { margin: 0 0 12px; color: var(--muted); font-size: .84rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+
 .phone {
   box-sizing: content-box;
   margin: 0 auto;

@@ -1,0 +1,3 @@
+/* Applied only inside the local preview. Keep scrolling without a desktop gutter. */
+html.preview-frame { scrollbar-width: none; }
+html.preview-frame::-webkit-scrollbar { width: 0; height: 0; }

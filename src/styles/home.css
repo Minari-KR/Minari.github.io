@@ -10,7 +10,7 @@
 .simple-summary { margin: 12px 0 0; color: var(--ink); font-size: 1rem; font-weight: 700; line-height: 1.7; }
 .summary-line { display: block; }
 .contact-email { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: 0 8px; margin: 0 -8px; border-radius: 6px; color: #163b32; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; transition: color 160ms ease, background-color 160ms ease, transform 160ms ease; }
-.profile-card { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 24px; align-items: center; min-height: 250px; padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-solid); box-shadow: var(--shadow); overflow: hidden; }
+.profile-card { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 24px; align-items: start; min-height: 250px; padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-solid); box-shadow: var(--shadow); overflow: hidden; }
 .profile-card::before { position: absolute; inset: 0 0 auto; height: 4px; background: var(--accent-deep); content: ""; }
 .profile-identity, .profile-details { min-width: 0; }
 .profile-name { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; min-width: 0; }
@@ -27,7 +27,7 @@
 a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
 .game-card { display: grid; gap: var(--card-gap); padding: var(--card-padding); border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .58); }
 .game-card + .game-card { margin-top: var(--card-gap); }
-.game-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-2); min-width: 0; }
+.game-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--space-2); min-width: 0; }
 .game-identity { display: grid; gap: var(--space-1); min-width: 0; }
 .game-heading h3 { margin: 0; font-family: var(--font-display); font-size: var(--text-card-title); line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .game-meta { margin: 0; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-body); }
@@ -94,23 +94,22 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
   .section-title { align-items: flex-start; flex-direction: column; gap: var(--space-1); }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
   .games, .awards, .activities, .journal { border-radius: 18px; }
-  .award-list li { flex-wrap: nowrap; min-height: 56px; gap: 6px; padding: 10px clamp(8px, calc(5vw - 8px), 16px); font-size: clamp(.67rem, 3.25vw, .875rem); }
-  .award-event { flex: 1 1 auto; min-width: 0; font-size: inherit; white-space: nowrap; }
-  .award-badge { flex: 0 0 auto; margin-left: 0; padding: 6px; font-size: inherit; white-space: nowrap; }
+  .award-list li { flex-wrap: wrap; min-height: 56px; gap: 6px; padding: 10px 12px; font-size: var(--text-meta); }
+  .award-event { flex: 1 1 auto; min-width: 0; max-width: 100%; font-size: inherit; }
+  .award-badge { flex: 0 1 auto; margin-left: auto; padding: 6px; font-size: inherit; }
   .game-heading h3 { font-size: var(--text-card-title-mobile); line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
   .game-heading { grid-template-columns: minmax(0, 1fr); gap: var(--space-1-5); }
   .game-meta, .game-period-label, .game-period-dates { line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-period { padding: var(--space-1) 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .game-description, .game-process p, .game-improvements { font-size: .96rem; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-process h4 { line-height: 1.5; letter-spacing: var(--tracking-heading); }
-  .game-meta-details { flex-wrap: nowrap; gap: 4px var(--space-1); }
-  .game-meta-details > span { flex: 0 0 auto; max-width: none; white-space: nowrap; }
+  .game-meta-details { gap: 4px var(--space-1); }
   .activity-card { border-radius: 16px; }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
   .activity-card p { font-size: .96rem; }
   .journal-intro p, .activity-link, .game-link { font-size: .96rem; }
-  .journal-card { grid-template-columns: minmax(0, 1fr); }
-  .journal-card .activity-link { justify-self: end; white-space: normal; }
+  .journal-card { grid-template-columns: minmax(0, 1fr) auto; }
+  .journal-card .activity-link { justify-self: auto; white-space: nowrap; }
   .journal-pagination button, .journal-empty { font-size: var(--text-meta); }
 }
 @media (prefers-reduced-motion: no-preference) {

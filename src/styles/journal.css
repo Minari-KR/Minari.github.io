@@ -19,6 +19,7 @@ article a { color: var(--accent-deep); text-decoration: underline; text-underlin
 figure img { border-radius: 12px; }
 figcaption { margin-top: var(--space-1); color: var(--muted); font-size: .875rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
 @media (max-width: 520px) {
+  h1 { margin: .875rem 0 1.75rem; font-size: 1.5rem; }
   article { padding: 28px 16px; }
   p, article li { font-size: 1.06rem; line-height: var(--line-reading); }
 }

@@ -42,7 +42,7 @@ export function compileSite(root) {
   }
   versionAssets(files);
   files.set('.nojekyll', '');
-  const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/js/preview.js'].includes(name)));
+  const publicFiles = new Map([...files].filter(([name]) => !['mobile-preview.html', 'assets/css/preview.css', 'assets/css/preview-frame.css', 'assets/js/preview.js'].includes(name)));
   validateFiles(files);
   validateFiles(publicFiles);
   return { files, publicFiles, posts };

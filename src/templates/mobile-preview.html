@@ -6,13 +6,14 @@
   {{security}}
   <title>Mobile Preview | Minari</title>
   <link rel="stylesheet" href="./assets/css/preview.css">
+  <link id="frameStyles" rel="stylesheet" href="./assets/css/preview-frame.css">
 </head>
 <body>
   <main class="page">
     <div class="toolbar">
-      <button data-size="w390" class="active">iPhone 12 (390x844)</button>
-      <button data-size="w412">Pixel 7 (412x915)</button>
-      <button data-size="w360">Galaxy S8+ (360x800)</button>
+      <button data-size="w412" class="active">기준 화면 (412x915)</button>
+      <button data-size="w390">390px 화면 (390x844)</button>
+      <button data-size="w360">360px 화면 (360x800)</button>
       <button data-size="w320">작은 화면 (320x740)</button>
       <button id="reload">새로고침</button>
       <label class="page-select" for="pageSelect">
@@ -22,13 +23,15 @@
 {{journal_options}}
         </select>
       </label>
-      <span class="hint">저장 후 `새로고침` 클릭</span>
+      <span class="hint">수정 후 빌드 → 새로고침</span>
     </div>
 
     <div class="grid">
       <section class="frame-card">
         <h1 class="frame-title">모바일 미리보기</h1>
-        <div id="phoneA" class="phone w390">
+        <p class="preview-note">현재 로컬 파일을 보여줍니다. S24+와 비교할 기준 폭은 우선 412px이며, 실제 폭은 휴대폰의 화면 확대 설정에 따라 달라집니다. 다른 폭에서도 글자 크기와 배치를 비교해 보세요.</p>
+        <p class="preview-note" id="frameStatus" role="status">프리뷰를 불러오는 중입니다.</p>
+        <div id="phoneA" class="phone w412">
           <iframe id="frameA" src="./index.html" title="모바일 페이지 미리보기"></iframe>
         </div>
       </section>
