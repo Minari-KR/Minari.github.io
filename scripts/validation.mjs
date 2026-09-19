@@ -2,6 +2,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { readHtmlTags, resourceReferences } from './html.mjs';
 import { assetVersion } from './assets.mjs';
+import { socialTarget } from './social.mjs';
 
 export function securityMeta(preview = false) {
   const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (preview ? "'self'" : "'none'");
@@ -52,7 +53,15 @@ export function validateFiles(files) {
     }
     if (!html.includes(securityMeta(name === 'mobile-preview.html'))) throw new Error(`보안 정책이 누락되었거나 변경됐습니다: ${name}`);
     if (html.indexOf('Content-Security-Policy') > html.indexOf('<link')) throw new Error(`보안 정책은 리소스보다 먼저 선언해야 합니다: ${name}`);
-    for (const { tag, attributes, ref } of resourceReferences(pages.get(name))) {
+    for (const { tag, attributes, attribute, ref } of resourceReferences(pages.get(name))) {
+      if (tag === 'meta') {
+        const target = socialTarget(ref);
+        const isPage = attributes.property === 'og:url';
+        if (isPage ? target !== name : !target.startsWith('assets/images/')) throw new Error(`공유 대상 종류 또는 페이지 주소가 잘못됐습니다: ${name}`);
+        if (!files.has(target)) throw new Error(`공유 연결 대상이 없습니다: ${name} → ${target}`);
+        continue;
+      }
+      if (attribute === 'data-full-src' && !/^(?:\.\/|\.\.\/)?assets\/images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.(?:png|jpe?g|webp|gif|avif)$/.test(ref)) throw new Error(`확대 사진은 로컬 이미지 경로만 허용합니다: ${name}`);
       if (!ref) continue;
       if (/[\u0000-\u0020\u007f\\]/.test(ref)) throw new Error(`잘못된 주소: ${name}`);
       if (/^https:\/\//.test(ref)) {

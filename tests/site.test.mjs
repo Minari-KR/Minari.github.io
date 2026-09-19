@@ -175,6 +175,25 @@ test('media collection and link validation use the same attribute rules', t => {
   }
 });
 
+test('card previews and full-size images are both published and full-size paths are validated', () => {
+  const { publicFiles } = compileSite(root);
+  const html = publicFiles.get('index.html');
+  const originals = [...html.matchAll(/data-full-src="\.\/([^\"]+)"/g)].map(match => match[1]);
+  assert.equal(originals.length, 14);
+  for (const original of originals) {
+    const preview = original.replace(/\/([^/]+)\.(png|jpg)$/, '/cards/$1.webp');
+    assert.ok(publicFiles.get(original).equals(fs.readFileSync(path.join(root, 'public', original))));
+    assert.ok(publicFiles.has(preview));
+    assert.ok(publicFiles.get(preview).length < publicFiles.get(original).length);
+  }
+  assert.ok(publicFiles.has('assets/images/barrel-good-barrel-poster.webp'));
+  for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/photos.js']) {
+    const changed = new Map(publicFiles);
+    changed.set('index.html', html.replace(/data-full-src="[^"]+"/, `data-full-src="${ref}"`));
+    assert.throws(() => validateFiles(changed));
+  }
+});
+
 test('missing image and fake raster file fail before output is written', t => {
   const dir = fixture(t);
   fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '이미지') + '\n![화면](assets/images/missing.png)\n');

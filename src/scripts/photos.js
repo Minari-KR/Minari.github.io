@@ -40,7 +40,7 @@
     button.append(zoomLabel);
     button.addEventListener('click', () => {
       opener = button;
-      image.src = photo.currentSrc || photo.src;
+      image.src = photo.getAttribute('data-full-src') || photo.currentSrc || photo.src;
       image.alt = photo.alt;
       viewer.showModal();
       document.documentElement.classList.add('photo-viewer-open');

@@ -1,21 +1,24 @@
 /* Optional section shortcuts: remove this block and its nav without affecting other actions. */
 .section-shortcuts { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 12px auto 0; }
-.section-shortcuts a { display: flex; align-items: center; justify-content: center; min-height: 44px; gap: 8px; padding: 8px 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-solid); color: var(--accent-deep); font-size: .875rem; font-weight: 700; line-height: 1.5; text-align: center; transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease; }
+.section-shortcuts a, .project-shortcuts a { display: flex; align-items: center; justify-content: center; min-height: 44px; gap: 8px; padding: 8px 4px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-solid); color: var(--accent-deep); font-size: .875rem; font-weight: 700; line-height: 1.5; text-align: center; transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease; }
+.project-shortcuts { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--heading-gap); }
+.project-shortcuts a { flex: 1 1 200px; min-width: 0; padding-inline: var(--space-1-5); }
+.game-card:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
 .shortcut-icon { flex: 0 0 16px; width: 16px; height: 16px; }
-#games, #activities, #journal { scroll-margin-top: 16px; }
+#games, #activities, #journal, #reflectory, #barrel-good-barrel { scroll-margin-top: 16px; }
 @media (min-width: 641px) {
   .section-shortcuts { gap: 12px; }
 }
 
 .back-to-top { position: fixed; z-index: 2; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(31, 79, 67, .2); border-radius: 50%; background: var(--paper-solid); color: var(--accent-deep); box-shadow: 0 2px 8px rgba(31, 41, 36, .064); cursor: pointer; }
 .back-to-top img { width: 18px; height: 18px; opacity: .62; transition: opacity 180ms ease, transform 180ms ease; }
-.section-shortcuts a:active, .back-to-top:active { background: #dce8df; }
+.section-shortcuts a:active, .project-shortcuts a:active, .back-to-top:active { background: #dce8df; }
 @media (hover: hover) and (pointer: fine) {
-.section-shortcuts a:hover, .back-to-top:hover { background: #dce8df; }
-  .section-shortcuts a:hover { text-decoration: none; }
+  .section-shortcuts a:hover, .project-shortcuts a:hover, .back-to-top:hover { background: #dce8df; }
+  .section-shortcuts a:hover, .project-shortcuts a:hover { text-decoration: none; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .section-shortcuts a:hover { border-color: rgba(31, 79, 67, .24); box-shadow: 0 8px 18px rgba(31, 41, 36, .08); transform: translateY(-2px); }
+  .section-shortcuts a:hover, .project-shortcuts a:hover { border-color: rgba(31, 79, 67, .24); box-shadow: 0 8px 18px rgba(31, 41, 36, .08); transform: translateY(-2px); }
   .back-to-top:hover { transform: translateY(-2px); }
   .back-to-top:hover img { opacity: 1; transform: scale(1.04); }
 }

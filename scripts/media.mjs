@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { walk } from './files.mjs';
 import { readHtmlTags, resourceReferences } from './html.mjs';
+import { socialTarget } from './social.mjs';
 
 function readHeader(file, length) {
   const descriptor = fs.openSync(file, 'r');
@@ -20,8 +21,8 @@ export function addReferencedMedia(root, files) {
   const referencedVideos = new Set();
   for (const [name, value] of files) {
     if (!name.endsWith('.html') || name === 'mobile-preview.html') continue;
-    for (const { ref } of resourceReferences(readHtmlTags(value.toString()))) {
-      const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), ref.split('#')[0]));
+    for (const { tag, ref } of resourceReferences(readHtmlTags(value.toString()))) {
+      const target = tag === 'meta' ? socialTarget(ref) : path.posix.normalize(path.posix.join(path.posix.dirname(name), ref.split('#')[0]));
       if (target.startsWith('assets/images/')) referencedImages.add(target);
       if (target.startsWith('assets/videos/')) referencedVideos.add(target);
     }

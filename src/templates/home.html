@@ -6,6 +6,7 @@
   {{security}}
   <title>Minari | Game System Designer</title>
   <meta name="description" content="게임 시스템 기획자 Minari의 포트폴리오 사이트">
+  {{social}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -68,7 +69,11 @@
       <div class="section-title">
         <h2>참여 프로젝트</h2>
       </div>
-      <article class="game-card" aria-labelledby="reflectory-title">
+      <nav class="project-shortcuts" aria-label="프로젝트별 바로가기">
+        <a href="#reflectory">Reflectory</a>
+        <a href="#barrel-good-barrel">Barrel Good Barrel</a>
+      </nav>
+      <article class="game-card" id="reflectory" tabindex="-1" aria-labelledby="reflectory-title">
         <div class="game-heading">
           <div class="game-identity">
             <h3 id="reflectory-title">Reflectory</h3>
@@ -82,14 +87,22 @@
             <p class="game-period-dates"><time datetime="2026-08-07">2026 . 8 . 7</time> <span class="game-period-end">~ <time datetime="2026-08-09">2026 . 8 . 9</time></span></p>
           </div>
         </div>
+        <div class="game-process game-contributions">
+          <h4>핵심 기여</h4>
+          <ul class="game-improvements">
+            <li><strong>프로토타입 제작</strong> · AI로 직접 제작하고 팀과 플레이하며 방향 구체화</li>
+            <li><strong>기획·팀 조율</strong> · 게임 콘셉트와 UI 방향, 작업 우선순위 조율</li>
+            <li><strong>테스트 기반 개선</strong> · 팀과 논의해 체력 표시·적 이동 방향 안내 개선</li>
+          </ul>
+        </div>
         <figure class="game-figure game-video">
-          <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/reflectory-gameplay.png" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
+          <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/cards/reflectory-gameplay.webp" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
             <a href="./assets/videos/reflectory-gameplay.mp4">Reflectory 플레이 영상 열기</a>
           </video>
           <figcaption>Reflectory 플레이 영상</figcaption>
         </figure>
         <figure class="game-figure">
-          <img src="./assets/images/reflectory-gameplay.png" width="954" height="596" alt="초록색 거울 사이로 파란 구체가 반사되는 Reflectory 플레이 화면. 왼쪽 위에 체력이 표시되고 적의 이동 방향은 화살표로 안내됩니다." decoding="async">
+          <img src="./assets/images/cards/reflectory-gameplay.webp" data-full-src="./assets/images/reflectory-gameplay.png" width="954" height="596" alt="초록색 거울 사이로 파란 구체가 반사되는 Reflectory 플레이 화면. 왼쪽 위에 체력이 표시되고 적의 이동 방향은 화살표로 안내됩니다." decoding="async">
           <figcaption>인 게임 플레이 화면</figcaption>
         </figure>
         <hr class="game-divider">
@@ -115,7 +128,7 @@
           </ul>
         </div>
       </article>
-      <article class="game-card" aria-labelledby="barrel-good-barrel-title">
+      <article class="game-card" id="barrel-good-barrel" tabindex="-1" aria-labelledby="barrel-good-barrel-title">
         <div class="game-heading">
           <div class="game-identity">
             <h3 id="barrel-good-barrel-title">Barrel Good Barrel</h3>
@@ -129,12 +142,22 @@
             <p class="game-period-dates"><time datetime="2025-03">2025 . 3</time> <span class="game-period-end">~ <time datetime="2025-10">2025 . 10</time></span></p>
           </div>
         </div>
+        <div class="game-process game-contributions">
+          <h4>핵심 기여</h4>
+          <ul class="game-improvements">
+            <li><strong>시스템 설계</strong> · 탄창 조합 아이디어 제안과 발사 방식·강화 특성의 핵심 규칙 설계</li>
+            <li><strong>아트 방향 조율</strong> · 팀원과 리소스·시각적 분위기·효과 연출 방향 조율</li>
+            <li><strong>튜토리얼 개선</strong> · 팀원과 논의하고 반복 플레이하며 조작·탄창 구성 안내 흐름 개선</li>
+          </ul>
+        </div>
         <figure class="game-figure game-video">
-          <div class="game-media-placeholder">플레이 영상 준비 중</div>
+          <video controls playsinline preload="none" width="1920" height="1080" poster="./assets/images/barrel-good-barrel-poster.webp" src="./assets/videos/barrel-good-barrel-gameplay.mp4" aria-label="Barrel Good Barrel 플레이 영상">
+            <a href="./assets/videos/barrel-good-barrel-gameplay.mp4">Barrel Good Barrel 플레이 영상 열기</a>
+          </video>
           <figcaption>Barrel Good Barrel 플레이 영상</figcaption>
         </figure>
         <figure class="game-figure">
-          <img src="./assets/images/barrel-good-barrel-prototype.png" width="1906" height="1104" alt="Barrel Good Barrel 프로토타입 플레이 화면. 어두운 공간에서 캐릭터와 체력·층수·장비 UI가 표시됩니다." loading="lazy" decoding="async">
+          <img src="./assets/images/cards/barrel-good-barrel-prototype.webp" data-full-src="./assets/images/barrel-good-barrel-prototype.png" width="1906" height="1104" alt="Barrel Good Barrel 프로토타입 플레이 화면. 어두운 공간에서 캐릭터와 체력·층수·장비 UI가 표시됩니다." loading="lazy" decoding="async">
           <figcaption>Barrel Good Barrel 프로토타입</figcaption>
         </figure>
         <hr class="game-divider">
@@ -142,7 +165,7 @@
           <h4>게임 소개</h4>
           <p class="game-description">Barrel Good Barrel은 전투 중 획득한 발사 방식과 강화 특성을 조합해 자신만의 탄창을 만드는 로그라이크 탑다운 슈팅 게임입니다. 플레이어는 특성 배치 화면에서 탄창의 6개 슬롯에 서로 다른 발사 방식을 지정하고, 특성을 직접 장착하거나 해제할 수 있습니다. 자신의 선택으로 공격 방식을 구성하고 점점 강해지는 재미를 중심으로 설계했습니다.</p>
           <figure class="game-figure">
-            <img src="./assets/images/barrel-good-barrel-traits.png" width="1597" height="1030" alt="Barrel Good Barrel 프로토타입의 특성 배치 화면. 탄창 슬롯 6개와 슬롯 타입·특성 인벤토리가 표시됩니다." loading="lazy" decoding="async">
+            <img src="./assets/images/cards/barrel-good-barrel-traits.webp" data-full-src="./assets/images/barrel-good-barrel-traits.png" width="1597" height="1030" alt="Barrel Good Barrel 프로토타입의 특성 배치 화면. 탄창 슬롯 6개와 슬롯 타입·특성 인벤토리가 표시됩니다." loading="lazy" decoding="async">
             <figcaption>프로토타입의 탄창 특성 배치 화면</figcaption>
           </figure>
         </div>
@@ -169,7 +192,7 @@
           <p>개발 초기에는 탄창을 구성하고 전투하는 핵심 플레이를 구현하는 데 집중했습니다. 이후 2025 BIC 출품을 준비하면서 튜토리얼이 있으면 좋겠다는 의견을 받아, 기본 조작과 탄창 구성 방법을 안내하는 간단한 튜토리얼을 추가했습니다.</p>
           <p>아트 방향을 함께 조율했던 프로그래머와 튜토리얼을 논의하고, 직접 여러 차례 플레이하며 안내 흐름을 다듬었습니다. 각 단계에서 플레이어의 어떤 행동을 유도할지 고민하며, 자연스럽게 게임의 핵심 기능을 직접 조작하고 익힐 수 있도록 만드는 것을 목표로 했습니다.</p>
           <figure class="game-figure">
-            <img src="./assets/images/barrel-good-barrel-tutorial.png" width="2559" height="1439" alt="Barrel Good Barrel의 인게임 튜토리얼 화면. 인벤토리 열기 조작과 다음 행동을 안내합니다." loading="lazy" decoding="async">
+            <img src="./assets/images/cards/barrel-good-barrel-tutorial.webp" data-full-src="./assets/images/barrel-good-barrel-tutorial.png" width="2559" height="1439" alt="Barrel Good Barrel의 인게임 튜토리얼 화면. 인벤토리 열기 조작과 다음 행동을 안내합니다." loading="lazy" decoding="async">
             <figcaption>Barrel Good Barrel 인게임 튜토리얼</figcaption>
           </figure>
         </div>
@@ -195,11 +218,11 @@
           </p>
         </div>
         <figure class="activity-figure">
-          <img src="./assets/images/netmarble-academy-5-ceremony.jpg" width="1000" height="667" alt="넷마블게임아카데미 5기 수료식에서 마스크를 쓴 참석자들이 상장과 수상 팻말을 들고 있는 모습" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/netmarble-academy-5-ceremony.webp" data-full-src="./assets/images/netmarble-academy-5-ceremony.jpg" width="1000" height="667" alt="넷마블게임아카데미 5기 수료식에서 마스크를 쓴 참석자들이 상장과 수상 팻말을 들고 있는 모습" loading="lazy" decoding="async">
           <figcaption>넷마블게임아카데미 5기 수료식</figcaption>
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/rhythm-shooter-gameplay.jpg" width="1000" height="756" alt="ATM 팀의 Rhythm Shooter 플레이 화면. 총을 든 캐릭터와 콤보·점수가 표시됩니다." loading="lazy" decoding="async">
+          <img src="./assets/images/cards/rhythm-shooter-gameplay.webp" data-full-src="./assets/images/rhythm-shooter-gameplay.jpg" width="1000" height="756" alt="ATM 팀의 Rhythm Shooter 플레이 화면. 총을 든 캐릭터와 콤보·점수가 표시됩니다." loading="lazy" decoding="async">
           <figcaption>우수상 ATM 팀 Rhythm Shooter</figcaption>
         </figure>
       </article>
@@ -212,14 +235,14 @@
           </p>
         </div>
         <figure class="activity-figure">
-          <img src="./assets/images/stove-crew-2-profile.png" width="818" height="418" alt="스토브 크루 2기 활동 소개 이미지" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/stove-crew-2-profile.webp" data-full-src="./assets/images/stove-crew-2-profile.png" width="818" height="418" alt="스토브 크루 2기 활동 소개 이미지" loading="lazy" decoding="async">
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/stove-crew-2-group.png" width="866" height="453" alt="스토브 크루 행사에서 참가자들이 함께 촬영한 단체 사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/stove-crew-2-group.webp" data-full-src="./assets/images/stove-crew-2-group.png" width="866" height="453" alt="스토브 크루 행사에서 참가자들이 함께 촬영한 단체 사진" loading="lazy" decoding="async">
           <figcaption>수료식</figcaption>
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/stove-crew-2-ceremony.png" width="788" height="553" alt="스토브 크루 행사 무대에서 두 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/stove-crew-2-ceremony.webp" data-full-src="./assets/images/stove-crew-2-ceremony.png" width="788" height="553" alt="스토브 크루 행사 무대에서 두 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
           <figcaption>베스트 리더상 수상</figcaption>
         </figure>
       </article>
@@ -232,15 +255,15 @@
           </p>
         </div>
         <figure class="activity-figure">
-          <img src="./assets/images/daejeon-ind-gameus-award.jpg" width="2487" height="3162" alt="2025 대전 게임 브릿지 데이 인디 게임어스 대상 팻말을 들고 촬영한 기념사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/daejeon-ind-gameus-award.webp" data-full-src="./assets/images/daejeon-ind-gameus-award.jpg" width="2487" height="3162" alt="2025 대전 게임 브릿지 데이 인디 게임어스 대상 팻말을 들고 촬영한 기념사진" loading="lazy" decoding="async">
           <figcaption>2025 대전게임브릿 대상</figcaption>
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/daejeon-ind-gameus-booth.jpg" width="3392" height="2544" alt="게임 홍보물과 플레이 화면이 있는 전시 부스에서 촬영한 사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/daejeon-ind-gameus-booth.webp" data-full-src="./assets/images/daejeon-ind-gameus-booth.jpg" width="3392" height="2544" alt="게임 홍보물과 플레이 화면이 있는 전시 부스에서 촬영한 사진" loading="lazy" decoding="async">
           <figcaption>2025 대전콘텐츠페어</figcaption>
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/daejeon-ind-gameus-exhibition.jpg" width="4000" height="3000" alt="게임 전시 부스 앞에서 세 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/daejeon-ind-gameus-exhibition.webp" data-full-src="./assets/images/daejeon-ind-gameus-exhibition.jpg" width="4000" height="3000" alt="게임 전시 부스 앞에서 세 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
           <figcaption>2025 부산 BIC</figcaption>
         </figure>
       </article>
@@ -251,11 +274,11 @@
           <p>주어진 주제로 3일 동안 게임을 제작하는 행사입니다. 4인 팀에서 기획을 맡아 Reflectory를 제작했습니다.</p>
         </div>
         <figure class="activity-figure">
-          <img src="./assets/images/daejeon-ind-gamejam-2026-award.jpg" width="4000" height="3000" alt="2026 대전 inD 게임잼 행사장에서 수상 팻말을 들고 함께 촬영한 기념사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/daejeon-ind-gamejam-2026-award.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-award.jpg" width="4000" height="3000" alt="2026 대전 inD 게임잼 행사장에서 수상 팻말을 들고 함께 촬영한 기념사진" loading="lazy" decoding="async">
           <figcaption>2026 대전 inD 게임잼 수상</figcaption>
         </figure>
         <figure class="activity-figure">
-          <img src="./assets/images/daejeon-ind-gamejam-2026-team.jpg" width="4000" height="3000" alt="Reflectory 플레이 화면이 켜진 노트북을 들고 함께 촬영한 4인 팀 사진" loading="lazy" decoding="async">
+          <img src="./assets/images/cards/daejeon-ind-gamejam-2026-team.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-team.jpg" width="4000" height="3000" alt="Reflectory 플레이 화면이 켜진 노트북을 들고 함께 촬영한 4인 팀 사진" loading="lazy" decoding="async">
         </figure>
       </article>
     </section>

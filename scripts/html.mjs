@@ -22,12 +22,15 @@ export function readHtmlTags(html) {
 }
 
 const referenceAttributes = {
-  a: ['href'], link: ['href'], script: ['src'], img: ['src'], iframe: ['src'],
+  a: ['href'], link: ['href'], script: ['src'], img: ['src', 'data-full-src'], iframe: ['src'],
   option: ['value'], video: ['src', 'poster'], source: ['src'], track: ['src']
 };
 
 export function* resourceReferences(tags) {
   for (const { tag, attributes } of tags) {
+    if (tag === 'meta' && ['og:image', 'og:url', 'twitter:image'].includes(attributes.property ?? attributes.name)) {
+      yield { tag, attributes, attribute: 'content', ref: attributes.content ?? '' };
+    }
     for (const attribute of referenceAttributes[tag] ?? []) {
       if (Object.hasOwn(attributes, attribute)) yield { tag, attributes, attribute, ref: attributes[attribute] };
     }
