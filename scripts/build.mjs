@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { compileSite, walk } from './site.mjs';
 
@@ -26,7 +27,16 @@ function writeFiles(base, files) {
     const target = targetPath(base, name);
     if (matchesFile(target, value)) continue;
     fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.writeFileSync(target, value);
+    writeFileAtomically(target, value);
+  }
+}
+function writeFileAtomically(target, value) {
+  const temporary = path.join(path.dirname(target), `.${path.basename(target)}.${randomUUID()}.tmp`);
+  try {
+    fs.writeFileSync(temporary, value, { flag: 'wx' });
+    fs.renameSync(temporary, target);
+  } finally {
+    if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
   }
 }
 function matchesFile(target, value) {
@@ -59,7 +69,9 @@ if (checkOnly) {
     }
   }
 } else {
-  // Only remove obsolete files recorded by our generator, after validating their paths.
+  writeFiles(root, compiled.files);
+  writeFiles(path.join(root, 'dist'), compiled.publicFiles);
+  // Only remove obsolete files recorded by our generator, after writing current files.
   for (const name of previous) {
     if (!compiled.files.has(name)) {
       const target = targetPath(root, name);
@@ -74,10 +86,8 @@ if (checkOnly) {
       fs.unlinkSync(targetPath(path.join(root, 'dist'), name));
     }
   }
-  writeFiles(root, compiled.files);
-  writeFiles(path.join(root, 'dist'), compiled.publicFiles);
   const manifest = JSON.stringify([...compiled.files.keys()].sort(), null, 2) + '\n';
-  if (!matchesFile(manifestPath, manifest)) fs.writeFileSync(manifestPath, manifest);
+  if (!matchesFile(manifestPath, manifest)) writeFileAtomically(manifestPath, manifest);
 }
 const actualPublic = walk(path.join(root, 'dist')).map(file => path.relative(path.join(root, 'dist'), file).replaceAll('\\', '/')).sort();
 const expectedPublic = [...compiled.publicFiles.keys()].sort();

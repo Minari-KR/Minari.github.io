@@ -50,6 +50,20 @@ body {
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .toolbar button:hover { border-color: rgba(43, 110, 93, .42); box-shadow: 0 6px 14px rgba(31, 41, 36, .08); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .toolbar button:hover { transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toolbar button:active { transform: scale(.98); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toolbar button { transition: none; }
 }
 
 .toolbar :is(button, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

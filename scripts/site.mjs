@@ -6,6 +6,7 @@ import { addReferencedMedia } from './media.mjs';
 import { versionAssets } from './assets.mjs';
 import { checkSecrets, securityMeta, validateFiles } from './validation.mjs';
 import { socialMeta } from './social.mjs';
+import { homeTitle, homeDescription } from './site-config.mjs';
 
 export { walk } from './files.mjs';
 export { securityMeta, validateFiles } from './validation.mjs';
@@ -19,10 +20,17 @@ export function compileSite(root) {
   if (new Set(allPosts.map(post => post.slug)).size !== allPosts.length) throw new Error('중복된 일지 주소가 있습니다.');
   const posts = allPosts.filter(post => !post.draft).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
   const files = new Map();
-  const cards = posts.map(post => `        <article class="journal-card">\n          <div>\n            <span class="activity-tag">${escapeHtml(post.display_date)}</span>\n            <h3>${escapeHtml(post.list_title)}</h3>\n          </div>\n          <a class="activity-link" href="./journal/${post.slug}.html"><span class="link-label">일지 보기</span><img class="link-icon" src="./assets/icons/circle-arrow-right.svg" width="18" height="18" alt="" aria-hidden="true"></a>\n        </article>`).join('\n');
+  const cardTemplate = template('journal-card.html').trimEnd();
+  const cards = posts.map(post => fillTemplate(cardTemplate, {
+    display_date: escapeHtml(post.display_date),
+    list_title: escapeHtml(post.list_title),
+    slug: post.slug
+  })).join('\n');
   files.set('index.html', fillTemplate(template('home.html'), {
     security: securityMeta(),
-    social: socialMeta({ title: 'Minari 박종찬 | 게임 시스템 기획 포트폴리오', description: '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. Reflectory와 Barrel Good Barrel의 기획·제작 과정을 소개합니다.' }),
+    page_title: escapeHtml(homeTitle),
+    page_description: escapeHtml(homeDescription),
+    social: socialMeta({ title: homeTitle, description: homeDescription }),
     journal_cards: cards || '<p class="journal-empty">아직 등록된 일지가 없습니다.</p>'
   }));
   for (const post of posts) {

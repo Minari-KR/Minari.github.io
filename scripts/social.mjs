@@ -1,7 +1,6 @@
 import { escapeHtml } from './content.mjs';
-
-export const siteUrl = 'https://minari-kr.github.io/Minari.github.io/';
-export const shareImage = 'assets/images/minari-share.png';
+import { siteUrl, shareImage, shareImageAlt } from './site-config.mjs';
+export { siteUrl, shareImage } from './site-config.mjs';
 
 // Only the site's own published pages and raster images can be sharing targets.
 export function socialTarget(url) {
@@ -13,7 +12,7 @@ export function socialTarget(url) {
 
 export function socialMeta({ title, description, page = '', article = false }) {
   const image = siteUrl + shareImage;
-  const alt = 'Minari 박종찬 · 게임 시스템 기획 포트폴리오. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
+  const alt = shareImageAlt;
   const properties = {
     'og:type': article ? 'article' : 'website',
     'og:locale': 'ko_KR',

@@ -9,7 +9,7 @@
 .profile-real-name { margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
 .simple-summary { margin: 12px 0 0; color: var(--ink); font-size: 1rem; font-weight: 700; line-height: 1.7; }
 .summary-line { display: block; }
-.contact-email { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: 0 8px; margin: 0 -8px; border-radius: 6px; color: #163b32; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; transition: color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.contact-email { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: 0 8px; margin: 0 -8px; border-radius: 6px; color: #163b32; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
 .profile-card { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 24px; align-items: start; min-height: 250px; padding: 32px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-solid); box-shadow: var(--shadow); overflow: hidden; }
 .profile-card::before { position: absolute; inset: 0 0 auto; height: 4px; background: var(--accent-deep); content: ""; }
 .profile-identity, .profile-details { min-width: 0; }
@@ -41,18 +41,13 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
 .game-period-dates time { white-space: nowrap; }
 .game-period-end { display: inline-flex; align-items: baseline; gap: 4px; }
 .game-figure, .activity-figure { min-width: 0; margin: 0; }
-.game-media-placeholder { display: grid; place-items: center; min-height: 120px; padding: 16px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); font-size: var(--text-meta); text-align: center; }
 .game-figure img, .game-figure video, .activity-figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 .game-figure video { display: block; background: #111; }
 .game-figure figcaption, .activity-figure figcaption { margin-top: var(--space-1); color: var(--muted); font-size: var(--text-meta); line-height: 1.6; letter-spacing: var(--tracking-body); text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .game-divider { width: 100%; margin: 0; border: 0; border-top: 1px solid var(--line); }
-.game-description, .game-process p, .game-improvements { margin: 0; color: var(--body-ink); font-size: var(--text-body); line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.game-process { display: grid; gap: var(--space-1); min-width: 0; }
-.game-process h4 { margin: 0; font-size: 1rem; line-height: 1.5; letter-spacing: var(--tracking-heading); word-break: keep-all; overflow-wrap: anywhere; }
-.game-improvements { display: grid; gap: var(--space-1); padding-left: 20px; }
-.game-improvements li { word-break: keep-all; overflow-wrap: anywhere; }
-.game-links { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
-.game-link, .activity-link { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; min-height: 44px; gap: var(--space-1); padding: 0 var(--space-1); border-radius: 6px; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); transition: color 160ms ease, background-color 160ms ease, transform 160ms ease; }
+.game-links { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: var(--space-1) var(--space-3); }
+.game-link { display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 100%; min-height: 54px; gap: var(--space-1); padding: 0 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-solid); color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); text-align: center; }
+a.activity-link { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; min-height: 44px; gap: var(--space-1); padding: 0 var(--space-1); border-radius: 6px; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
 .link-label { display: block; line-height: 1.5; }
 .link-icon { display: block; flex: 0 0 18px; width: 18px; height: 18px; opacity: .62; }
 .activity-link { margin-top: 0; }
@@ -101,8 +96,6 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
   .game-heading { grid-template-columns: minmax(0, 1fr); gap: var(--space-1-5); }
   .game-meta, .game-period-label, .game-period-dates { line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-period { padding: var(--space-1) 0 0; border-left: 0; border-top: 1px solid var(--line); }
-  .game-description, .game-process p, .game-improvements { font-size: .96rem; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-  .game-process h4 { line-height: 1.5; letter-spacing: var(--tracking-heading); }
   .game-meta-details { gap: 4px var(--space-1); }
   .activity-card { border-radius: 16px; }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
@@ -113,18 +106,23 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
   .journal-pagination button, .journal-empty { font-size: var(--text-meta); }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .contact-email, .profile-itch, .game-link, a.activity-link, .journal-pagination button { transition: var(--action-transition); }
   .fade-up { animation: fadeUp 600ms ease both; }
   .delay-2 { animation-delay: 220ms; }
   @keyframes fadeUp { from { transform: translateY(14px); } to { transform: none; } }
 }
 @media (hover: hover) and (pointer: fine) {
   .contact-email:hover, a.profile-itch:hover { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
-  .contact-email:hover { transform: translateY(-1px); }
+  .activity-link:hover { background-color: #dce8df; text-decoration: none; }
   a.profile-itch:active { background-color: rgba(47, 111, 94, .12); }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .contact-email:hover { transform: translateY(-1px); }
   a.profile-itch:hover { transform: translateY(-1px); }
-  .game-link:hover, .activity-link:hover { background-color: rgba(47, 111, 94, .08); text-decoration: none; transform: translateY(-1px); }
+  .activity-link:hover { border-color: rgba(31, 79, 67, .24); box-shadow: 0 8px 18px rgba(31, 41, 36, .08); transform: translateY(-2px); }
+  .journal-pagination button:not([aria-current="page"]):hover { box-shadow: 0 6px 14px rgba(31, 41, 36, .08); transform: translateY(-2px); }
+  .journal-pagination button:active, .activity-link:active { background-color: #dce8df; transform: scale(.98); }
+  .contact-email:active, .profile-itch:active, .section-shortcuts a:active, .project-shortcuts a:active, .back-to-top:active, .photo-viewer-close:active { transform: scale(.98); }
   .link-icon { transition: opacity 180ms ease, transform 180ms ease; }
   .game-link:hover .link-icon, .activity-link:hover .link-icon { opacity: 1; transform: scale(1.04); }
 }

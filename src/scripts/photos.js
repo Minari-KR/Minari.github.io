@@ -1,6 +1,6 @@
 (() => {
   if (typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) return;
-  const photos = document.querySelectorAll('.game-figure img, .activity-figure img');
+  const photos = document.querySelectorAll('.game-figure:not(.game-title-image) img, .activity-figure img');
   if (!photos.length) return;
 
   const viewer = document.createElement('dialog');

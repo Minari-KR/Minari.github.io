@@ -5,7 +5,7 @@ import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../src/scripts/photos.js', import.meta.url), 'utf8');
 
-function setup(original) {
+function setup(original, { titleImage = false } = {}) {
   const elements = [];
   const classes = new Set();
   function element(tag) {
@@ -33,7 +33,10 @@ function setup(original) {
   vm.runInNewContext(source, {
     HTMLDialogElement: { prototype: { showModal() {} } },
     document: {
-      querySelectorAll: () => [photo], createElement: element, createTextNode: text => text,
+      querySelectorAll: selector => {
+        assert.equal(selector, '.game-figure:not(.game-title-image) img, .activity-figure img');
+        return titleImage ? [] : [photo];
+      }, createElement: element, createTextNode: text => text,
       body: { append() {} },
       documentElement: { classList: { add: name => classes.add(name), remove: name => classes.delete(name) } },
     },
@@ -61,4 +64,10 @@ test('photos without a full-size attribute still open their existing image', () 
   const { photo, image } = setup();
   photo.button.events.click();
   assert.equal(image.src, photo.currentSrc);
+});
+
+test('project title images are excluded from the photo viewer', () => {
+  const { photo, viewer } = setup(undefined, { titleImage: true });
+  assert.equal(photo.button, undefined);
+  assert.equal(viewer, undefined);
 });
