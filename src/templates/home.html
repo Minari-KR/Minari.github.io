@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
   {{security}}
   <title>{{page_title}}</title>
   <meta name="description" content="{{page_description}}">
@@ -17,12 +18,13 @@
   <link rel="stylesheet" href="./assets/css/page-transitions.css">
 </head>
 <body>
-  <main class="page">
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <main class="page" id="main">
     <div class="simple-intro">
       <section class="profile-card" id="intro" aria-labelledby="intro-title">
         <div class="profile-identity">
           <div class="profile-name">
-            <h1 id="intro-title" tabindex="-1">Minari</h1>
+            <h1 id="intro-title" tabindex="-1" translate="no">Minari</h1>
             <p class="profile-real-name">박종찬</p>
           </div>
           <p class="simple-summary"><span class="summary-line">아이디어를 프로토타입으로 만들고,</span> <span class="summary-line">플레이하며 재미를 검증합니다.</span></p>
@@ -35,7 +37,7 @@
             <p class="profile-school">우송대학교 <span class="profile-department">게임멀티미디어학과</span></p>
             <p class="profile-birthday"><span class="profile-label">생년월일</span> <time datetime="2003-02-26">2003.02.26</time></p>
           </div>
-          <a class="profile-itch" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/gamepad-2.svg" width="18" height="18" alt="" aria-hidden="true">itch.io 프로필</a>
+          <a class="profile-itch" href="https://minari-kr.itch.io/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/gamepad-2.svg" width="18" height="18" alt="" aria-hidden="true"><span translate="no">itch.io</span> 프로필</a>
         </div>
       </section>
       <nav class="section-shortcuts" aria-label="주요 섹션 바로가기">
@@ -55,11 +57,11 @@
           <span class="award-badge">우수상</span>
         </li>
         <li>
-          <span class="award-event">2025 대전 게임 브릿지</span>
+          <span class="award-event">2025 대전 게임 브릿지<a class="award-project" href="#barrel-good-barrel" translate="no">Barrel Good Barrel</a></span>
           <span class="award-badge">대상</span>
         </li>
         <li>
-          <span class="award-event">2026 대전 inD 게임잼</span>
+          <span class="award-event">2026 대전 inD 게임잼<a class="award-project" href="#reflectory" translate="no">Reflectory</a></span>
           <span class="award-badge">국가수리과학연구장상</span>
         </li>
       </ul>
@@ -70,16 +72,13 @@
         <h2>참여 프로젝트</h2>
       </div>
       <nav class="project-shortcuts" aria-label="프로젝트별 바로가기">
-        <a href="#reflectory">Reflectory</a>
-        <a href="#barrel-good-barrel">Barrel Good Barrel</a>
+        <a href="#reflectory" translate="no">Reflectory</a>
+        <a href="#barrel-good-barrel" translate="no">Barrel Good Barrel</a>
       </nav>
       <article class="game-card" id="reflectory" tabindex="-1" aria-labelledby="reflectory-title">
-        <figure class="game-figure game-title-image">
-          <img src="./assets/images/cards/reflectory-title.webp" width="1672" height="941" alt="모눈 배경에 초록 반사판과 파란 구체를 배치한 Reflectory 타이틀 이미지" loading="lazy" decoding="async">
-        </figure>
         <div class="game-heading">
           <div class="game-identity">
-            <h3 id="reflectory-title">Reflectory</h3>
+            <h3 id="reflectory-title" translate="no">Reflectory</h3>
             <p class="game-meta">
               <span class="game-meta-event">2026 대전 inD 게임잼</span>
               <span class="game-meta-details"><span>4인 팀</span> <span>기획 및 팀장</span> <span>퍼즐</span></span>
@@ -91,23 +90,19 @@
           </div>
         </div>
         <figure class="game-figure game-video">
-          <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/cards/reflectory-gameplay.webp" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
+          <video controls playsinline preload="none" width="1910" height="1078" poster="./assets/images/cards/reflectory-title.webp" src="./assets/videos/reflectory-gameplay.mp4" aria-label="Reflectory 플레이 영상">
             <a href="./assets/videos/reflectory-gameplay.mp4">Reflectory 플레이 영상 열기</a>
           </video>
-          <figcaption>Reflectory 플레이 영상</figcaption>
         </figure>
         <hr class="game-divider">
         <div class="game-links">
-          <a class="game-link" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer">Reflectory 플레이 링크</a>
+          <a class="game-link" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer"><span translate="no">Reflectory</span> 플레이 링크</a>
         </div>
       </article>
       <article class="game-card" id="barrel-good-barrel" tabindex="-1" aria-labelledby="barrel-good-barrel-title">
-        <figure class="game-figure game-title-image">
-          <img src="./assets/images/cards/barrel-good-barrel-title.webp" width="1672" height="941" alt="보라색 픽셀 배경에 황금색 제목과 캐릭터를 배치한 Barrel Good Barrel 타이틀 이미지" loading="lazy" decoding="async">
-        </figure>
         <div class="game-heading">
           <div class="game-identity">
-            <h3 id="barrel-good-barrel-title">Barrel Good Barrel</h3>
+            <h3 id="barrel-good-barrel-title" translate="no">Barrel Good Barrel</h3>
             <p class="game-meta">
               <span class="game-meta-event">대전 인디(inD) 게임어스</span>
               <span class="game-meta-details"><span>3인 팀</span> <span>기획 및 팀장</span> <span>탑다운 슈팅</span></span>
@@ -119,14 +114,13 @@
           </div>
         </div>
         <figure class="game-figure game-video">
-          <video controls playsinline preload="none" width="1920" height="1080" poster="./assets/images/barrel-good-barrel-poster.webp" src="./assets/videos/barrel-good-barrel-gameplay.mp4" aria-label="Barrel Good Barrel 플레이 영상">
+          <video controls playsinline preload="none" width="1920" height="1080" poster="./assets/images/cards/barrel-good-barrel-title.webp" src="./assets/videos/barrel-good-barrel-gameplay.mp4" aria-label="Barrel Good Barrel 플레이 영상">
             <a href="./assets/videos/barrel-good-barrel-gameplay.mp4">Barrel Good Barrel 플레이 영상 열기</a>
           </video>
-          <figcaption>Barrel Good Barrel 플레이 영상</figcaption>
         </figure>
         <hr class="game-divider">
         <div class="game-links">
-          <a class="game-link" href="https://minari-kr.itch.io/barrel-good-barrel" target="_blank" rel="noopener noreferrer">Barrel Good Barrel 플레이 링크</a>
+          <a class="game-link" href="https://minari-kr.itch.io/barrel-good-barrel" target="_blank" rel="noopener noreferrer"><span translate="no">Barrel Good Barrel</span> 플레이 링크</a>
         </div>
       </article>
     </section>
@@ -140,17 +134,19 @@
           <span class="activity-tag">2020</span>
           <h3>넷마블게임아카데미 5기</h3>
           <p>
-            게임 개발 교육을 받고 팀 프로젝트를 제작하는 활동으로, ATM 팀에서 기획을 담당해 Rhythm Shooter를 제작했습니다.
+            게임 개발 교육을 받고 팀 프로젝트를 제작하는 활동으로, ATM 팀에서 기획을 담당해 <span translate="no">Rhythm Shooter</span>를 제작했습니다.
           </p>
         </div>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/netmarble-academy-5-ceremony.webp" data-full-src="./assets/images/netmarble-academy-5-ceremony.jpg" width="1000" height="667" alt="넷마블게임아카데미 5기 수료식에서 마스크를 쓴 참석자들이 상장과 수상 팻말을 들고 있는 모습" loading="lazy" decoding="async">
-          <figcaption>넷마블게임아카데미 5기 수료식</figcaption>
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/rhythm-shooter-gameplay.webp" data-full-src="./assets/images/rhythm-shooter-gameplay.jpg" width="1000" height="756" alt="ATM 팀의 Rhythm Shooter 플레이 화면. 총을 든 캐릭터와 콤보·점수가 표시됩니다." loading="lazy" decoding="async">
-          <figcaption>우수상 ATM 팀 Rhythm Shooter</figcaption>
-        </figure>
+        <div class="activity-gallery">
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/netmarble-academy-5-ceremony.webp" data-full-src="./assets/images/netmarble-academy-5-ceremony.jpg" width="1000" height="667" alt="넷마블게임아카데미 5기 수료식에서 마스크를 쓴 참석자들이 상장과 수상 팻말을 들고 있는 모습" loading="lazy" decoding="async">
+            <figcaption>넷마블게임아카데미 5기 수료식</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/rhythm-shooter-gameplay.webp" data-full-src="./assets/images/rhythm-shooter-gameplay.jpg" width="1000" height="756" alt="ATM 팀의 Rhythm Shooter 플레이 화면. 총을 든 캐릭터와 콤보·점수가 표시됩니다." loading="lazy" decoding="async">
+            <figcaption>우수상 ATM 팀 <span translate="no">Rhythm Shooter</span></figcaption>
+          </figure>
+        </div>
       </article>
       <article class="activity-card">
         <div>
@@ -160,17 +156,20 @@
             스토브 인디 게임을 소개하는 숏폼 콘텐츠를 기획·제작했습니다.
           </p>
         </div>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/stove-crew-2-profile.webp" data-full-src="./assets/images/stove-crew-2-profile.png" width="818" height="418" alt="스토브 크루 2기 활동 소개 이미지" loading="lazy" decoding="async">
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/stove-crew-2-group.webp" data-full-src="./assets/images/stove-crew-2-group.png" width="866" height="453" alt="스토브 크루 행사에서 참가자들이 함께 촬영한 단체 사진" loading="lazy" decoding="async">
-          <figcaption>수료식</figcaption>
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/stove-crew-2-ceremony.webp" data-full-src="./assets/images/stove-crew-2-ceremony.png" width="788" height="553" alt="스토브 크루 행사 무대에서 두 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
-          <figcaption>베스트 리더상 수상</figcaption>
-        </figure>
+        <div class="activity-gallery activity-gallery-wide">
+          <figure class="activity-figure">
+            <img class="photo-uncropped" src="./assets/images/cards/stove-crew-2-profile.webp" data-full-src="./assets/images/stove-crew-2-profile.png" width="818" height="418" alt="스토브 크루 2기 활동 소개 이미지" loading="lazy" decoding="async">
+            <figcaption>스토브 크루 2기 활동 소개</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/stove-crew-2-group.webp" data-full-src="./assets/images/stove-crew-2-group.png" width="866" height="453" alt="스토브 크루 행사에서 참가자들이 함께 촬영한 단체 사진" loading="lazy" decoding="async">
+            <figcaption>수료식</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/stove-crew-2-ceremony.webp" data-full-src="./assets/images/stove-crew-2-ceremony.png" width="788" height="553" alt="스토브 크루 행사 무대에서 두 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
+            <figcaption>베스트 리더상 수상</figcaption>
+          </figure>
+        </div>
       </article>
       <article class="activity-card">
         <div>
@@ -180,32 +179,37 @@
             현업 개발자의 멘토링을 받으며 7개월간 팀 프로젝트를 개발하고, 공모전과 전시회에 참여했습니다.
           </p>
         </div>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/daejeon-ind-gameus-award.webp" data-full-src="./assets/images/daejeon-ind-gameus-award.jpg" width="2487" height="3162" alt="2025 대전 게임 브릿지 데이 인디 게임어스 대상 팻말을 들고 촬영한 기념사진" loading="lazy" decoding="async">
-          <figcaption>2025 대전게임브릿 대상</figcaption>
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/daejeon-ind-gameus-booth.webp" data-full-src="./assets/images/daejeon-ind-gameus-booth.jpg" width="3392" height="2544" alt="게임 홍보물과 플레이 화면이 있는 전시 부스에서 촬영한 사진" loading="lazy" decoding="async">
-          <figcaption>2025 대전콘텐츠페어</figcaption>
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/daejeon-ind-gameus-exhibition.webp" data-full-src="./assets/images/daejeon-ind-gameus-exhibition.jpg" width="4000" height="3000" alt="게임 전시 부스 앞에서 세 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
-          <figcaption>2025 부산 BIC</figcaption>
-        </figure>
+        <div class="activity-gallery">
+          <figure class="activity-figure">
+            <img class="photo-focus-top" src="./assets/images/cards/daejeon-ind-gameus-award.webp" data-full-src="./assets/images/daejeon-ind-gameus-award.jpg" width="2487" height="3162" alt="2025 대전 게임 브릿지 데이 인디 게임어스 대상 팻말을 들고 촬영한 기념사진" loading="lazy" decoding="async">
+            <figcaption>2025 대전게임브릿지 대상</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/daejeon-ind-gameus-booth.webp" data-full-src="./assets/images/daejeon-ind-gameus-booth.jpg" width="3392" height="2544" alt="게임 홍보물과 플레이 화면이 있는 전시 부스에서 촬영한 사진" loading="lazy" decoding="async">
+            <figcaption>2025 대전콘텐츠페어</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/daejeon-ind-gameus-exhibition.webp" data-full-src="./assets/images/daejeon-ind-gameus-exhibition.jpg" width="4000" height="3000" alt="게임 전시 부스 앞에서 세 사람이 함께 촬영한 기념사진" loading="lazy" decoding="async">
+            <figcaption>2025 부산 BIC</figcaption>
+          </figure>
+        </div>
       </article>
       <article class="activity-card">
         <div>
           <span class="activity-tag">2026</span>
           <h3>대전 inD 게임잼</h3>
-          <p>주어진 주제로 3일 동안 게임을 제작하는 행사입니다. 4인 팀에서 기획을 맡아 Reflectory를 제작했습니다.</p>
+          <p>주어진 주제로 3일 동안 게임을 제작하는 행사입니다. 4인 팀에서 기획을 맡아 <span translate="no">Reflectory</span>를 제작했습니다.</p>
         </div>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/daejeon-ind-gamejam-2026-award.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-award.jpg" width="4000" height="3000" alt="2026 대전 inD 게임잼 행사장에서 수상 팻말을 들고 함께 촬영한 기념사진" loading="lazy" decoding="async">
-          <figcaption>2026 대전 inD 게임잼 수상</figcaption>
-        </figure>
-        <figure class="activity-figure">
-          <img src="./assets/images/cards/daejeon-ind-gamejam-2026-team.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-team.jpg" width="4000" height="3000" alt="Reflectory 플레이 화면이 켜진 노트북을 들고 함께 촬영한 4인 팀 사진" loading="lazy" decoding="async">
-        </figure>
+        <div class="activity-gallery">
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/daejeon-ind-gamejam-2026-award.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-award.jpg" width="4000" height="3000" alt="2026 대전 inD 게임잼 행사장에서 수상 팻말을 들고 함께 촬영한 기념사진" loading="lazy" decoding="async">
+            <figcaption>2026 대전 inD 게임잼 수상</figcaption>
+          </figure>
+          <figure class="activity-figure">
+            <img src="./assets/images/cards/daejeon-ind-gamejam-2026-team.webp" data-full-src="./assets/images/daejeon-ind-gamejam-2026-team.jpg" width="4000" height="3000" alt="Reflectory 플레이 화면이 켜진 노트북을 들고 함께 촬영한 4인 팀 사진" loading="lazy" decoding="async">
+            <figcaption><span translate="no">Reflectory</span> 팀</figcaption>
+          </figure>
+        </div>
       </article>
     </section>
 

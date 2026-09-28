@@ -34,7 +34,10 @@
   --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(47, 111, 94, .12); }
+a, button, video { touch-action: manipulation; }
+.skip-link { position: absolute; z-index: 10; top: 8px; left: 8px; padding: 8px 12px; border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-small); font-weight: 800; line-height: 1.5; transform: translateY(calc(-100% - 16px)); }
+.skip-link:focus-visible { transform: none; outline-color: var(--accent-deep); text-decoration: none; }
 [hidden] { display: none !important; }
 body {
   margin: 0; min-height: 100vh; color: var(--ink); background: var(--bg);

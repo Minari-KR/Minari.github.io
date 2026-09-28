@@ -3,7 +3,7 @@
 .panel { min-width: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); backdrop-filter: blur(12px); box-shadow: var(--shadow); }
 .games, .activities, .awards, .journal, .simple-intro { width: min(100%, 640px); margin: 0 auto var(--panel-gap); padding: var(--panel-padding); }
 .section-title { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--heading-gap); }
-.section-title h2 { margin-bottom: 0; font-family: var(--font-display); font-size: var(--text-section-title); font-weight: 740; line-height: 1.3; letter-spacing: var(--tracking-heading); }
+.section-title h2 { margin-bottom: 0; font-family: var(--font-display); font-size: var(--text-section-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .simple-intro { padding: 0; }
 .simple-intro h1 { margin: 0; color: var(--accent-deep); font-family: var(--font-display); font-size: 2.75rem; font-weight: 800; line-height: 1.15; letter-spacing: var(--tracking-heading); }
 .profile-real-name { margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.5; }
@@ -51,15 +51,24 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
 .link-label { display: block; line-height: 1.5; }
 .link-icon { display: block; flex: 0 0 18px; width: 18px; height: 18px; opacity: .62; }
 .activity-link { margin-top: 0; }
-.activity-card { display: grid; gap: var(--card-gap); padding: var(--card-padding); border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .48)); }
-.activity-card + .activity-card { margin-top: var(--card-gap); }
+.activity-card { display: grid; gap: var(--card-gap); }
+.activity-card + .activity-card { margin-top: var(--panel-padding); padding-top: var(--panel-padding); border-top: 1px solid var(--line); }
 .activity-card > div { display: grid; gap: var(--space-1); min-width: 0; }
 .activity-tag { display: inline-flex; align-items: center; justify-content: center; width: fit-content; max-width: 100%; padding: 6px 12px; border-radius: 999px; color: var(--accent-deep); background: rgba(47, 111, 94, .1); font-size: var(--text-label); font-weight: 800; letter-spacing: var(--tracking-body); line-height: 1.3; }
 .activity-card h3 { margin: 0; font-family: var(--font-display); font-size: var(--text-card-title); font-weight: 700; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .activity-card p { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.award-list { display: grid; grid-auto-rows: 1fr; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.award-list li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1-5); width: 100%; padding: var(--card-padding); border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .58); color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.award-event { min-width: 0; color: var(--ink); font-weight: 760; }
+.activity-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-1-5); }
+.activity-gallery img { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 30%; }
+.activity-gallery > :first-child:nth-last-child(odd) { grid-column: 1 / -1; }
+.activity-gallery > :first-child:nth-last-child(odd) img { aspect-ratio: 16 / 10; }
+.activity-gallery-wide img { aspect-ratio: 16 / 9; object-position: center; }
+.activity-gallery img.photo-uncropped { aspect-ratio: auto; }
+.activity-gallery img.photo-focus-top { object-position: center 12%; }
+.award-list { display: grid; margin: 0; padding: 0; list-style: none; }
+.award-list li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1-5); width: 100%; padding: var(--space-1-5) 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
+.award-list li + li { border-top: 1px solid var(--line); }
+.award-event { display: grid; justify-items: center; min-width: 0; color: var(--ink); font-weight: 800; text-align: center; }
+.award-project { display: block; width: fit-content; max-width: 100%; margin-top: 6px; border-radius: 4px; color: var(--accent-deep); font-size: var(--text-label); font-weight: 700; line-height: 1.5; text-decoration: underline; text-decoration-color: rgba(31, 79, 67, .35); text-underline-offset: 3px; }
 .award-badge { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; padding: 6px 12px; border-radius: 999px; background: rgba(201, 155, 66, .2); color: #6f4b17; font-size: var(--text-label); font-weight: 800; line-height: 1.3; text-align: center; }
 .journal-intro { display: grid; gap: 8px; }
 .journal .section-title { margin: 0; }
@@ -71,11 +80,11 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
 .journal-card h3 { margin: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 700; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); text-wrap: wrap; }
 .journal-card .activity-link { margin-top: 0; font-size: var(--text-body); white-space: nowrap; }
 .journal-pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-1); margin-top: 16px; }
-.journal-pagination button { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: rgba(255, 255, 255, .58); color: var(--muted); font: 760 var(--text-small) var(--font-body); cursor: pointer; }
+.journal-pagination button { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: rgba(255, 255, 255, .58); color: var(--muted); font: 800 var(--text-small) var(--font-body); cursor: pointer; }
 .journal-pagination button:hover, .journal-pagination button[aria-current="page"] { border-color: var(--ink); background: var(--ink); color: #fff; }
 .journal-empty { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--text-small); }
 @media (max-width: 640px) {
-  .page { --panel-gap: 16px; --panel-padding: 18px; --card-gap: 12px; --heading-gap: 12px; width: min(var(--max-width), calc(100% - 18px)); padding-top: var(--space-1-5); padding-bottom: 32px; }
+  .page { --text-body: .96rem; --panel-gap: 16px; --panel-padding: 18px; --card-gap: 12px; --heading-gap: 12px; width: min(var(--max-width), calc(100% - 18px)); padding-top: var(--space-1-5); padding-bottom: 32px; }
   .simple-intro h1 { font-size: 2rem; }
   .profile-real-name { font-size: 1rem; }
   .profile-card { display: block; min-height: 0; padding: 24px 24px 16px; }
@@ -89,18 +98,16 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
   .section-title { align-items: flex-start; flex-direction: column; gap: var(--space-1); }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
   .games, .awards, .activities, .journal { border-radius: 18px; }
-  .award-list li { flex-wrap: wrap; min-height: 56px; gap: 6px; padding: 10px 12px; font-size: var(--text-meta); }
-  .award-event { flex: 1 1 auto; min-width: 0; max-width: 100%; font-size: inherit; }
+  .award-list li { flex-wrap: wrap; gap: 6px; padding: 10px 0; font-size: var(--text-meta); }
+  .award-event { flex: 0 1 auto; min-width: 0; max-width: 100%; font-size: inherit; }
   .award-badge { flex: 0 1 auto; margin-left: auto; padding: 6px; font-size: inherit; }
   .game-heading h3 { font-size: var(--text-card-title-mobile); line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
   .game-heading { grid-template-columns: minmax(0, 1fr); gap: var(--space-1-5); }
   .game-meta, .game-period-label, .game-period-dates { line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-period { padding: var(--space-1) 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .game-meta-details { gap: 4px var(--space-1); }
-  .activity-card { border-radius: 16px; }
+  .activity-gallery { gap: var(--space-1); }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
-  .activity-card p { font-size: .96rem; }
-  .journal-intro p, .activity-link, .game-link { font-size: .96rem; }
   .journal-card { grid-template-columns: minmax(0, 1fr) auto; }
   .journal-card .activity-link { justify-self: auto; white-space: nowrap; }
   .journal-pagination button, .journal-empty { font-size: var(--text-meta); }
@@ -113,6 +120,7 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
 }
 @media (hover: hover) and (pointer: fine) {
   .contact-email:hover, a.profile-itch:hover { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
+  a.award-project:hover { text-decoration: underline; text-decoration-color: currentColor; }
   .activity-link:hover { background-color: #dce8df; text-decoration: none; }
   a.profile-itch:active { background-color: rgba(47, 111, 94, .12); }
 }
