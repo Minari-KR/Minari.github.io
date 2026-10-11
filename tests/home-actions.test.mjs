@@ -52,7 +52,7 @@ test('email remains a mail link without copy controls or clipboard code', () => 
 test('profile card preserves information and project tiles follow it', () => {
   assert.match(template, /class="profile-school">우송대학교 게임멀티미디어학과<\/p>/);
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday/);
-  assert.match(template, /class="profile-name"[\s\S]*class="profile-role">게임 기획<\/p>[\s\S]*class="simple-summary"/);
+  assert.doesNotMatch(template, /profile-role|게임 기획</);
   const card = template.slice(template.indexOf('<section class="tile tile-profile profile-card"'), template.indexOf('<article class="tile tile-project'));
   assert.ok(card.length > 0);
   assert.ok(card.indexOf('profile-name') < card.indexOf('simple-summary'));
