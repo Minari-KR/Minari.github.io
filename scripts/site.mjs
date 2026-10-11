@@ -20,18 +20,11 @@ export function compileSite(root) {
   if (new Set(allPosts.map(post => post.slug)).size !== allPosts.length) throw new Error('중복된 일지 주소가 있습니다.');
   const posts = allPosts.filter(post => !post.draft).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
   const files = new Map();
-  const cardTemplate = template('journal-card.html').trimEnd();
-  const cards = posts.map(post => fillTemplate(cardTemplate, {
-    display_date: escapeHtml(post.display_date),
-    list_title: escapeHtml(post.list_title),
-    slug: post.slug
-  })).join('\n');
   files.set('index.html', fillTemplate(template('home.html'), {
     security: securityMeta(),
     page_title: escapeHtml(homeTitle),
     page_description: escapeHtml(homeDescription),
-    social: socialMeta({ title: homeTitle, description: homeDescription }),
-    journal_cards: cards || '<p class="journal-empty">아직 등록된 일지가 없습니다.</p>'
+    social: socialMeta({ title: homeTitle, description: homeDescription })
   }));
   for (const post of posts) {
     files.set(`journal/${post.slug}.html`, fillTemplate(template('journal.html'), {

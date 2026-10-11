@@ -30,10 +30,6 @@ export function fixture(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'minari-portfolio-test-'));
   copyFixtureTree(path.join(root, 'src'), path.join(directory, 'src'));
   copyFixtureTree(path.join(root, 'public'), path.join(directory, 'public'));
-  // Synthetic journals have their own posts; keep the editorial link independent of those fixtures.
-  // compileSite(root) tests below still validate the real home-to-article link and screenshot.
-  const home = path.join(directory, 'src/templates/home.html');
-  fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('href="./journal/2026-08-12-gamejam-retrospective.html"', 'href="#journal"'));
   fs.mkdirSync(path.join(directory, 'content/journal'), { recursive: true });
   t.after(() => {
     const resolved = path.resolve(directory);

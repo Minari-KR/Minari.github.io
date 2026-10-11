@@ -1,7 +1,7 @@
 /* Home page components. Text belongs in src/templates/home.html, not in CSS. */
 .page { --panel-gap: 24px; --panel-padding: 24px; --card-padding: 16px; --card-gap: 16px; --heading-gap: 16px; position: relative; z-index: 1; width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; padding: var(--space-5) 0 48px; }
 .panel { min-width: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); backdrop-filter: blur(12px); box-shadow: var(--shadow); }
-.games, .activities, .awards, .journal, .simple-intro { width: min(100%, 640px); margin: 0 auto var(--panel-gap); padding: var(--panel-padding); }
+.games, .activities, .awards, .simple-intro { width: min(100%, 640px); margin: 0 auto var(--panel-gap); padding: var(--panel-padding); }
 .section-title { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--heading-gap); }
 .section-title h2 { margin-bottom: 0; font-family: var(--font-display); font-size: var(--text-section-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .simple-intro { padding: 0; }
@@ -21,7 +21,7 @@
 .profile-background { display: grid; gap: var(--space-1); margin-top: 0; color: var(--ink); font-size: .9375rem; font-weight: 700; line-height: var(--line-body); }
 .profile-department { display: block; }
 .profile-background p { margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
-.profile-background .profile-label { margin-right: 8px; color: var(--ink); }
+.profile-role { margin: var(--space-1) 0 0; color: var(--accent-deep); font-size: var(--text-small); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
 .profile-itch { display: flex; align-items: center; justify-content: center; gap: 9px; width: fit-content; min-height: 48px; margin: 0 auto; padding: 0 10px; border-radius: 6px; color: var(--accent-deep); font-size: 1rem; font-weight: 700; line-height: 1.5; text-decoration: none; }
 .profile-itch img { flex: 0 0 22px; width: 22px; height: 22px; }
 a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
@@ -40,49 +40,28 @@ a.profile-itch:focus-visible { background-color: rgba(47, 111, 94, .08); text-de
 .game-period-dates { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; margin: 0; color: var(--ink); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-body); font-variant-numeric: tabular-nums; }
 .game-period-dates time { white-space: nowrap; }
 .game-period-end { display: inline-flex; align-items: baseline; gap: 4px; }
-.game-figure, .activity-figure { min-width: 0; margin: 0; }
-.game-figure img, .game-figure video, .activity-figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+.game-achievements { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.game-achievements li { position: relative; padding-left: var(--space-2); color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); word-break: keep-all; overflow-wrap: anywhere; }
+.game-achievements li::before { position: absolute; top: .72em; left: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-deep); content: ""; }
+.game-achievements li:first-child { color: var(--ink); font-weight: 700; }
+.game-figure { min-width: 0; margin: 0; }
+.game-figure img, .game-figure video { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 .game-figure video { display: block; background: #111; }
-.game-figure figcaption, .activity-figure figcaption { margin-top: var(--space-1); color: var(--muted); font-size: var(--text-meta); line-height: 1.6; letter-spacing: var(--tracking-body); text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
+.game-figure figcaption { margin-top: var(--space-1); color: var(--muted); font-size: var(--text-meta); line-height: 1.6; letter-spacing: var(--tracking-body); text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .game-divider { width: 100%; margin: 0; border: 0; border-top: 1px solid var(--line); }
 .game-links { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: var(--space-1) var(--space-3); }
 .game-link { display: inline-flex; align-items: center; justify-content: center; width: 100%; max-width: 100%; min-height: 54px; gap: var(--space-1); padding: 0 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-solid); color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); text-align: center; }
-a.activity-link { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; min-height: 44px; gap: var(--space-1); padding: 0 var(--space-1); border-radius: 6px; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.link-label { display: block; line-height: 1.5; }
-.link-icon { display: block; flex: 0 0 18px; width: 18px; height: 18px; opacity: .62; }
-.activity-link { margin-top: 0; }
-.activity-card { display: grid; gap: var(--card-gap); }
-.activity-card + .activity-card { margin-top: var(--panel-padding); padding-top: var(--panel-padding); border-top: 1px solid var(--line); }
-.activity-card > div { display: grid; gap: var(--space-1); min-width: 0; }
+.activity-card { display: grid; gap: var(--space-1); min-width: 0; }
+.activity-card + .activity-card { margin-top: var(--card-gap); padding-top: var(--card-gap); border-top: 1px solid var(--line); }
 .activity-tag { display: inline-flex; align-items: center; justify-content: center; width: fit-content; max-width: 100%; padding: 6px 12px; border-radius: 999px; color: var(--accent-deep); background: rgba(47, 111, 94, .1); font-size: var(--text-label); font-weight: 800; letter-spacing: var(--tracking-body); line-height: 1.3; }
 .activity-card h3 { margin: 0; font-family: var(--font-display); font-size: var(--text-card-title); font-weight: 700; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .activity-card p { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.activity-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-1-5); }
-.activity-gallery img { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 30%; }
-.activity-gallery > :first-child:nth-last-child(odd) { grid-column: 1 / -1; }
-.activity-gallery > :first-child:nth-last-child(odd) img { aspect-ratio: 16 / 10; }
-.activity-gallery-wide img { aspect-ratio: 16 / 9; object-position: center; }
-.activity-gallery img.photo-uncropped { aspect-ratio: auto; }
-.activity-gallery img.photo-focus-top { object-position: center 12%; }
 .award-list { display: grid; margin: 0; padding: 0; list-style: none; }
 .award-list li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1-5); width: 100%; padding: var(--space-1-5) 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
 .award-list li + li { border-top: 1px solid var(--line); }
 .award-event { display: grid; justify-items: center; min-width: 0; color: var(--ink); font-weight: 800; text-align: center; }
 .award-project { display: block; width: fit-content; max-width: 100%; margin-top: 6px; border-radius: 4px; color: var(--accent-deep); font-size: var(--text-label); font-weight: 700; line-height: 1.5; text-decoration: underline; text-decoration-color: rgba(31, 79, 67, .35); text-underline-offset: 3px; }
 .award-badge { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; padding: 6px 12px; border-radius: 999px; background: rgba(201, 155, 66, .2); color: #6f4b17; font-size: var(--text-label); font-weight: 800; line-height: 1.3; text-align: center; }
-.journal-intro { display: grid; gap: 8px; }
-.journal .section-title { margin: 0; }
-.journal-intro p { margin: 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); letter-spacing: var(--tracking-body); }
-.journal-list { display: grid; gap: var(--card-gap); margin-top: var(--heading-gap); }
-.journal-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-1-5); padding: var(--card-padding); border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .58); }
-.journal-card > div { display: grid; gap: var(--space-1); min-width: 0; }
-.journal-card .activity-tag { padding: 4px 8px; font-size: var(--text-label); line-height: 1.3; letter-spacing: var(--tracking-body); font-variant-numeric: tabular-nums; }
-.journal-card h3 { margin: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 700; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); text-wrap: wrap; }
-.journal-card .activity-link { margin-top: 0; font-size: var(--text-body); white-space: nowrap; }
-.journal-pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-1); margin-top: 16px; }
-.journal-pagination button { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 9px; background: rgba(255, 255, 255, .58); color: var(--muted); font: 800 var(--text-small) var(--font-body); cursor: pointer; }
-.journal-pagination button:hover, .journal-pagination button[aria-current="page"] { border-color: var(--ink); background: var(--ink); color: #fff; }
-.journal-empty { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--text-small); }
 @media (max-width: 640px) {
   .page { --text-body: .96rem; --panel-gap: 16px; --panel-padding: 18px; --card-gap: 12px; --heading-gap: 12px; width: min(var(--max-width), calc(100% - 18px)); padding-top: var(--space-1-5); padding-bottom: 32px; }
   .simple-intro h1 { font-size: 2rem; }
@@ -97,7 +76,7 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
   .profile-department { display: inline-block; }
   .section-title { align-items: flex-start; flex-direction: column; gap: var(--space-1); }
   .section-title h2 { font-size: var(--text-section-title-mobile); }
-  .games, .awards, .activities, .journal { border-radius: 18px; }
+  .games, .awards, .activities { border-radius: 18px; }
   .award-list li { flex-wrap: wrap; gap: 6px; padding: 10px 0; font-size: var(--text-meta); }
   .award-event { flex: 0 1 auto; min-width: 0; max-width: 100%; font-size: inherit; }
   .award-badge { flex: 0 1 auto; margin-left: auto; padding: 6px; font-size: inherit; }
@@ -106,14 +85,10 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
   .game-meta, .game-period-label, .game-period-dates { line-height: var(--line-body); letter-spacing: var(--tracking-body); }
   .game-period { padding: var(--space-1) 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .game-meta-details { gap: 4px var(--space-1); }
-  .activity-gallery { gap: var(--space-1); }
   .activity-card h3 { font-size: var(--text-card-title-mobile); }
-  .journal-card { grid-template-columns: minmax(0, 1fr) auto; }
-  .journal-card .activity-link { justify-self: auto; white-space: nowrap; }
-  .journal-pagination button, .journal-empty { font-size: var(--text-meta); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .contact-email, .profile-itch, .game-link, a.activity-link, .journal-pagination button { transition: var(--action-transition); }
+  .contact-email, .profile-itch, .game-link { transition: var(--action-transition); }
   .fade-up { animation: fadeUp 600ms ease both; }
   .delay-2 { animation-delay: 220ms; }
   @keyframes fadeUp { from { transform: translateY(14px); } to { transform: none; } }
@@ -121,16 +96,10 @@ a.activity-link { display: inline-flex; align-items: center; width: fit-content;
 @media (hover: hover) and (pointer: fine) {
   .contact-email:hover, a.profile-itch:hover { background-color: rgba(47, 111, 94, .08); text-decoration: none; }
   a.award-project:hover { text-decoration: underline; text-decoration-color: currentColor; }
-  .activity-link:hover { background-color: #dce8df; text-decoration: none; }
   a.profile-itch:active { background-color: rgba(47, 111, 94, .12); }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .contact-email:hover { transform: translateY(-1px); }
   a.profile-itch:hover { transform: translateY(-1px); }
-  .activity-link:hover { border-color: rgba(31, 79, 67, .24); box-shadow: 0 8px 18px rgba(31, 41, 36, .08); transform: translateY(-2px); }
-  .journal-pagination button:not([aria-current="page"]):hover { box-shadow: 0 6px 14px rgba(31, 41, 36, .08); transform: translateY(-2px); }
-  .journal-pagination button:active, .activity-link:active { background-color: #dce8df; transform: scale(.98); }
-  .contact-email:active, .profile-itch:active, .section-shortcuts a:active, .project-shortcuts a:active, .back-to-top:active, .photo-viewer-close:active { transform: scale(.98); }
-  .link-icon { transition: opacity 180ms ease, transform 180ms ease; }
-  .game-link:hover .link-icon, .activity-link:hover .link-icon { opacity: 1; transform: scale(1.04); }
+  .contact-email:active, .profile-itch:active, .back-to-top:active { transform: scale(.98); }
 }

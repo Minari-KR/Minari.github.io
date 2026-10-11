@@ -5,12 +5,11 @@ import path from 'node:path';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
 import { root, post, fixture } from './fixture.mjs';
 
-test('one new post automatically updates detail, home list and preview list', t => {
+test('one new post automatically updates detail and preview list', t => {
   const dir = fixture(t);
   fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '새 일지'));
   const result = compileSite(dir);
   assert.ok(result.files.has('journal/2026-09-15-new.html'));
-  assert.ok(result.files.get('index.html').includes('2026-09-15-new.html'));
   assert.ok(result.files.get('mobile-preview.html').includes('2026-09-15-new.html'));
 });
 
@@ -24,9 +23,9 @@ test('posts are newest first and drafts are never published', t => {
   assert.ok(!result.files.has('journal/2026-09-16-draft.html'));
 });
 
-test('zero posts has a useful empty state and builds successfully', t => {
+test('zero posts builds successfully and home has no journal list', t => {
   const result = compileSite(fixture(t));
-  assert.ok(result.files.get('index.html').includes('아직 등록된 일지가 없습니다.'));
+  assert.doesNotMatch(result.files.get('index.html'), /journal/);
   assert.equal(result.posts.length, 0);
 });
 
@@ -46,12 +45,12 @@ test('CSS and script versions follow file contents and reject stale or arbitrary
     return ref.split('?v=')[1];
   };
   const oldCss = versionOf(before, 'index.html', 'home.css');
-  const oldScript = versionOf(before, 'index.html', 'photos.js');
+  const oldScript = versionOf(before, 'index.html', 'home-actions.js');
   assert.equal(versionOf(before, 'index.html', 'common.css'), versionOf(before, 'journal/2026-09-15-version.html', 'common.css'));
   fs.appendFileSync(path.join(dir, 'src/styles/home.css'), '\n/* cache revision */\n');
   const after = compileSite(dir);
   assert.notEqual(versionOf(after, 'index.html', 'home.css'), oldCss);
-  assert.equal(versionOf(after, 'index.html', 'photos.js'), oldScript);
+  assert.equal(versionOf(after, 'index.html', 'home-actions.js'), oldScript);
   for (const query of [`?v=${oldCss}`, '?v=../../private', '?anything=1']) {
     const changed = new Map(after.files);
     changed.set('index.html', changed.get('index.html').replace(/home\.css\?v=[a-f0-9]{12}/, 'home.css' + query));

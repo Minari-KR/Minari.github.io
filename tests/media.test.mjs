@@ -18,12 +18,11 @@ test('media collection and link validation use the same attribute rules', t => {
   assert.doesNotMatch(result.publicFiles.get('index.html'), /data-full-src="\.\/assets\/images\/(?:reflectory-title|barrel-good-barrel-title)\.png"/);
 });
 
-test('card previews and full-size images are both published and full-size paths are validated', () => {
+test('removed photos stay unpublished and full-size paths are validated', () => {
   const { publicFiles } = compileSite(root);
   const html = publicFiles.get('index.html');
-  const originals = [...html.matchAll(/data-full-src="\.\/([^\"]+)"/g)].map(match => match[1]);
-  assert.equal(originals.length, 10);
-  for (const removed of ['reflectory-gameplay.png', 'barrel-good-barrel-prototype.png', 'cards/barrel-good-barrel-prototype.webp', 'barrel-good-barrel-traits.png', 'cards/barrel-good-barrel-traits.webp', 'barrel-good-barrel-tutorial.png', 'cards/barrel-good-barrel-tutorial.webp', 'reflectory-title.png', 'barrel-good-barrel-title.png']) {
+  assert.doesNotMatch(html, /data-full-src=/);
+  for (const removed of ['netmarble-academy-5-ceremony.jpg', 'cards/netmarble-academy-5-ceremony.webp', 'stove-crew-2-group.png', 'cards/stove-crew-2-group.webp', 'daejeon-ind-gameus-award.jpg', 'cards/daejeon-ind-gamejam-2026-team.webp', 'reflectory-gameplay.png', 'barrel-good-barrel-prototype.png', 'cards/barrel-good-barrel-prototype.webp', 'barrel-good-barrel-traits.png', 'cards/barrel-good-barrel-traits.webp', 'barrel-good-barrel-tutorial.png', 'cards/barrel-good-barrel-tutorial.webp', 'reflectory-title.png', 'barrel-good-barrel-title.png']) {
     assert.equal(publicFiles.has(`assets/images/${removed}`), false);
   }
   for (const replaced of ['cards/reflectory-gameplay.webp', 'barrel-good-barrel-poster.webp']) assert.equal(publicFiles.has(`assets/images/${replaced}`), false);
@@ -31,16 +30,10 @@ test('card previews and full-size images are both published and full-size paths 
   assert.match(html, /poster="\.\/assets\/images\/cards\/barrel-good-barrel-title\.webp(?:\?v=[a-f0-9]{12})?"/);
   assert.ok(publicFiles.has('assets/images/cards/reflectory-title.webp'));
   assert.ok(publicFiles.has('assets/images/cards/barrel-good-barrel-title.webp'));
-  for (const original of originals) {
-    const preview = original.replace(/\/([^/]+)\.(png|jpg)$/, '/cards/$1.webp');
-    assert.ok(publicFiles.get(original).equals(fs.readFileSync(path.join(root, 'public', original))));
-    assert.ok(publicFiles.has(preview));
-    assert.ok(publicFiles.get(preview).length < publicFiles.get(original).length);
-  }
-  for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/photos.js']) {
+  for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/home-actions.js']) {
     const changed = new Map(publicFiles);
-    changed.set('index.html', html.replace(/data-full-src="[^"]+"/, `data-full-src="${ref}"`));
-    assert.throws(() => validateFiles(changed));
+    changed.set('index.html', html.replace('</main>', `<img src="./assets/images/cards/reflectory-title.webp" data-full-src="${ref}" alt=""></main>`));
+    assert.throws(() => validateFiles(changed), ref);
   }
 });
 

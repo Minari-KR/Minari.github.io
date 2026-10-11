@@ -49,14 +49,16 @@ test('email remains a mail link without copy controls or clipboard code', () => 
   assert.doesNotMatch(source, /clipboard|email-copy|copy-status/);
 });
 
-test('profile A preserves information and puts shortcuts after the identity card', () => {
+test('profile A preserves information and awards follow the identity card', () => {
   assert.match(template, /class="profile-school">우송대학교 <span class="profile-department">게임멀티미디어학과<\/span>/);
-  assert.match(template, /class="profile-label">생년월일<\/span>\s*<time datetime="2003-02-26">2003\.02\.26<\/time>/);
-  const card = template.slice(template.indexOf('<section class="profile-card"'), template.indexOf('<nav class="section-shortcuts"'));
+  assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday/);
+  assert.match(template, /class="profile-name"[\s\S]*class="profile-role">게임 기획<\/p>[\s\S]*class="simple-summary"/);
+  const card = template.slice(template.indexOf('<section class="profile-card"'), template.indexOf('<section class="panel awards'));
   assert.ok(card.indexOf('profile-name') < card.indexOf('simple-summary'));
   assert.ok(card.indexOf('simple-summary') < card.indexOf('profile-contact'));
   assert.ok(card.indexOf('profile-contact') < card.indexOf('profile-background'));
-  assert.match(card, /<\/section>\s*$/);
+  assert.match(card, /<\/section>\s*<\/div>\s*$/);
+  assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal/);
   assert.match(card, /class="profile-identity"[\s\S]*class="profile-name"[\s\S]*class="simple-summary"/);
   assert.match(card, /class="profile-details"[\s\S]*class="profile-contact"[\s\S]*class="profile-background"/);
   assert.equal((card.match(/class="contact-email"/g) || []).length, 1);
@@ -147,10 +149,9 @@ test('reversing scroll cancels pending appearance and dismissal callbacks', () =
   assert.equal(state.top.classList.contains('is-appearing'), false);
 });
 
-test('project play links and shortcuts share the hover treatment', () => {
-  assert.match(styles, /\.section-shortcuts a, \.project-shortcuts a \{ transition: var\(--action-transition\); \}/);
-  assert.match(homeStyles, /\.contact-email, \.profile-itch, \.game-link, a\.activity-link, \.journal-pagination button \{ transition: var\(--action-transition\); \}/);
-  assert.match(styles, /\.section-shortcuts a:hover, \.project-shortcuts a:hover, \.game-links \.game-link:hover \{[^}]*transform: translateY\(-2px\)/);
+test('project play links keep the shared hover treatment', () => {
+  assert.match(homeStyles, /\.contact-email, \.profile-itch, \.game-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(styles, /\.game-links \.game-link:hover \{[^}]*transform: translateY\(-2px\)/);
   assert.doesNotMatch(homeStyles, /\.game-link:hover\s*\{/);
 });
 
@@ -185,9 +186,9 @@ test('back-to-top restores heading focus and honors reduced motion', () => {
   }
 });
 
-test('optional controls can be absent and shortcuts work as ordinary anchors without JavaScript', () => {
+test('optional controls can be absent and award links work as ordinary anchors without JavaScript', () => {
   assert.doesNotThrow(() => setup({ missing: true }));
-  for (const id of ['games', 'activities', 'journal']) {
+  for (const id of ['reflectory', 'barrel-good-barrel']) {
     assert.ok(template.includes(`href="#${id}"`));
     assert.ok(template.includes(`id="${id}" tabindex="-1"`));
   }
