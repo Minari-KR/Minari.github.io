@@ -63,10 +63,12 @@
 
 /* Project detail page */
 .project-page { padding-top: 16px; }
-.home-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: var(--text-meta); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.home-link { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1.5px solid var(--ink); border-radius: 50%; background: #fff; }
+.home-link img { width: 20px; height: 20px; }
 .project-detail { margin-top: var(--gap-block); }
 .project-detail h1 { margin: 0; color: var(--ink); font-size: 2.25rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: -.03em; }
 .project-detail .project-meta { margin-top: 12px; font-variant-numeric: tabular-nums; }
+.period-badge img, .period-label { display: none; }
 .project-media { margin: 48px 0 0; }
 .project-media video { display: block; width: 100%; height: auto; border-radius: 8px; background: #000; }
 .play-link { display: flex; align-items: center; justify-content: center; gap: .3em; min-height: 52px; margin-top: var(--gap-block); border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-body); font-weight: 700; line-height: var(--line-compact); text-decoration: none; }
@@ -84,6 +86,14 @@
   .section-title-icon img { width: 20px; height: 20px; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
+  /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
+  .project-detail .project-meta { flex-wrap: wrap; }
+  .project-detail .project-meta > :nth-last-child(2) { display: none; }
+  .project-period { display: flex; flex-basis: 100%; justify-content: center; margin-top: var(--gap-group); }
+  /* Secondary to the 행사 / 역할 / 팀 line: same size, lighter color, quiet pill. */
+  .period-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border: 1px solid var(--line); border-radius: 999px; background: #f6f7f5; color: var(--muted); font-size: inherit; font-weight: 500; line-height: var(--line-compact); }
+  .period-badge img { display: block; width: 14px; height: 14px; }
+  .period-label { display: inline; margin-right: 2px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .action, .home-link, .play-link { transition: var(--action-transition); }
@@ -92,12 +102,12 @@
 @media (hover: hover) and (pointer: fine) {
   .action:hover { background: #dce8df; text-decoration: none; }
   .action-primary:hover, .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
-  .home-link:hover { color: var(--accent-deep); }
+  .home-link:hover { background: #dce8df; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .action:hover { transform: translateY(-2px); }
-  .action:active, .play-link:active, .back-to-top:active { transform: scale(.98); }
+  .action:hover, .home-link:hover { transform: translateY(-2px); }
+  .action:active, .play-link:active, .back-to-top:active, .home-link:active { transform: scale(.98); }
 }
-.action:active { background: #dce8df; }
+.action:active, .home-link:active { background: #dce8df; }
 .action-primary:active, .play-link:active { background: #163b32; }
