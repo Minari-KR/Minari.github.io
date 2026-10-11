@@ -5,7 +5,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const post = (date, title, extra = '') => `---\ntitle: ${title}\ndate: ${date}\n${extra}---\n\n## 경험\n\n본문입니다.\n`;
 
 // Recursive cpSync terminates Node in the current Windows/OneDrive environment.
 // Copy the same fixture files individually so assertions still run unchanged.
@@ -30,7 +29,6 @@ export function fixture(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'minari-portfolio-test-'));
   copyFixtureTree(path.join(root, 'src'), path.join(directory, 'src'));
   copyFixtureTree(path.join(root, 'public'), path.join(directory, 'public'));
-  fs.mkdirSync(path.join(directory, 'content/journal'), { recursive: true });
   t.after(() => {
     const resolved = path.resolve(directory);
     assert.equal(path.dirname(resolved), path.resolve(os.tmpdir()));

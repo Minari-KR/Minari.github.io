@@ -23,7 +23,7 @@ function preview({ blocked = false } = {}) {
   };
   const ids = {
     phoneA: element(), frameA: element(), reload: element(), frameStatus: element(),
-    pageSelect: { ...element(), value: './index.html', options: [{ value: './index.html' }, { value: './journal/example.html' }] },
+    pageSelect: { ...element(), value: './index.html', options: [{ value: './index.html' }, { value: './projects/reflectory.html' }] },
     frameStyles: { href: 'https://preview.test/assets/css/preview-frame.css?v=123456789abc' }
   };
   Object.defineProperty(ids.frameA, 'contentDocument', { get() {
@@ -39,9 +39,9 @@ test('preview remains navigable when the browser denies frame access', () => {
   assert.match(ids.frameStatus.textContent, /접근을 제한/);
   buttons[2].listeners.click();
   assert.equal(buttons[2].attributes['aria-pressed'], 'true');
-  ids.pageSelect.value = './journal/example.html';
+  ids.pageSelect.value = './projects/reflectory.html';
   ids.pageSelect.listeners.change();
-  assert.match(ids.frameA.src, /^\.\/journal\/example\.html\?v=\d+$/);
+  assert.match(ids.frameA.src, /^\.\/projects\/reflectory\.html\?v=\d+$/);
   const safeSource = ids.frameA.src;
   ids.pageSelect.value = 'https://unlisted.example/';
   ids.reload.listeners.click();

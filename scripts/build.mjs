@@ -11,7 +11,7 @@ const manifestPath = path.join(root, '.generated-files.json');
 const previous = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
 
 function targetPath(base, name) {
-  if (typeof name !== 'string' || !/^(?:index\.html|mobile-preview\.html|\.nojekyll|journal\/[a-z0-9-]+\.html|assets\/(?:css|js|images|videos|icons)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
+  if (typeof name !== 'string' || !/^(?:index\.html|mobile-preview\.html|\.nojekyll|projects\/[a-z0-9-]+\.html|assets\/(?:css|js|images|videos|icons)\/[a-z0-9_./-]+)$/.test(name)) throw new Error('생성 파일 목록에 허용되지 않는 경로가 있습니다.');
   if (name.split('/').some(part => part === '..' || part === '.')) throw new Error('상위 경로 이동은 허용되지 않습니다.');
   const target = path.resolve(base, name);
   if (!target.startsWith(path.resolve(base) + path.sep)) throw new Error('프로젝트 밖의 경로는 수정할 수 없습니다.');
@@ -48,7 +48,7 @@ if (!Array.isArray(previous)) throw new Error('생성 파일 목록은 배열이
 for (const name of previous) targetPath(root, name);
 const previousFiles = new Set(previous);
 for (const [base, expected, folders] of [
-  [root, compiled.files, ['journal', 'assets']],
+  [root, compiled.files, ['projects', 'assets']],
   [path.join(root, 'dist'), compiled.publicFiles, ['']]
 ]) {
   for (const folder of folders) {
@@ -92,4 +92,4 @@ if (checkOnly) {
 const actualPublic = walk(path.join(root, 'dist')).map(file => path.relative(path.join(root, 'dist'), file).replaceAll('\\', '/')).sort();
 const expectedPublic = [...compiled.publicFiles.keys()].sort();
 if (JSON.stringify(actualPublic) !== JSON.stringify(expectedPublic)) throw new Error('배포 폴더에 누락되거나 허용되지 않은 파일이 있습니다.');
-console.log(`${checkOnly ? '검사' : '생성'} 완료: 공개 일지 ${compiled.posts.length}개, 배포 파일 ${actualPublic.length}개. 원고·관리 문서·미리보기는 배포 대상에서 제외됩니다.`);
+console.log(`${checkOnly ? '검사' : '생성'} 완료: 배포 파일 ${actualPublic.length}개. 관리 문서·미리보기는 배포 대상에서 제외됩니다.`);

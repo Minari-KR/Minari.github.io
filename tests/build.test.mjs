@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { root, post, fixture, copyFixtureTree } from './fixture.mjs';
+import { root, fixture, copyFixtureTree } from './fixture.mjs';
 
 test('unknown output files stop build and check without deleting files or overwriting pages', t => {
-  for (const name of ['journal/2020-01-01-old.html', 'assets/css/manual.css', 'dist/private.txt']) {
+  for (const name of ['projects/old.html', 'assets/css/manual.css', 'dist/private.txt']) {
     const dir = fixture(t);
     copyFixtureTree(path.join(root, 'scripts'), path.join(dir, 'scripts'));
     const build = (...args) => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs'), ...args], { stdio: 'pipe' });
@@ -16,29 +16,29 @@ test('unknown output files stop build and check without deleting files or overwr
     fs.mkdirSync(path.dirname(unknown), { recursive: true });
     fs.writeFileSync(unknown, 'Keep this file');
     assert.throws(() => build('--check'), error => error.stderr.toString().includes('관리하지 않는 파일'));
-    fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '새 글'));
+    fs.appendFileSync(path.join(dir, 'src/styles/home.css'), '\n/* edited */\n');
     assert.throws(() => build(), error => error.stderr.toString().includes('관리하지 않는 파일'));
     assert.equal(fs.readFileSync(unknown, 'utf8'), 'Keep this file');
     assert.ok(fs.readFileSync(path.join(dir, 'index.html')).equals(before));
   }
 });
 
-test('build removes deleted generated posts and refuses to overwrite output on bad content', t => {
+test('build removes outputs whose source was deleted and refuses to overwrite output on bad content', t => {
   const dir = fixture(t);
   copyFixtureTree(path.join(root, 'scripts'), path.join(dir, 'scripts'));
-  const first = path.join(dir, 'content/journal/2026-09-15-first.md');
-  const second = path.join(dir, 'content/journal/2026-09-16-second.md');
-  fs.writeFileSync(first, post('2026-09-15', '첫 글'));
-  fs.writeFileSync(second, post('2026-09-16', '둘째 글'));
+  const extra = path.join(dir, 'src/styles/extra.css');
+  fs.writeFileSync(extra, '.extra { color: inherit; }\n');
   const build = (...args) => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs'), ...args], { stdio: 'pipe' });
   build();
-  fs.unlinkSync(first);
+  assert.ok(fs.existsSync(path.join(dir, 'assets/css/extra.css')));
+  fs.unlinkSync(extra);
   build();
   build('--check');
-  assert.ok(!fs.existsSync(path.join(dir, 'journal/2026-09-15-first.html')));
-  assert.ok(!fs.existsSync(path.join(dir, 'dist/journal/2026-09-15-first.html')));
+  assert.ok(!fs.existsSync(path.join(dir, 'assets/css/extra.css')));
+  assert.ok(!fs.existsSync(path.join(dir, 'dist/assets/css/extra.css')));
   const before = fs.readFileSync(path.join(dir, 'index.html'));
-  fs.appendFileSync(second, '\n[잘못된 링크](javascript:evil)\n');
+  const home = path.join(dir, 'src/templates/home.html');
+  fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', '<a href="javascript:evil">링크</a></main>'));
   assert.throws(() => build());
   assert.ok(fs.readFileSync(path.join(dir, 'index.html')).equals(before));
 });

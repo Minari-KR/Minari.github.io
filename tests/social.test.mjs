@@ -4,11 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
 import { readHtmlTags } from '../scripts/html.mjs';
 import { socialMeta, siteUrl, shareImage } from '../scripts/social.mjs';
+import { projects } from '../scripts/site-config.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
-test('home and journal share their own URLs and titles with a published 1200x630 PNG', () => {
-  const { publicFiles, files, posts } = compileSite(root);
+test('home and project pages share their own URLs and titles with a published 1200x630 PNG', () => {
+  const { publicFiles, files } = compileSite(root);
   const image = publicFiles.get(shareImage);
   assert.equal(image.readUInt32BE(16), 1200);
   assert.equal(image.readUInt32BE(20), 630);
@@ -21,10 +22,10 @@ test('home and journal share their own URLs and titles with a published 1200x630
     assert.equal(meta['twitter:image'], meta['og:image']);
     assert.equal(meta['twitter:title'], meta['og:title']);
     assert.equal(meta['og:type'], name === 'index.html' ? 'website' : 'article');
-    if (name !== 'index.html') {
-      const post = posts.find(post => name === `journal/${post.slug}.html`);
-      assert.equal(meta['og:title'], `${post.title} | Minari`);
-      assert.equal(meta['og:description'], post.summary);
+    if (name.startsWith('projects/')) {
+      const project = projects.find(project => name === `projects/${project.slug}.html`);
+      assert.equal(meta['og:title'], `${project.title} | Minari`);
+      assert.equal(meta['og:description'], project.description);
     }
   }
   assert.doesNotMatch(files.get('mobile-preview.html'), /og:image/);
@@ -45,7 +46,7 @@ test('sharing metadata rejects missing images, outside URLs and mismatched page 
   assert.throws(() => validateFiles(wrongPage), /공유 대상/);
 });
 
-test('quotes and HTML in journal metadata remain attribute text', () => {
+test('quotes and HTML in page metadata remain attribute text', () => {
   const title = '제목 " & <script>test</script>';
   const result = socialMeta({ title, description: title });
   assert.doesNotMatch(result, /<script>/);

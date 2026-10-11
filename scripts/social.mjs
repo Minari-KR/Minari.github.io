@@ -6,7 +6,7 @@ export { siteUrl, shareImage } from './site-config.mjs';
 export function socialTarget(url) {
   if (!url.startsWith(siteUrl)) throw new Error('공유 주소는 공개 사이트의 HTTPS 주소여야 합니다.');
   const relative = url.slice(siteUrl.length);
-  if (!/^(?:|journal\/[a-z0-9-]+\.html|assets\/images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.(?:png|jpe?g|webp|gif|avif))$/.test(relative)) throw new Error('허용되지 않는 공유 주소입니다.');
+  if (!/^(?:|projects\/[a-z0-9-]+\.html|assets\/images\/(?:[a-z0-9_-]+\/)*[a-z0-9_-]+\.(?:png|jpe?g|webp|gif|avif))$/.test(relative)) throw new Error('허용되지 않는 공유 주소입니다.');
   return relative || 'index.html';
 }
 

@@ -1,8 +1,9 @@
 Lucide Icons
 
 The icons in this directory are from Lucide, an open-source icon library.
-The circle-arrow-left, circle-arrow-right, and circle-arrow-up icons are bundled locally from Lucide for site navigation.
-Lucide is licensed under the ISC License. The arrow, calendar, and zoom-in icons are derived from Feather Icons and are also covered by the MIT License.
+Bundled icons: circle-arrow-up (back to top), gamepad-2 (itch.io button) and trophy (awards heading).
+The trophy icon is from https://github.com/lucide-icons/lucide/blob/main/icons/trophy.svg; only its stroke color was changed.
+Lucide is licensed under the ISC License. Some Lucide icons are derived from Feather Icons and are also covered by the MIT License below.
 
 Lucide ISC License
 Copyright (c) 2026 Lucide Icons and Contributors

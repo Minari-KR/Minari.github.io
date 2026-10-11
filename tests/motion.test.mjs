@@ -7,14 +7,14 @@ const read = name => fs.readFileSync(new URL(`../${name}`, import.meta.url), 'ut
 
 test('home images retain explicit dimensions and page transitions respect reduced motion', () => {
   const home = read('src/templates/home.html');
-  const journal = read('src/templates/journal.html');
+  const project = read('src/templates/projects/reflectory.html');
   for (const { tag, attributes } of readHtmlTags(home)) {
     if (tag !== 'img') continue;
     assert.ok(Number(attributes.width) > 0);
     assert.ok(Number(attributes.height) > 0);
   }
   assert.match(home, /assets\/css\/page-transitions\.css/);
-  assert.match(journal, /assets\/css\/page-transitions\.css/);
+  assert.match(project, /assets\/css\/page-transitions\.css/);
   const transitions = read('src/styles/page-transitions.css');
   assert.match(transitions, /@media \(prefers-reduced-motion: no-preference\)[\s\S]*navigation: auto/);
   assert.match(transitions, /@media \(prefers-reduced-motion: reduce\)[\s\S]*navigation: none/);

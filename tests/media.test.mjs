@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { compileSite, validateFiles } from '../scripts/site.mjs';
-import { root, post, fixture, copyFixtureTree, imageBytes } from './fixture.mjs';
+import { root, fixture, copyFixtureTree, imageBytes } from './fixture.mjs';
 
 test('media collection and link validation use the same attribute rules', t => {
   const dir = fixture(t);
@@ -26,8 +26,8 @@ test('removed photos stay unpublished and full-size paths are validated', () => 
     assert.equal(publicFiles.has(`assets/images/${removed}`), false);
   }
   for (const replaced of ['cards/reflectory-gameplay.webp', 'barrel-good-barrel-poster.webp']) assert.equal(publicFiles.has(`assets/images/${replaced}`), false);
-  assert.match(html, /poster="\.\/assets\/images\/cards\/reflectory-title\.webp(?:\?v=[a-f0-9]{12})?"/);
-  assert.match(html, /poster="\.\/assets\/images\/cards\/barrel-good-barrel-title\.webp(?:\?v=[a-f0-9]{12})?"/);
+  assert.match(publicFiles.get('projects/reflectory.html'), /poster="\.\.\/assets\/images\/cards\/reflectory-title\.webp"/);
+  assert.match(publicFiles.get('projects/barrel-good-barrel.html'), /poster="\.\.\/assets\/images\/cards\/barrel-good-barrel-title\.webp"/);
   assert.ok(publicFiles.has('assets/images/cards/reflectory-title.webp'));
   assert.ok(publicFiles.has('assets/images/cards/barrel-good-barrel-title.webp'));
   for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/home-actions.js']) {
@@ -39,7 +39,8 @@ test('removed photos stay unpublished and full-size paths are validated', () => 
 
 test('missing image and fake raster file fail before output is written', t => {
   const dir = fixture(t);
-  fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '이미지') + '\n![화면](assets/images/missing.png)\n');
+  const home = path.join(dir, 'src/templates/home.html');
+  fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', '<img src="./assets/images/missing.png" alt="화면">\n</main>'));
   assert.throws(() => compileSite(dir), /연결 대상/);
   fs.mkdirSync(path.join(dir, 'public/assets/images'), { recursive: true });
   fs.writeFileSync(path.join(dir, 'public/assets/images/missing.png'), '<script>not a picture</script>');
@@ -86,41 +87,38 @@ test('video sources and posters reject missing and external resources', () => {
   }
 });
 
-test('only images referenced by published posts or home are generated', t => {
+test('only images referenced by pages are generated, comments do not count', t => {
   const dir = fixture(t);
   const images = path.join(dir, 'public/assets/images');
   fs.mkdirSync(images, { recursive: true });
-  for (const name of ['published', 'draft', 'unused', 'home', 'shared']) fs.writeFileSync(path.join(images, name + '.png'), imageBytes);
-  fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-published.md'), post('2026-09-15', '공개') + '\n![공개](assets/images/published.png)\n\n![공유](assets/images/shared.png)\n');
-  fs.writeFileSync(path.join(dir, 'content/journal/2026-09-16-draft.md'), post('2026-09-16', '초안', 'draft: true\n') + '\n![초안](assets/images/draft.png)\n\n![공유](assets/images/shared.png)\n');
+  for (const name of ['home', 'project', 'unused']) fs.writeFileSync(path.join(images, name + '.png'), imageBytes);
   const home = path.join(dir, 'src/templates/home.html');
   fs.writeFileSync(home, fs.readFileSync(home, 'utf8').replace('</main>', '<img src="./assets/images/home.png" alt="홈 사진">\n<!-- <img src="./assets/images/unused.png"> -->\n</main>'));
+  const project = path.join(dir, 'src/templates/projects/reflectory.html');
+  fs.writeFileSync(project, fs.readFileSync(project, 'utf8').replace('</main>', '<img src="../assets/images/project.png" alt="프로젝트 사진">\n</main>'));
   const result = compileSite(dir);
   for (const files of [result.files, result.publicFiles]) {
-    for (const name of ['published', 'home', 'shared']) assert.ok(files.has(`assets/images/${name}.png`));
-    for (const name of ['draft', 'unused']) assert.ok(!files.has(`assets/images/${name}.png`));
+    for (const name of ['home', 'project']) assert.ok(files.has(`assets/images/${name}.png`));
+    assert.ok(!files.has('assets/images/unused.png'));
   }
 });
 
-test('changing a published post to draft removes generated images but keeps originals', t => {
+test('removing an image reference removes generated copies but keeps the original', t => {
   const dir = fixture(t);
   copyFixtureTree(path.join(root, 'scripts'), path.join(dir, 'scripts'));
   const images = path.join(dir, 'public/assets/images');
   fs.mkdirSync(images, { recursive: true });
   fs.writeFileSync(path.join(images, 'photo.png'), imageBytes);
-  const article = path.join(dir, 'content/journal/2026-09-15-photo.md');
-  const body = '\n![사진](assets/images/photo.png)\n';
-  fs.writeFileSync(article, post('2026-09-15', '사진') + body);
+  const home = path.join(dir, 'src/templates/home.html');
+  const original = fs.readFileSync(home, 'utf8');
+  fs.writeFileSync(home, original.replace('</main>', '<img src="./assets/images/photo.png" alt="사진">\n</main>'));
   const build = (...args) => execFileSync(process.execPath, [path.join(dir, 'scripts/build.mjs'), ...args], { stdio: 'pipe' });
   build();
   assert.ok(fs.existsSync(path.join(dir, 'dist/assets/images/photo.png')));
-  fs.writeFileSync(article, post('2026-09-15', '사진', 'draft: true\n') + body);
+  fs.writeFileSync(home, original);
   assert.throws(() => build('--check'));
   build();
   build('--check');
-  for (const folder of ['', 'dist']) {
-    assert.ok(!fs.existsSync(path.join(dir, folder, 'assets/images/photo.png')));
-    assert.ok(!fs.existsSync(path.join(dir, folder, 'journal/2026-09-15-photo.html')));
-  }
+  for (const folder of ['', 'dist']) assert.ok(!fs.existsSync(path.join(dir, folder, 'assets/images/photo.png')));
   assert.ok(fs.readFileSync(path.join(images, 'photo.png')).equals(imageBytes));
 });

@@ -1,7 +1,7 @@
 # Generated output: edit src/, content/ and public/ instead.
 /index.html
 /mobile-preview.html
-/journal/*.html
+/projects/*.html
 /assets/
 /dist/
 /.generated-files.json

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { compileSite, validateFiles, securityMeta } from '../scripts/site.mjs';
-import { root, post, fixture } from './fixture.mjs';
+import { root, fixture } from './fixture.mjs';
 
 test('deployment output excludes preview, original Markdown and management files', () => {
   const result = compileSite(root);
@@ -61,7 +61,7 @@ test('resource validation handles alternate quotes, case, entities and duplicate
 test('key-like content is blocked without echoing the value', t => {
   const dir = fixture(t);
   const fake = 'gh' + 'p_' + 'X'.repeat(36);
-  fs.writeFileSync(path.join(dir, 'content/journal/2026-09-15-new.md'), post('2026-09-15', '테스트') + fake);
+  fs.appendFileSync(path.join(dir, 'src/templates/home.html'), `\n<!-- ${fake} -->\n`);
   assert.throws(() => compileSite(dir), error => error.message.includes('비밀키') && !error.message.includes(fake));
 });
 

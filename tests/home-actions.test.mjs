@@ -44,26 +44,27 @@ function setup({ scrollY = 0, reduced = false, missing = false, fadeTime = '0.42
 }
 
 test('email remains a mail link without copy controls or clipboard code', () => {
-  assert.match(template, /class="contact-email" href="mailto:bkpark0226@naver.com"/);
+  assert.match(template, /class="action action-primary" href="mailto:bkpark0226@naver.com">bkpark0226@naver.com</);
   assert.doesNotMatch(template, /email-copy|copy-status|email-actions/);
   assert.doesNotMatch(source, /clipboard|email-copy|copy-status/);
 });
 
-test('profile card preserves information and project tiles follow it', () => {
-  assert.match(template, /class="profile-school">우송대학교 게임멀티미디어학과<\/p>/);
-  assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday/);
-  assert.doesNotMatch(template, /profile-role|게임 기획</);
-  const card = template.slice(template.indexOf('<section class="tile tile-profile profile-card"'), template.indexOf('<article class="tile tile-project'));
-  assert.ok(card.length > 0);
-  assert.ok(card.indexOf('profile-name') < card.indexOf('simple-summary'));
-  assert.ok(card.indexOf('simple-summary') < card.indexOf('profile-contact'));
-  assert.ok(card.indexOf('profile-contact') < card.indexOf('profile-school'));
-  assert.match(card, /<\/section>\s*$/);
-  assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project/);
-  assert.match(card, /class="profile-identity"[\s\S]*class="profile-name"[\s\S]*class="simple-summary"/);
-  assert.match(card, /class="profile-details"[\s\S]*class="profile-contact"[\s\S]*class="profile-school"/);
-  assert.equal((card.match(/class="contact-email"/g) || []).length, 1);
-  assert.doesNotMatch(template, /profile-school-label/);
+test('intro, awards and projects follow the single-column order with the approved copy', () => {
+  assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
+  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"'];
+  const positions = order.map(marker => template.indexOf(marker));
+  assert.ok(positions.every(position => position >= 0), String(positions));
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+  assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
+  assert.doesNotMatch(template, /role-list/);
+  assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
+});
+
+test('page drops template chrome: menus, middle-dot meta, link arrows and tile cards', () => {
+  const main = template.slice(template.indexOf('<main'), template.indexOf('</main>'));
+  assert.doesNotMatch(main, / · |<nav/);
+  assert.doesNotMatch(template, /arrow-right\.svg|class="tile|tile-more/);
+  assert.doesNotMatch(homeStyles, /#fffefa|--paper-solid/);
 });
 
 test('back-to-top follows scroll, resize and restored-page position when motion is reduced', () => {
@@ -150,10 +151,11 @@ test('reversing scroll cancels pending appearance and dismissal callbacks', () =
   assert.equal(state.top.classList.contains('is-appearing'), false);
 });
 
-test('project play links keep the shared hover treatment', () => {
-  assert.match(homeStyles, /\.contact-email, \.profile-itch, \.game-link, \.tile-project \{ transition: var\(--action-transition\); \}/);
-  assert.match(styles, /\.game-links \.game-link:hover \{[^}]*transform: translateY\(-2px\)/);
-  assert.doesNotMatch(homeStyles, /\.game-link:hover\s*\{/);
+test('action buttons share one transition and darken on hover and press', () => {
+  assert.match(homeStyles, /\.action, \.home-link, \.play-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(homeStyles, /\.action-primary:hover, \.play-link:hover \{ background: #163b32;/);
+  assert.match(homeStyles, /\.action-primary:active, \.play-link:active \{ background: #163b32; \}/);
+  assert.doesNotMatch(styles, /play-link|\.action/);
 });
 
 test('dismissal completes on the opacity transition and adapts when motion preference changes', () => {
@@ -187,11 +189,15 @@ test('back-to-top restores heading focus and honors reduced motion', () => {
   }
 });
 
-test('optional controls can be absent and project links work as ordinary anchors without JavaScript', () => {
+test('optional controls can be absent and projects open their own pages without JavaScript', () => {
   assert.doesNotThrow(() => setup({ missing: true }));
-  for (const id of ['reflectory', 'barrel-good-barrel']) {
-    assert.ok(template.includes(`href="#${id}"`));
-    assert.ok(template.includes(`<dialog class="project-dialog" id="${id}"`));
+  for (const slug of ['reflectory', 'barrel-good-barrel']) {
+    assert.ok(template.includes(`<a class="action" href="./projects/${slug}.html">플레이 영상</a>`));
+    const page = fs.readFileSync(new URL(`../src/templates/projects/${slug}.html`, import.meta.url), 'utf8');
+    assert.match(page, /class="home-link" href="\.\.\/index\.html#projects"/);
+    assert.match(page, /<p class="project-award">[^<]+<\/p>/);
+    assert.match(page, /<video controls playsinline preload="none"/);
+    assert.match(page, /class="play-link" href="https:\/\/minari-kr\.itch\.io\/[a-z-]+" target="_blank" rel="noopener noreferrer"/);
   }
   assert.match(template, /class="back-to-top"[^>]*hidden/);
   assert.match(template, /class="back-to-top"[^>]*aria-label="페이지 맨 위로 이동"/);
