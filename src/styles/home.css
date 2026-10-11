@@ -12,6 +12,11 @@
   position: relative; z-index: 1; box-sizing: border-box; width: min(calc(var(--column) + 2 * var(--box-padding)), calc(100% - 32px)); margin: 40px auto; padding: 64px var(--box-padding); border: 1px solid var(--line); border-radius: 12px; background: #fff; text-align: center;
 }
 
+/* Whole-pixel line boxes (avoids 28.8px-style half pixels, including fluid mobile sizes) where CSS round() is supported. */
+@supports (line-height: round(1.2em, 1px)) {
+  .page { --line-heading: round(1.2em, 1px); --line-compact: round(1.5em, 1px); --line-text: round(1.6em, 1px); }
+}
+
 /* Intro: identity group (name, role, school) is tight; statement and buttons are separate blocks. */
 .intro h1 { margin: 0; color: var(--accent-deep); font-family: var(--font-display); font-size: var(--text-display); font-weight: 800; line-height: 1; letter-spacing: -.035em; }
 .intro-role { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 0; color: var(--ink); font-size: var(--text-title); font-weight: 700; line-height: var(--line-heading); }
@@ -30,7 +35,7 @@
 .section { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .section-title { margin: 0 0 var(--gap-block); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
 .section-title-icon { display: flex; align-items: center; justify-content: center; gap: var(--gap-group); }
-.section-title-icon img { flex: 0 0 auto; width: 28px; height: 28px; }
+.section-title-icon img { flex: 0 0 auto; width: 24px; height: 24px; }
 .marker { padding: 0 .2em; background: linear-gradient(transparent 55%, var(--marker) 55%); }
 
 /* Awards: scannable 2 x 2 list */
@@ -51,9 +56,9 @@
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
 /* Release app (출시 앱): same layout as a project, with a status badge above the title */
-.release-status { display: inline-block; margin: var(--gap-block) 0 0; padding: 2px 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); }
-.release-app .project-title { margin-top: 12px; }
+.release-status { display: block; width: fit-content; margin: 12px auto 0; padding: 2px 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); }
 .release-image.project-image { aspect-ratio: auto; }
+.release-icon + .project-title { margin-top: var(--gap-block); }
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
 
 /* Project detail page */
@@ -76,7 +81,7 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: var(--gap-block); }
   .award-list li { gap: var(--gap-tight); }
-  .section-title-icon img { width: 24px; height: 24px; }
+  .section-title-icon img { width: 20px; height: 20px; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
 }
