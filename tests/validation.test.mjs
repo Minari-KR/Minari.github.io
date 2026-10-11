@@ -39,7 +39,7 @@ test('published pages omit phone contact while preserving the email link', () =>
   const { publicFiles } = compileSite(root);
   assert.ok(publicFiles.get('index.html').includes('href="mailto:bkpark0226@naver.com">bkpark0226@naver.com</a>'));
   for (const [name, value] of publicFiles) {
-    if (name.endsWith('.html')) assert.doesNotMatch(value.toString(), /href=["']tel:|contact-phone|010-9892-6002|821098926002/);
+    if (name.endsWith('.html')) assert.doesNotMatch(value.toString(), /href=["']tel:|contact-phone|01[016789]-\d{3,4}-\d{4}|821[016789]\d{7,8}/);
   }
 });
 

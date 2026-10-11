@@ -23,7 +23,7 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // Source: C:\Unity Project\zzukzzuk-nyang (README 출시 현황, 스토어/스토어_등록정보.md, 스토어/store-icon-512.png).
 // Google Play closed test started 2026-10-03; add the store link here once the public listing is live.
 export const release = {
-  title: '쭉쭉냥: 고양이 퍼즐',
+  title: '쭉쭉냥 : 고양이 퍼즐',
   status: 'Google Play 정식 출시 예정',
   image: 'assets/images/cards/zzukzzuk-nyang-icon.png',
   imageWidth: 256,
