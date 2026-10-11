@@ -7,15 +7,15 @@
 .tile-reflectory { grid-area: reflectory; }
 .tile-barrel { grid-area: barrel; }
 .tile-awards { grid-area: awards; }
-.tile-heading { margin: 0 0 var(--space-1); font-family: var(--font-display); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.tile-heading { margin: 0 0 var(--space-1-5); font-family: var(--font-display); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 
 /* Profile */
-.profile-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-5); padding: 32px; }
+.profile-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-5); padding: 28px var(--tile-padding); }
 .profile-identity, .profile-details { min-width: 0; }
 .profile-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px var(--space-1-5); }
 .profile-card h1 { margin: 0; color: var(--accent-deep); font-family: var(--font-display); font-size: var(--text-display); font-weight: 800; line-height: 1.15; letter-spacing: var(--tracking-heading); }
 .profile-real-name { margin: 0; color: var(--ink); font-size: var(--text-body); font-weight: 700; line-height: var(--line-compact); }
-.simple-summary { margin: var(--space-1) 0 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); }
+.simple-summary { margin: var(--space-1-5) 0 0; color: var(--body-ink); font-size: var(--text-body); font-weight: 500; line-height: var(--line-body); }
 .summary-line { display: block; }
 .profile-details { display: grid; gap: 2px; padding-left: var(--space-3); border-left: 1px solid var(--line); }
 .profile-contact { margin: 0; min-width: 0; }
@@ -29,21 +29,23 @@
 /* Project tiles */
 .tile-project { display: grid; grid-template-rows: auto 1fr; padding: 0; overflow: hidden; }
 .tile-project-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid var(--line); }
-.tile-project-body { display: grid; align-content: start; gap: 4px; min-width: 0; padding: var(--space-2) 20px 20px; }
-.tile-project-title { margin: 0; font-family: var(--font-display); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
+.tile-project-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 18px var(--tile-padding) var(--tile-padding); }
+.tile-project-title { margin: 0 0 2px; font-family: var(--font-display); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
 .tile-project-link { color: var(--ink); text-decoration: none; }
 .tile-project-link::after { position: absolute; inset: 0; border-radius: inherit; content: ""; }
 .tile-project-link:focus-visible { outline: none; }
 .tile-project-link:focus-visible::after { outline: 2px solid var(--accent-deep); outline-offset: -2px; border-radius: 14px; }
 .tile-meta, .tile-award, .tile-more { margin: 0; font-size: var(--text-meta); line-height: var(--line-compact); word-break: keep-all; }
+.tile-award { font-size: var(--text-body); }
 .tile-meta { color: var(--muted); font-weight: 500; }
 .tile-award { color: var(--ink); font-weight: 700; }
-.tile-more { display: flex; align-items: center; gap: 4px; margin-top: var(--space-1); color: var(--accent-deep); font-weight: 700; }
+.tile-more { display: flex; align-items: center; gap: 4px; margin-top: auto; padding-top: var(--space-2); color: var(--accent-deep); font-weight: 700; }
 .tile-more img { width: 14px; height: 14px; opacity: .7; }
 
 /* Awards: year + one line */
 .award-list { margin: 0; padding: 0; list-style: none; }
-.award-item { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); align-items: baseline; gap: var(--space-1-5); padding: var(--space-1-5) 0; }
+.award-item { display: grid; grid-template-columns: 3rem minmax(0, 1fr); align-items: baseline; gap: var(--space-1-5); padding: var(--space-1-5) 0; }
+.award-item:first-child { padding-top: 0; }
 .award-item + .award-item { border-top: 1px solid var(--line); }
 .award-item:last-child { padding-bottom: 0; }
 .award-year { color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); font-variant-numeric: tabular-nums; }
