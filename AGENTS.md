@@ -102,12 +102,12 @@ npm run verify
 |---|---|
 | 색상 | 바깥 바탕 `--bg #eceeea`(모든 페이지, 격자 무늬 없음), 홈·프로젝트 내용 박스 `#fff`, 글자 `--ink #20211f`, 본문 `--body-ink #363b35`, 보조 `--muted #4f544d`, 포인트 `--accent-deep #1f4f43`(이름·주요 버튼·대표 수상), 형광펜 `rgba(47, 111, 94, .2)`, 호버 `#dce8df`/`#163b32` |
 | 글꼴 | 제목·본문 모두 Noto Sans KR 한 가족(`--font-display`와 `--font-body` 동일). 불러오는 굵기 400·500·700·800 |
-| 글자 크기 | 홈: `--text-display` 3.5rem(모바일 2.5rem), `--text-title` 1.25rem, `--text-body` .98rem(모바일 .96rem), `--text-meta` .84rem의 4단계 |
-| 줄 높이 | 제목 `--line-heading` 1.4, 본문·메타 `--line-body` 1.7, 링크·버튼 1.5, 작은 알약형 태그·배지 1.3, 사진 캡션 1.6 |
+| 글자 크기 | 홈·프로젝트 박스(`.page` 변수): 이름 `--text-display` 4rem(모바일 2.75rem), 프로젝트 제목 `--text-project` 1.875rem(1.5rem), 수상명 `--text-title` 1.5rem(1.25rem), 섹션 제목·소개 `--text-lead` 1.25rem(1.125rem), 본문 `--text-body` 1.125rem(1rem), 보조 `--text-meta` 1rem(.875rem). `common.css`의 기본값은 박스 밖 요소용 |
+| 줄 높이 | 제목 `--line-heading` 1.2, 정보·버튼 `--line-compact` 1.5, 본문 `--line-text` 1.6. 지원 브라우저에서는 `round()`로 정수 픽셀 |
 | 자간 | 제목 `--tracking-heading` -.02em, 그 외 0 |
-| 간격 | `--space-1` 8px · `--space-1-5` 12px · `--space-2` 16px · `--space-3` 24px · `--space-5` 40px. 섹션 사이 PC 24px·모바일 16px, 카드 안쪽 16px |
+| 간격 | 4/8/12/16/24/32/48/64px 단계만 사용. 묶음 안 `--gap-tight` 4px·`--gap-group` 8px, 블록 사이 `--gap-block` 24px(모바일 16px)·`--gap-actions` 32px(24px), 섹션 사이 `--section-gap` 64px(48px), 박스 안쪽 좌우 `--box-padding` 48px(20px) |
 | 모서리·그림자 | 버튼·프로젝트 이미지·영상 8px, 맨 위 버튼 원형, 그림자 없음. 섹션 구분은 점선 |
-| 반응형 | 홈·프로젝트 페이지 열 폭 680px(좌우 16px 여백), 가운데 정렬 한 열. 640px 이하에서 버튼 전체 폭·수상 1열·글자 축소. 기종별 분기 없음 |
+| 반응형 | 홈·프로젝트 내용 폭 `--column` 720px, 가운데 정렬 한 열. 640px 이하에서 버튼 전체 폭·글자 축소, 정보 줄은 줄바꿈 없이 화면 폭에 비례해 축소. 기종별 분기 없음 |
 | 동작 | 버튼 전환 `--action-transition` 160ms, 호버 이동 -2px, 누름 scale(.98). `prefers-reduced-motion`에서는 이동·확대 생략. `transition: all` 금지 |
 | 접근성 | 첫 Tab은 ‘본문 바로가기’. 터치 영역 최소 44px, `:focus-visible` 초록 2px 테두리, 장식 아이콘 `alt=""`+`aria-hidden`, 작품명·닉네임은 `translate="no"`, 사용자 확대 제한 금지 |
 
@@ -145,6 +145,13 @@ meta 태그 CSP에서는 `frame-ancestors`나 보고 전용 정책처럼 일부 
 키가 노출되면 파일 삭제만으로 끝내지 말고 먼저 키를 폐기·교체한 뒤 공개 파일과 Git 이력을 확인합니다. 실제 키를 대화나 로그에 복사하지 않습니다.
 
 ## 6. 변경 이력
+
+### 2026-10-11 · 배포 확인과 미사용 파일·코드 정리
+
+- `1d3cbec` 푸시 후 GitHub Actions ‘Check and deploy portfolio’ 성공(55초), 공개 사이트의 `home.css?v=` 값이 로컬 생성본과 같음을 확인했습니다.
+- 사이트 생성에 쓰이지 않는 `scripts/render-share-image.ps1`(예전 모눈·명함 디자인의 공유 이미지 제작용)을 삭제했습니다. 공유 이미지 `minari-share.png`는 그대로 쓰며, 안의 글자는 예전 제목입니다.
+- `common.css`에서 어디서도 참조하지 않는 변수 19개(`--paper`·`--shadow`·`--space-*`·`--line-body` 등 이전 디자인 잔재)를 지우고, 4절 디자인 기준 표를 현재 값으로 고쳤습니다. 모든 CSS 클래스·스크립트 내보내기·아이콘·이미지·영상은 실제로 쓰이고 있음을 확인했습니다.
+- 화면 결과는 바뀌지 않습니다. `npm run build`, `npm run verify` 통과(46개 테스트).
 
 ### 2026-10-11 · 글자 크기·위아래 간격 최종 점검(Refactoring UI 기준)
 
@@ -416,7 +423,7 @@ meta 태그 CSP에서는 `frame-ancestors`나 보고 전용 정책처럼 일부 
 
 - 1단계 프로젝트별 바로가기는 사용자 확인 완료. 2단계로 모눈 배경·초록색·명함 형태를 반영한 1200×630 PNG 대표 이미지(28,632바이트)를 제작하고 홈·일지의 Open Graph 및 Twitter Card 메타 정보에 연결했습니다.
 - 홈은 포트폴리오 제목·소개, 일지는 원고별 제목·요약·실제 공개 주소를 사용하며 대표 이미지는 공통으로 사용합니다. 본문 배치는 변경하지 않았습니다.
-- 공개 기본 주소와 공유 메타는 `scripts/social.mjs`, 이미지 원본은 `public/assets/images/minari-share.png`에서 관리합니다. 디자인 재생성은 Windows에서 `scripts/render-share-image.ps1`을 실행합니다. 배포 빌드는 저장된 PNG를 사용하므로 추가 설치나 이미지 도구가 필요하지 않습니다.
+- 공개 기본 주소와 공유 메타는 `scripts/social.mjs`, 이미지 원본은 `public/assets/images/minari-share.png`에서 관리합니다. (재생성 스크립트 `scripts/render-share-image.ps1`은 이전 디자인용이라 2026-10-11 삭제했습니다.) 배포 빌드는 저장된 PNG를 사용하므로 추가 설치나 이미지 도구가 필요하지 않습니다.
 - 공유 이미지도 공개 참조 수집·파일 존재 검사에 포함. 타 사이트·경로 이동·잘못된 페이지 주소를 거부하고 원고의 특수문자를 이스케이프합니다. 미리보기 페이지에는 공유 메타를 추가하지 않았습니다.
 - 빌드·생성물 일치 검사 및 54개 테스트 통과. 이미지 직접 확인 완료. 커밋·푸시·배포 및 실제 메신저 공유 검증은 수행하지 않았습니다. 사용자의 2단계 확인 후 3단계 PC·휴대폰 최종 확인으로 진행합니다.
 
