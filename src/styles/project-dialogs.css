@@ -1,0 +1,18 @@
+/* Project detail modals opened from bento tiles. */
+.project-dialog { --line-compact: 1.5; width: min(720px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0 var(--space-3) var(--space-3); border: 1px solid var(--line); border-radius: 14px; background: var(--paper-solid); color: var(--ink); box-shadow: 0 16px 40px rgba(31, 41, 36, .12); overflow: auto; overscroll-behavior: contain; }
+.project-dialog::backdrop { background: rgba(20, 26, 23, .55); }
+.project-dialog-close { position: sticky; z-index: 1; top: 0; display: flex; align-items: center; gap: 6px; width: fit-content; min-height: 44px; margin: 0 calc(var(--space-1) * -1) var(--space-1) auto; padding: var(--space-1-5) var(--space-1); background: var(--paper-solid); color: var(--muted); font-size: var(--text-meta); font-weight: 700; line-height: 1.5; text-decoration: none; }
+.project-dialog-close img { width: 18px; height: 18px; }
+.project-dialog-close:hover { text-decoration: none; }
+html.dialog-open { overflow: hidden; }
+/* Without JavaScript, project links still show the detail through :target and "닫기" returns to #main. */
+html:not(.has-project-dialogs) .project-dialog:target { position: fixed; z-index: 20; inset: 0; display: block; margin: auto; }
+@media (max-width: 640px) {
+  .project-dialog { --text-body: .96rem; width: calc(100% - 16px); max-height: calc(100dvh - 16px); padding: 0 var(--space-2) var(--space-2); border-radius: 12px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .project-dialog[open] { animation: project-dialog-in 180ms ease-out; }
+  .project-dialog[open]::backdrop { animation: project-dialog-fade 180ms ease-out; }
+  @keyframes project-dialog-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+  @keyframes project-dialog-fade { from { opacity: 0; } }
+}

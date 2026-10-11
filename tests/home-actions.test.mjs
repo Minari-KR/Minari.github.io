@@ -49,18 +49,19 @@ test('email remains a mail link without copy controls or clipboard code', () => 
   assert.doesNotMatch(source, /clipboard|email-copy|copy-status/);
 });
 
-test('profile A preserves information and awards follow the identity card', () => {
-  assert.match(template, /class="profile-school">우송대학교 <span class="profile-department">게임멀티미디어학과<\/span>/);
+test('profile card preserves information and project tiles follow it', () => {
+  assert.match(template, /class="profile-school">우송대학교 게임멀티미디어학과<\/p>/);
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday/);
   assert.match(template, /class="profile-name"[\s\S]*class="profile-role">게임 기획<\/p>[\s\S]*class="simple-summary"/);
-  const card = template.slice(template.indexOf('<section class="profile-card"'), template.indexOf('<section class="panel awards'));
+  const card = template.slice(template.indexOf('<section class="tile tile-profile profile-card"'), template.indexOf('<article class="tile tile-project'));
+  assert.ok(card.length > 0);
   assert.ok(card.indexOf('profile-name') < card.indexOf('simple-summary'));
   assert.ok(card.indexOf('simple-summary') < card.indexOf('profile-contact'));
-  assert.ok(card.indexOf('profile-contact') < card.indexOf('profile-background'));
-  assert.match(card, /<\/section>\s*<\/div>\s*$/);
-  assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal/);
+  assert.ok(card.indexOf('profile-contact') < card.indexOf('profile-school'));
+  assert.match(card, /<\/section>\s*$/);
+  assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project/);
   assert.match(card, /class="profile-identity"[\s\S]*class="profile-name"[\s\S]*class="simple-summary"/);
-  assert.match(card, /class="profile-details"[\s\S]*class="profile-contact"[\s\S]*class="profile-background"/);
+  assert.match(card, /class="profile-details"[\s\S]*class="profile-contact"[\s\S]*class="profile-school"/);
   assert.equal((card.match(/class="contact-email"/g) || []).length, 1);
   assert.doesNotMatch(template, /profile-school-label/);
 });
@@ -150,7 +151,7 @@ test('reversing scroll cancels pending appearance and dismissal callbacks', () =
 });
 
 test('project play links keep the shared hover treatment', () => {
-  assert.match(homeStyles, /\.contact-email, \.profile-itch, \.game-link \{ transition: var\(--action-transition\); \}/);
+  assert.match(homeStyles, /\.contact-email, \.profile-itch, \.game-link, \.tile-project \{ transition: var\(--action-transition\); \}/);
   assert.match(styles, /\.game-links \.game-link:hover \{[^}]*transform: translateY\(-2px\)/);
   assert.doesNotMatch(homeStyles, /\.game-link:hover\s*\{/);
 });
@@ -186,11 +187,11 @@ test('back-to-top restores heading focus and honors reduced motion', () => {
   }
 });
 
-test('optional controls can be absent and award links work as ordinary anchors without JavaScript', () => {
+test('optional controls can be absent and project links work as ordinary anchors without JavaScript', () => {
   assert.doesNotThrow(() => setup({ missing: true }));
   for (const id of ['reflectory', 'barrel-good-barrel']) {
     assert.ok(template.includes(`href="#${id}"`));
-    assert.ok(template.includes(`id="${id}" tabindex="-1"`));
+    assert.ok(template.includes(`<dialog class="project-dialog" id="${id}"`));
   }
   assert.match(template, /class="back-to-top"[^>]*hidden/);
   assert.match(template, /class="back-to-top"[^>]*aria-label="페이지 맨 위로 이동"/);
