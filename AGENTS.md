@@ -131,7 +131,7 @@ npm run verify
 - **전체 프로젝트가 아닌 `dist/`만 배포합니다.** 관리 문서·테스트·미리보기·백업을 공개하지 않습니다.
 - GitHub Pages가 저장소 루트를 자동 공개하는 설정이면 관리 파일을 푸시하기 전에 `dist/`만 업로드하는 배포 방식으로 전환해야 합니다. 사용자 요청 없이 원격 설정·권한을 변경하거나 사이트를 공개하지 않습니다.
 - `.github/workflows/check.yml`은 검사·생성·생성물 검사를 모두 통과한 뒤 `dist/`만 GitHub Pages에 전달하도록 수정했습니다. `main` 브랜치의 push 또는 수동 실행에서만 배포하며, PR과 다른 브랜치는 검사만 합니다. 원격 반영 전에는 기존 배포 방식이 유지됩니다.
-- **GitHub Pages 최초 전환:** 저장소의 `Settings → Pages → Build and deployment → Source`를 **GitHub Actions**로 바꾼 뒤, 수정한 워크플로를 `main`에 반영합니다. `Actions → Check and deploy portfolio`에서 검사와 배포가 모두 성공했는지 확인합니다. 필요한 경우 `Run workflow`로 `main`을 선택해 실행합니다. 공개 주소는 `https://minari-kr.github.io/Minari.github.io/`를 유지합니다. 이 작업은 원격 설정 변경·커밋·푸시·공개 배포를 포함하므로 기존 금지 지시가 유지되는 동안 AI가 실행하지 않습니다.
+- **GitHub Pages 최초 전환:** 저장소의 `Settings → Pages → Build and deployment → Source`를 **GitHub Actions**로 바꾼 뒤, 수정한 워크플로를 `main`에 반영합니다. `Actions → Check and deploy portfolio`에서 검사와 배포가 모두 성공했는지 확인합니다. 필요한 경우 `Run workflow`로 `main`을 선택해 실행합니다. 공개 주소는 `https://minari-kr.github.io/`입니다(2026-10-13 저장소 이름을 `Minari.github.io`에서 `minari-kr.github.io`로 바꾸며 이전 주소 `https://minari-kr.github.io/Minari.github.io/`에서 변경). 이 작업은 원격 설정 변경·커밋·푸시·공개 배포를 포함하므로 기존 금지 지시가 유지되는 동안 AI가 실행하지 않습니다.
 - `.gitignore`는 이미 추적 중인 파일에 소급 적용되지 않습니다. 본 프로젝트 전환 시 생성 HTML 3개와 `.vs/` 파일 5개는 로컬 파일을 유지하며 Git 추적에서 제외했고 사용자의 `2d04733` 커밋에 반영되었습니다. 생성 HTML을 다시 추적하거나 저장소 루트를 그대로 배포하지 않습니다.
 - GitHub Pages의 HTTPS 강제 설정, 도메인, 실제 배포 대상과 계정의 2단계 인증·저장소 접근 권한을 확인합니다. 지원되는 비밀키 검사·푸시 보호·브랜치 보호도 검토합니다.
 - 변경 이력은 원본 소스를 Git으로 관리하고 필요한 백업은 프로젝트 밖에 둡니다.
