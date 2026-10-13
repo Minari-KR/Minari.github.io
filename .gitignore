@@ -1,4 +1,4 @@
-# Generated output: edit src/, content/ and public/ instead.
+# Generated output: edit src/, public/ and scripts/site-config.mjs instead.
 /index.html
 /mobile-preview.html
 /projects/*.html
