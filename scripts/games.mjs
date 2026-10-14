@@ -19,7 +19,7 @@ export function gamePacks(games) {
     const title = escapeHtml(game.title);
     const data = fields.map(key => ` data-${key}="${escapeHtml(game[key] ?? '')}"`).join('');
     const art = game.image
-      ? `<img class="pack-img" src="./${game.image}" width="600" height="600" alt="" loading="lazy" decoding="async">`
+      ? `<img class="pack-img" src="./${game.image}" width="352" height="336" alt="" loading="lazy" decoding="async">`
       : `<span class="pack-name">${title}</span>`;
     rows[index % rows.length].push(`              <button class="pack" type="button" data-title="${title}"${data} aria-label="${title} 기록 보기"><span class="pack-art">${art}</span><img class="pack-shell is-${game.shell}" src="./assets/images/packs/shell-${game.shell}.webp" width="440" height="540" alt="" loading="lazy" decoding="async"></button>`);
   });

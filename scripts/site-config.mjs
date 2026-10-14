@@ -15,16 +15,50 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // LCD game screen in two rows (1st, 3rd, 5th… on top). Pressing a cartridge shows its record on the same screen.
 // title is required; platform, genre, hours, achievements and note (one-line review) may be '' (empty fields are hidden on the screen).
 // shell: 'gray' | 'yellow' | 'purple' | 'black' (cartridge colour). Placeholders in [brackets] must be replaced before publishing.
-// image (optional): 'assets/images/games/<name>.webp', a square picture (600×600 recommended) shown in the label window.
-// Without it the window shows the title. Prefer your own pixel art or play captures over official logos and box art.
+// image (optional): 'assets/images/games/<name>.webp', a 352×336 picture shown in the label window (without it the window shows
+// the title). The pictures are official store art (2026-10-14 user choice), cropped to the window: Steam library or store capsules,
+// and for games outside Steam the official site (MONGIL: STAR DIVE, Trickcal RE:VIVE) or the PlayStation page (Genshin Impact).
+// Names, platforms (where the game is released) and genres were checked against official sources on 2026-10-14; hours,
+// achievements and the one-line review come from the user later.
 const shells = ['gray', 'yellow', 'purple', 'black'];
-export const games = Array.from({ length: 12 }, (_, i) => ({
-  title: `[게임 ${i + 1}]`,
-  platform: '[플랫폼]',
-  genre: '[장르]',
+export const games = [
+  ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive'],
+  ['몬길: STAR DIVE', 'PC, 모바일', '액션 RPG', 'mongil-star-dive'],
+  ['이터널 리턴', 'PC', 'MOBA, 배틀로얄', 'eternal-return'],
+  ['슬레이 더 스파이어', 'PC, 모바일, 콘솔', '덱빌딩 로그라이크', 'slay-the-spire'],
+  ['슬레이 더 스파이어 2', 'PC', '덱빌딩 로그라이크', 'slay-the-spire-2'],
+  ['DJMAX RESPECT V', 'PC, 콘솔', '리듬', 'djmax-respect-v'],
+  ['스텔라 블레이드', '콘솔, PC', '액션 어드벤처', 'stellar-blade'],
+  ['산나비', 'PC, 콘솔', '액션 플랫포머', 'sanabi'],
+  ['클레르 옵스퀴르: 33 원정대', 'PC, 콘솔', '턴제 RPG', 'clair-obscur'],
+  ['에이펙스 레전드', 'PC, 콘솔', '배틀로얄 FPS', 'apex-legends'],
+  ['아크 레이더스', 'PC, 콘솔', '익스트랙션 슈터', 'arc-raiders'],
+  ['엘든 링', 'PC, 콘솔', '액션 RPG', 'elden-ring'],
+  ['프라그마타', 'PC, 콘솔', '액션 어드벤처', 'pragmata'],
+  ['배틀그라운드', 'PC, 콘솔', '배틀로얄 슈팅', 'pubg'],
+  ['마라톤', 'PC, 콘솔', '익스트랙션 슈터', 'marathon'],
+  ['세피리아', 'PC', '로그라이트 액션', 'sephiria'],
+  ['퍼스트 디센던트', 'PC, 콘솔', '루트 슈터', 'the-first-descendant'],
+  ['로스트아크', 'PC', 'MMORPG', 'lost-ark'],
+  ['이스케이프 프롬 타르코프', 'PC', '익스트랙션 FPS', 'escape-from-tarkov'],
+  ['라이프 이즈 스트레인지', 'PC, 콘솔, 모바일', '어드벤처', 'life-is-strange'],
+  ['원신', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'genshin-impact'],
+  ['명조: 워더링 웨이브', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'wuthering-waves'],
+  ['명일방주: 엔드필드', 'PC, 모바일, 콘솔', '전략 RPG', 'arknights-endfield'],
+  ['젠레스 존 제로', 'PC, 모바일, 콘솔', '액션 RPG', 'zenless-zone-zero'],
+  ['배틀필드 6', 'PC, 콘솔', 'FPS', 'battlefield-6'],
+  ['림버스 컴퍼니', 'PC, 모바일', '턴제 RPG', 'limbus-company'],
+  ['이환', 'PC, 모바일, 콘솔', '오픈월드 RPG', 'nte'],
+  ['소녀전선2: 망명', 'PC, 모바일', '턴제 전략 RPG', 'girls-frontline-2'],
+  ['트릭컬 리바이브', '모바일', '수집형 RPG', 'trickcal-revive'],
+].map(([title, platform, genre, image], i) => ({
+  title,
+  platform,
+  genre,
   hours: '[N시간]',
   achievements: '[n / N]',
   note: '[이 게임 한 줄 평]',
+  image: `assets/images/games/${image}.webp`,
   shell: shells[Math.floor(i / 2) % shells.length],
 }));
 

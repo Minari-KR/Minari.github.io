@@ -17,7 +17,7 @@ test('game packs are cartridge images, escaped, dealt into two rows and carry th
   assert.match(html, /data-note="&quot;첫&quot; 기억"/);
   assert.match(html, /<span class="pack-name">Game &lt;1&gt;<\/span>/);
   assert.match(html, /<img class="pack-shell is-gray" src="\.\/assets\/images\/packs\/shell-gray\.webp" width="440" height="540" alt=""/);
-  assert.match(html, /<img class="pack-img" src="\.\/assets\/images\/games\/d\.webp" width="600" height="600" alt=""/);
+  assert.match(html, /<img class="pack-img" src="\.\/assets\/images\/games\/d\.webp" width="352" height="336" alt=""/);
   assert.doesNotMatch(html, /<1>/);
   assert.equal(gamePacks([sample()]).match(/class="pack-row"/g).length, 1);
 });
@@ -40,7 +40,7 @@ test('the game-play section comes right after the intro: a small game screen of 
   for (const later of ['class="section release"', 'id="awards"', 'id="projects"']) assert.ok(home.indexOf('id="games"') < home.indexOf(later), later);
   assert.match(home, /<h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험<\/span><\/h2>/);
   assert.match(home, /<div class="gs" data-game-screen data-state="select">/);
-  assert.equal((home.match(/<button class="pack" /g) || []).length, 12);
+  assert.equal((home.match(/<button class="pack" /g) || []).length, 29);
   assert.match(home, /assets\/css\/games\.css\?v=[a-f0-9]{12}/);
   assert.match(home, /<script src="\.\/assets\/js\/games\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   for (const name of ['portfolio.html', 'assets/js/prologue.js', 'assets/js/veil.js', 'assets/js/three.js']) assert.ok(!publicFiles.has(name), name);
