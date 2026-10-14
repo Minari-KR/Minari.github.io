@@ -75,6 +75,8 @@
       field.hidden = !value;
     }
     for (const stat of detail.querySelectorAll('[data-stat]')) stat.hidden = !pack.dataset[stat.dataset.stat];
+    // A group with nothing to show (e.g. no hours or achievements yet) drops out with its dashed rule.
+    for (const group of detail.querySelectorAll('.gs-info, .gs-stat')) group.hidden = [...group.children].every(stat => stat.hidden);
     const copy = pack.cloneNode(true);
     for (const attribute of ['aria-label', 'aria-hidden', 'data-clone']) copy.removeAttribute(attribute);
     copy.classList.remove('is-selected');

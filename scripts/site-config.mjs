@@ -19,7 +19,7 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // the title). The pictures are official store art (2026-10-14 user choice), cropped to the window: Steam library or store capsules,
 // and for games outside Steam the official site (MONGIL: STAR DIVE, Trickcal RE:VIVE) or the PlayStation page (Genshin Impact).
 // Names, platforms (where the game is released) and genres were checked against official sources on 2026-10-14; hours,
-// achievements and the one-line review come from the user later.
+// achievements and the one-line review come from the user later and stay '' (hidden on the screen) until then.
 const shells = ['gray', 'yellow', 'purple', 'black'];
 export const games = [
   ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive'],
@@ -55,9 +55,9 @@ export const games = [
   title,
   platform,
   genre,
-  hours: '[N시간]',
-  achievements: '[n / N]',
-  note: '[이 게임 한 줄 평]',
+  hours: '',
+  achievements: '',
+  note: '',
   image: `assets/images/games/${image}.webp`,
   shell: shells[Math.floor(i / 2) % shells.length],
 }));
