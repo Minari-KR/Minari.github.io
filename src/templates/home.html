@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/common.css">
   <link rel="stylesheet" href="./assets/css/home.css">
-  <link rel="stylesheet" href="./assets/css/home-actions.css">
+  <link rel="stylesheet" href="./assets/css/games.css">
   <link rel="stylesheet" href="./assets/css/page-transitions.css">
 </head>
 <body>
@@ -30,6 +30,34 @@
       </div>
     </header>
 
+    <section class="section games" id="games" aria-labelledby="games-title">
+      <h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험</span></h2>
+      <div class="gs" data-game-screen data-state="select">
+        <div class="gs-select">
+          <div class="pack-rows" data-pack-rows>
+{{game_packs}}
+          </div>
+        </div>
+        <div class="gs-detail" hidden>
+          <div class="gs-big" aria-hidden="true"></div>
+          <div class="gs-record">
+            <h3 class="gs-name" data-field="title" tabindex="-1"></h3>
+            <dl class="gs-info">
+              <div data-stat="platform"><dt>플랫폼</dt><dd data-field="platform"></dd></div>
+              <div data-stat="genre"><dt>장르</dt><dd data-field="genre"></dd></div>
+            </dl>
+            <dl class="gs-stat">
+              <div data-stat="hours"><dt>플레이 시간</dt><dd data-field="hours"></dd></div>
+              <div data-stat="achievements"><dt>업적</dt><dd data-field="achievements"></dd></div>
+            </dl>
+            <p class="gs-note" data-field="note"></p>
+          </div>
+          <p class="gs-exit">화면을 누르면 돌아가요</p>
+        </div>
+        <p class="gs-sr" aria-live="polite" data-game-status></p>
+      </div>
+    </section>
+
 {{release_section}}    <section class="section" id="awards" aria-labelledby="awards-title">
       <h2 class="section-title section-title-icon" id="awards-title"><img src="./assets/icons/trophy.svg" width="28" height="28" alt="" aria-hidden="true"><span class="marker">수상</span></h2>
       <ul class="award-list">
@@ -42,32 +70,38 @@
 
     <section class="section" id="projects" aria-labelledby="projects-title">
       <h2 class="section-title" id="projects-title"><span class="marker">프로젝트</span></h2>
-
-      <article class="project" aria-labelledby="reflectory-title">
-        <a class="project-image-link" href="./projects/reflectory.html" tabindex="-1" aria-hidden="true"><img class="project-image" src="./assets/images/cards/reflectory-title.webp" width="960" height="540" alt=""></a>
-        <h3 class="project-title" id="reflectory-title"><span translate="no">Reflectory</span></h3>
-        <p class="project-meta"><span>2026 대전 inD 게임잼</span><span class="meta-sep" aria-hidden="true">/</span><span>기획 및 팀장</span><span class="meta-sep" aria-hidden="true">/</span><span>4인 팀</span></p>
-        <p class="project-award">국가수리과학연구소장상</p>
-        <div class="project-actions">
-          <a class="action" href="./projects/reflectory.html">플레이 영상</a>
-          <a class="action action-primary" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer">플레이하기</a>
+      <div class="ptabs" data-project-tabs>
+        <div class="ptabs-list" role="tablist" aria-label="프로젝트 고르기" hidden>
+          <button class="ptabs-tab" type="button" role="tab" id="tab-reflectory" aria-controls="project-reflectory" aria-selected="true"><img src="./assets/images/cards/reflectory-title.webp" width="960" height="540" alt=""><span translate="no">Reflectory</span></button>
+          <button class="ptabs-tab" type="button" role="tab" id="tab-barrel-good-barrel" aria-controls="project-barrel-good-barrel" aria-selected="false"><img src="./assets/images/cards/barrel-good-barrel-title.webp" width="960" height="540" alt=""><span translate="no">Barrel Good Barrel</span></button>
         </div>
-      </article>
-
-      <article class="project" aria-labelledby="barrel-good-barrel-title">
-        <a class="project-image-link" href="./projects/barrel-good-barrel.html" tabindex="-1" aria-hidden="true"><img class="project-image" src="./assets/images/cards/barrel-good-barrel-title.webp" width="960" height="540" alt=""></a>
-        <h3 class="project-title" id="barrel-good-barrel-title"><span translate="no">Barrel Good Barrel</span></h3>
-        <p class="project-meta"><span>대전 인디(inD) 게임어스</span><span class="meta-sep" aria-hidden="true">/</span><span>기획 및 팀장</span><span class="meta-sep" aria-hidden="true">/</span><span>3인 팀</span></p>
-        <p class="project-award">2025 대전 게임 브릿지 대상</p>
-        <p class="project-award">대전콘텐츠페어·부산 BIC 전시 출품</p>
-        <div class="project-actions">
-          <a class="action" href="./projects/barrel-good-barrel.html">플레이 영상</a>
-          <a class="action action-primary" href="https://minari-kr.itch.io/barrel-good-barrel" target="_blank" rel="noopener noreferrer">플레이하기</a>
+        <div class="ptabs-cards">
+          <article class="project" id="project-reflectory" aria-labelledby="reflectory-title">
+            <a class="project-image-link" href="./projects/reflectory.html" tabindex="-1" aria-hidden="true"><img class="project-image" src="./assets/images/cards/reflectory-title.webp" width="960" height="540" alt=""></a>
+            <h3 class="project-title" id="reflectory-title"><span translate="no">Reflectory</span></h3>
+            <p class="project-meta"><span>2026 대전 inD 게임잼</span><span class="meta-sep" aria-hidden="true">/</span><span>기획 및 팀장</span><span class="meta-sep" aria-hidden="true">/</span><span>4인 팀</span></p>
+            <p class="project-award">국가수리과학연구소장상</p>
+            <div class="project-actions">
+              <a class="action" href="./projects/reflectory.html">플레이 영상</a>
+              <a class="action action-primary" href="https://minari-kr.itch.io/reflectory" target="_blank" rel="noopener noreferrer">플레이하기</a>
+            </div>
+          </article>
+          <article class="project" id="project-barrel-good-barrel" aria-labelledby="barrel-good-barrel-title">
+            <a class="project-image-link" href="./projects/barrel-good-barrel.html" tabindex="-1" aria-hidden="true"><img class="project-image" src="./assets/images/cards/barrel-good-barrel-title.webp" width="960" height="540" alt=""></a>
+            <h3 class="project-title" id="barrel-good-barrel-title"><span translate="no">Barrel Good Barrel</span></h3>
+            <p class="project-meta"><span>대전 인디(inD) 게임어스</span><span class="meta-sep" aria-hidden="true">/</span><span>기획 및 팀장</span><span class="meta-sep" aria-hidden="true">/</span><span>3인 팀</span></p>
+            <p class="project-award">2025 대전 게임 브릿지 대상</p>
+            <p class="project-award">대전콘텐츠페어·부산 BIC 전시 출품</p>
+            <div class="project-actions">
+              <a class="action" href="./projects/barrel-good-barrel.html">플레이 영상</a>
+              <a class="action action-primary" href="https://minari-kr.itch.io/barrel-good-barrel" target="_blank" rel="noopener noreferrer">플레이하기</a>
+            </div>
+          </article>
         </div>
-      </article>
+      </div>
     </section>
   </main>
-  <button class="back-to-top" type="button" aria-label="페이지 맨 위로 이동" title="맨 위로 이동" hidden><img src="./assets/icons/circle-arrow-up.svg" width="18" height="18" alt="" aria-hidden="true"></button>
-  <script src="./assets/js/home-actions.js" defer></script>
+  <script src="./assets/js/games.js" defer></script>
+  <script src="./assets/js/project-tabs.js" defer></script>
 </body>
 </html>

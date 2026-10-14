@@ -24,7 +24,7 @@ test('home and project pages share their own URLs and titles with a published 12
     assert.equal(meta['og:type'], name === 'index.html' ? 'website' : 'article');
     if (name.startsWith('projects/')) {
       const project = projects.find(project => name === `projects/${project.slug}.html`);
-      assert.equal(meta['og:title'], `${project.title} | Minari`);
+      assert.equal(meta['og:title'], `${project.title} | 박종찬`);
       assert.equal(meta['og:description'], project.description);
     }
   }

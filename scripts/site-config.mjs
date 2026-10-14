@@ -1,7 +1,8 @@
 // Public identity and sharing copy for generated pages.
 export const siteUrl = 'https://minari-kr.github.io/';
 export const shareImage = 'assets/images/minari-share.png';
-export const homeTitle = 'Minari 박종찬 | 게임 디자이너 포트폴리오';
+// Browser tab and shared-link title of the portfolio page (project pages use '<title> | 박종찬').
+export const homeTitle = '박종찬 | Game Designer Portfolio';
 export const homeDescription = '아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다. Reflectory와 Barrel Good Barrel의 수상 기록, 플레이 영상과 링크를 확인할 수 있습니다.';
 // Project detail pages: one template per slug in src/templates/projects/.
 export const projects = [
@@ -9,6 +10,23 @@ export const projects = [
   { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상. 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탑다운 슈팅 게임입니다.' },
 ];
 export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트폴리오. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
+
+// "게임 플레이 경험" section on the home page (right under the intro): one entry per game, shown as cartridges flowing across a small
+// LCD game screen in two rows (1st, 3rd, 5th… on top). Pressing a cartridge shows its record on the same screen.
+// title is required; platform, genre, hours, achievements and note (one-line review) may be '' (empty fields are hidden on the screen).
+// shell: 'gray' | 'yellow' | 'purple' | 'black' (cartridge colour). Placeholders in [brackets] must be replaced before publishing.
+// image (optional): 'assets/images/games/<name>.webp', a square picture (600×600 recommended) shown in the label window.
+// Without it the window shows the title. Prefer your own pixel art or play captures over official logos and box art.
+const shells = ['gray', 'yellow', 'purple', 'black'];
+export const games = Array.from({ length: 12 }, (_, i) => ({
+  title: `[게임 ${i + 1}]`,
+  platform: '[플랫폼]',
+  genre: '[장르]',
+  hours: '[N시간]',
+  achievements: '[n / N]',
+  note: '[이 게임 한 줄 평]',
+  shell: shells[Math.floor(i / 2) % shells.length],
+}));
 
 // "출시 앱" section on the home page (shown between the intro and the awards).
 // Keep null until the real information is ready; null means the section is not generated at all.

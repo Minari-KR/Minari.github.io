@@ -52,7 +52,7 @@ test('resource validation handles alternate quotes, case, entities and duplicate
     "<a HREF='java&#115;cript:evil'>link</a>",
     "<a href='https://example.com' TARGET='_blank'>link</a>",
     "<a href='#intro' HREF='missing.html'>link</a>",
-    "<script data-src='assets/js/home-actions.js'></script>",
+    "<script data-src='assets/js/project-tabs.js'></script>",
     "<img srcset='https://example.com/picture.png 2x'>"
   ]) assert.throws(() => validateFiles(withMarkup(markup)), markup);
   assert.doesNotThrow(() => validateFiles(withMarkup("<div ID='quoted' data-id='intro'></div><A HREF='#quoted'>link</A><a href='https://example.com?a=1&amp;b=2' target='_blank' rel='noreferrer noopener'>external</a>")));

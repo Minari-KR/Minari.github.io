@@ -5,7 +5,7 @@ import { assetVersion } from './assets.mjs';
 import { socialTarget } from './social.mjs';
 
 export function securityMeta(preview = false) {
-  const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (preview ? "'self'" : "'none'");
+  const policy = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src " + (preview ? "'self'" : "'none'");
   return `<meta http-equiv="Content-Security-Policy" content="${policy}">\n  <meta name="referrer" content="no-referrer">` + (preview ? '\n  <meta name="robots" content="noindex, nofollow">' : '');
 }
 
@@ -37,7 +37,16 @@ export function validateFiles(files) {
     if (name.endsWith('.css')) {
       const clean = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/"[^"\n]*"|'[^'\n]*'/g, '');
       if ((clean.match(/{/g) || []).length !== (clean.match(/}/g) || []).length) throw new Error(`CSS 괄호 오류: ${name}`);
-      if (/@import\b|url\s*\(|expression\s*\(/i.test(text)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+      if (/@import\b|expression\s*\(/i.test(text)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+      // The only url() allowed is a reviewed local font next to the stylesheets (assets/fonts/*.woff2).
+      const code = text.replace(/\/\*[\s\S]*?\*\//g, '');
+      const urls = [...code.matchAll(/url\s*\(\s*(["']?)([^"')]*)\1\s*\)/gi)].map(match => match[2]);
+      if ((code.match(/url\s*\(/gi) || []).length !== urls.length) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+      for (const ref of urls) {
+        if (!/^\.\.\/fonts\/[a-z0-9_-]+\.woff2$/.test(ref)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+        const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), ref));
+        if (!files.has(target)) throw new Error(`연결 대상이 없습니다: ${name} → ${target}`);
+      }
     }
     if (!name.endsWith('.html')) continue;
     const html = text.replace(/<!--[\s\S]*?-->/g, '');

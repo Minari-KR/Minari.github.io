@@ -30,7 +30,7 @@ test('removed photos stay unpublished and full-size paths are validated', () => 
   assert.match(publicFiles.get('projects/barrel-good-barrel.html'), /poster="\.\.\/assets\/images\/cards\/barrel-good-barrel-title\.webp"/);
   assert.ok(publicFiles.has('assets/images/cards/reflectory-title.webp'));
   assert.ok(publicFiles.has('assets/images/cards/barrel-good-barrel-title.webp'));
-  for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/home-actions.js']) {
+  for (const ref of ['', './assets/images/missing.png', 'https://example.com/photo.png', '../secret.png', './assets/js/project-tabs.js']) {
     const changed = new Map(publicFiles);
     changed.set('index.html', html.replace('</main>', `<img src="./assets/images/cards/reflectory-title.webp" data-full-src="${ref}" alt=""></main>`));
     assert.throws(() => validateFiles(changed), ref);

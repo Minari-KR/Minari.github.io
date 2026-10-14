@@ -31,12 +31,12 @@ test('CSS and script versions follow file contents and reject stale or arbitrary
     return ref.split('?v=')[1];
   };
   const oldCss = versionOf(before, 'index.html', 'home.css');
-  const oldScript = versionOf(before, 'index.html', 'home-actions.js');
+  const oldScript = versionOf(before, 'index.html', 'project-tabs.js');
   assert.equal(versionOf(before, 'index.html', 'common.css'), versionOf(before, 'projects/reflectory.html', 'common.css'));
   fs.appendFileSync(path.join(dir, 'src/styles/home.css'), '\n/* cache revision */\n');
   const after = compileSite(dir);
   assert.notEqual(versionOf(after, 'index.html', 'home.css'), oldCss);
-  assert.equal(versionOf(after, 'index.html', 'home-actions.js'), oldScript);
+  assert.equal(versionOf(after, 'index.html', 'project-tabs.js'), oldScript);
   for (const query of [`?v=${oldCss}`, '?v=../../private', '?anything=1']) {
     const changed = new Map(after.files);
     changed.set('index.html', changed.get('index.html').replace(/home\.css\?v=[a-f0-9]{12}/, 'home.css' + query));

@@ -6,8 +6,9 @@ import { addReferencedMedia } from './media.mjs';
 import { versionAssets } from './assets.mjs';
 import { checkSecrets, securityMeta, validateFiles } from './validation.mjs';
 import { socialMeta } from './social.mjs';
-import { homeTitle, homeDescription, projects, release } from './site-config.mjs';
+import { homeTitle, homeDescription, projects, release, games } from './site-config.mjs';
 import { releaseSection } from './release.mjs';
+import { gamePacks } from './games.mjs';
 
 export { walk } from './files.mjs';
 export { securityMeta, validateFiles } from './validation.mjs';
@@ -21,13 +22,14 @@ export function compileSite(root) {
     page_title: escapeHtml(homeTitle),
     page_description: escapeHtml(homeDescription),
     social: socialMeta({ title: homeTitle, description: homeDescription }),
-    release_section: releaseSection(template('release.html'), release)
+    release_section: releaseSection(template('release.html'), release),
+    game_packs: gamePacks(games)
   }));
   for (const project of projects) {
     if (!/^[a-z0-9-]+$/.test(project.slug)) throw new Error(`프로젝트 주소를 확인하세요: ${project.slug}`);
     files.set(`projects/${project.slug}.html`, fillTemplate(template(`projects/${project.slug}.html`), {
       security: securityMeta(),
-      social: socialMeta({ title: `${project.title} | Minari`, description: project.description, page: `projects/${project.slug}.html`, article: true })
+      social: socialMeta({ title: `${project.title} | 박종찬`, description: project.description, page: `projects/${project.slug}.html`, article: true })
     }));
   }
   const options = projects.map(project => `          <option value="./projects/${project.slug}.html">${escapeHtml(project.title)}</option>`).join('\n');
@@ -43,6 +45,15 @@ export function compileSite(root) {
     const relative = path.relative(path.join(root, 'public/assets/icons'), file).replaceAll('\\', '/');
     if (!/^[a-z0-9_-]+\.(?:svg|txt)$/.test(relative)) throw new Error(`아이콘 파일명 또는 확장자를 확인하세요: ${relative}`);
     files.set(`assets/icons/${relative}`, fs.readFileSync(file));
+  }
+  for (const file of walk(path.join(root, 'public/assets/fonts'))) {
+    // Self-hosted fonts and their licence text (the pixel font of the game screen on the home page).
+    const relative = path.relative(path.join(root, 'public/assets/fonts'), file).replaceAll('\\', '/');
+    if (!/^[a-z0-9_-]+\.(?:woff2|txt)$/.test(relative)) throw new Error(`글꼴 파일명 또는 확장자를 확인하세요: ${relative}`);
+    const bytes = fs.readFileSync(file);
+    if (bytes.length > 2 * 1024 * 1024) throw new Error(`글꼴은 2MB 이하로 줄여주세요: ${relative}`);
+    if (relative.endsWith('.woff2') && bytes.toString('ascii', 0, 4) !== 'wOF2') throw new Error(`글꼴 내용과 확장자가 다릅니다: ${relative}`);
+    files.set(`assets/fonts/${relative}`, bytes);
   }
   versionAssets(files);
   files.set('.nojekyll', '');

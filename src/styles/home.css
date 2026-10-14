@@ -45,7 +45,6 @@
 .award-event { color: var(--body-ink); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 
 /* Projects: image / heading group (title, meta, award) / buttons */
-.project + .project { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .project-image-link { display: block; }
 .project-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; }
 .project-title { margin: var(--gap-block) 0 0; color: var(--ink); font-size: var(--text-project); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); }
@@ -54,6 +53,25 @@
 .meta-sep { margin: 0 12px; color: rgba(32, 33, 31, .3); font-weight: 400; }
 .project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .3em; background: linear-gradient(transparent 55%, var(--marker) 55%); color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
+
+/* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card
+   (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, so the section keeps the tallest
+   card's height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
+.ptabs-list { display: flex; gap: 12px; margin: 0 0 var(--gap-actions); padding: 8px; overflow-x: auto; scrollbar-width: none; }
+.ptabs-list::-webkit-scrollbar { display: none; }
+.ptabs-list.is-dragging { cursor: grabbing; user-select: none; }
+/* Centred while they fit; once there are more than fit, the row scrolls from its first tab. */
+.ptabs-tab:first-child { margin-left: auto; }
+.ptabs-tab:last-child { margin-right: auto; }
+.ptabs-tab { display: grid; gap: 6px; flex: 0 1 160px; min-width: 112px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); cursor: pointer; }
+.ptabs-tab img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; opacity: .5; }
+.ptabs-tab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ptabs-tab[aria-selected="true"] { color: var(--accent-deep); }
+.ptabs-tab[aria-selected="true"] img { outline: 2px solid var(--accent-deep); outline-offset: 2px; opacity: 1; }
+.ptabs:not(.is-ready) .project + .project { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
+.ptabs.is-ready .ptabs-cards { display: grid; touch-action: pan-y; }
+.ptabs.is-ready .ptabs-cards > .project { grid-area: 1 / 1; }
+.ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
 /* Release app (출시 앱): same layout as a project, with a status badge above the title */
 .release-status { display: block; width: fit-content; margin: 12px auto 0; padding: 2px 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); }
@@ -97,17 +115,24 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .action, .home-link, .play-link { transition: var(--action-transition); }
+  /* A new card fades in and rises a little in its own place; the old one fades out. */
+  .ptabs.is-ready .ptabs-cards > .project { transition: opacity .22s ease, translate .26s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .22s; }
+  .ptabs.is-ready .ptabs-cards > .project.is-current { transition-delay: 0s; }
+  .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { translate: 0 8px; }
+  .ptabs-tab img { transition: opacity 160ms ease; }
   .project-image { transition: opacity 160ms ease; }
 }
 @media (hover: hover) and (pointer: fine) {
   .action:hover { background: #dce8df; text-decoration: none; }
   .action-primary:hover, .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
   .home-link:hover { background: #dce8df; }
+  .ptabs-tab:hover img { opacity: .85; }
+  .ptabs-tab[aria-selected="true"]:hover img { opacity: 1; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .action:hover, .home-link:hover { transform: translateY(-2px); }
-  .action:active, .play-link:active, .back-to-top:active, .home-link:active { transform: scale(.98); }
+  .action:active, .play-link:active, .home-link:active { transform: scale(.98); }
 }
 .action:active, .home-link:active { background: #dce8df; }
 .action-primary:active, .play-link:active { background: #163b32; }
