@@ -18,7 +18,8 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // image (optional): 'assets/images/games/<name>.webp', a 352×336 picture shown in the label window (without it the window shows
 // the title). The pictures are official art cropped to the window (2026-10-14/15 user choices): games released on mobile use
 // their Google Play app icon (Blue Archive, MONGIL, Slay the Spire, Life is Strange, Genshin, Wuthering Waves, Endfield, ZZZ,
-// Limbus Company, NTE, GFL2, Trickcal); the others use Steam library or store capsules.
+// Limbus Company, NTE, GFL2, Trickcal); ten PC games use their Steam PC icon (Apex Legends, ARC Raiders, DJMAX RESPECT V,
+// ELDEN RING, Escape from Tarkov, Eternal Return, Marathon, PRAGMATA, PUBG, Stellar Blade); the rest use Steam library or store art.
 // Names, platforms (where the game is released) and genres were checked against official sources on 2026-10-14; hours,
 // achievements and the one-line review come from the user later and stay '' (hidden on the screen) until then.
 const shells = ['gray', 'yellow', 'purple', 'black'];
