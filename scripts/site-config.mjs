@@ -7,7 +7,7 @@ export const homeDescription = '아이디어를 프로토타입으로 만들고,
 // Project detail pages: one template per slug in src/templates/projects/.
 export const projects = [
   { slug: 'reflectory', title: 'Reflectory', description: '2026 대전 inD 게임잼 국가수리과학연구소장상. 4인 팀에서 기획과 팀장을 맡은 퍼즐 게임입니다.' },
-  { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상. 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탑다운 슈팅 게임입니다.' },
+  { slug: 'barrel-good-barrel', title: 'Barrel Good Barrel', description: '2025 대전 게임 브릿지 대상. 2025 대전 인디(inD) 게임어스 3인 팀에서 기획과 팀장을 맡은 탑다운 슈팅 게임입니다.' },
 ];
 export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트폴리오. 아이디어를 프로토타입으로 만들고, 플레이하며 재미를 검증합니다.';
 
