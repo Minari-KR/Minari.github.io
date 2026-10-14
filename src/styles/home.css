@@ -34,8 +34,6 @@
 /* Sections: the largest gap separates sections; the title sits close to its content. */
 .section { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .section-title { margin: 0 0 var(--gap-block); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
-.section-title-icon { display: flex; align-items: center; justify-content: center; gap: var(--gap-group); }
-.section-title-icon img { flex: 0 0 auto; width: 24px; height: 24px; }
 .marker { padding: 0 .2em; background: linear-gradient(transparent 55%, var(--marker) 55%); }
 
 /* Awards: scannable 2 x 2 list */
@@ -57,23 +55,31 @@
 /* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card
    (project-tabs.js). Nothing of the other cards shows: they share the card's place, hidden, so the section keeps the tallest
    card's height and a change of card happens in place. Without the script the tabs stay hidden and the cards follow one another. */
-.ptabs-list { display: flex; gap: 12px; margin: 0 0 var(--gap-actions); padding: 8px; overflow-x: auto; scrollbar-width: none; }
+.ptabs { --tab-speed: 24;  /* 조정값: 탭이 넘칠 때 탭 줄이 1초에 흐르는 거리(px) */ }
+/* The row keeps 8px of padding for the focus ring and the chosen picture's outline; equal negative margins keep it out of
+   the section's rhythm (title → pictures --gap-block, pictures → card --gap-actions, like every section). */
+.ptabs-list { margin: -8px 0 calc(var(--gap-actions) - 8px); padding: 8px; overflow-x: auto; scrollbar-width: none; }
+.ptabs-track { display: flex; gap: 12px; }
 .ptabs-list::-webkit-scrollbar { display: none; }
 .ptabs-list.is-dragging { cursor: grabbing; user-select: none; }
 /* Centred while they fit; once there are more than fit, the row scrolls from its first tab. */
 .ptabs-tab:first-child { margin-left: auto; }
 .ptabs-tab:last-child { margin-right: auto; }
 .ptabs-tab { display: grid; gap: 6px; flex: 0 1 160px; min-width: 112px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); cursor: pointer; }
-.ptabs-tab img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; opacity: .5; }
+.ptabs-tab img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; opacity: .8; }
 .ptabs-tab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ptabs-tab[aria-selected="true"] { color: var(--accent-deep); }
 .ptabs-tab[aria-selected="true"] img { outline: 2px solid var(--accent-deep); outline-offset: 2px; opacity: 1; }
+/* More tabs than fit: the row flows sideways on its own (project-tabs.js moves .ptabs-track) and fades out at both edges. */
+.ptabs-list.is-looping { overflow: hidden; touch-action: pan-y; -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent); mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent); }
+.ptabs-list.is-looping .ptabs-track { width: max-content; will-change: transform; }
+.ptabs-list.is-looping .ptabs-tab { flex: none; width: 136px; margin: 0; }
 .ptabs:not(.is-ready) .project + .project { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .ptabs.is-ready .ptabs-cards { display: grid; touch-action: pan-y; }
 .ptabs.is-ready .ptabs-cards > .project { grid-area: 1 / 1; }
 .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
-/* Release app (출시 앱): same layout as a project, with a status badge above the title */
+/* Release app (출시 앱): same layout as a project, with a status badge under its info line */
 .release-status { display: block; width: fit-content; margin: 12px auto 0; padding: 2px 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 700; line-height: var(--line-compact); }
 .release-image.project-image { aspect-ratio: auto; }
 .release-icon + .project-title { margin-top: var(--gap-block); }
@@ -92,6 +98,7 @@
 .play-link { display: flex; align-items: center; justify-content: center; gap: .3em; min-height: 52px; margin-top: var(--gap-block); border-radius: 8px; background: var(--accent-deep); color: #fff; font-size: var(--text-body); font-weight: 700; line-height: var(--line-compact); text-decoration: none; }
 
 @media (max-width: 640px) {
+  .ptabs-list.is-looping .ptabs-tab { width: 120px; }
   .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 48px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
   .intro-role { margin-top: 8px; }
   .meta-sep { margin: 0 6px; }
@@ -101,7 +108,6 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: var(--gap-block); }
   .award-list li { gap: var(--gap-tight); }
-  .section-title-icon img { width: 20px; height: 20px; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
   /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
@@ -126,8 +132,7 @@
   .action:hover { background: #dce8df; text-decoration: none; }
   .action-primary:hover, .play-link:hover { background: #163b32; color: #fff; text-decoration: none; }
   .home-link:hover { background: #dce8df; }
-  .ptabs-tab:hover img { opacity: .85; }
-  .ptabs-tab[aria-selected="true"]:hover img { opacity: 1; }
+  .ptabs-tab:hover img { opacity: 1; }
   .project-image-link:hover .project-image { opacity: .9; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {

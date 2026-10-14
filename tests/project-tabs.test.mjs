@@ -39,7 +39,16 @@ test('the tabs follow the ARIA tabs pattern and the card change is gentle only w
   assert.ok(script.includes('if (room < 1) return;'));
   assert.ok(script.includes('list.scrollLeft = pull.left - dx;'));
   assert.ok(script.includes('if (!pulled) return;'));
-  assert.ok(script.includes('tab.focus({ preventScroll: true })'));
+  assert.ok(script.includes('tabs[to].focus({ preventScroll: true })'));
+  // More tabs than fit: the row flows like the cartridge rows, with copies that are hidden from screen readers, keep no ids
+  // and take no Tab stop; it leaves up-and-down wheel turns to the page, stops for keyboard focus, and stays still with
+  // reduced motion or when everything fits.
+  assert.ok(script.includes("if (!motion.matches && list.scrollWidth > list.clientWidth + 1) {"));
+  for (const line of ["copy.removeAttribute('id');", "copy.setAttribute('aria-hidden', 'true');", 'copy.tabIndex = -1;', 'const flow = lane.focused ? 0 : -speed;', 'if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;']) assert.ok(script.includes(line), line);
+  const frame = script.slice(script.indexOf('const step = now =>'), script.indexOf('const run = () =>'));
+  assert.doesNotMatch(frame, /getComputedStyle|getBoundingClientRect|offsetWidth|clientWidth|scrollWidth/);
+  assert.match(styles, /\.ptabs \{ --tab-speed: \d+;/);
+  assert.match(styles, /\.ptabs-list\.is-looping \{ overflow: hidden; touch-action: pan-y;/);
   // A sideways swipe on the card is for touch only and leaves vertical scrolling to the page.
   assert.match(script, /event\.pointerType === 'mouse'/);
   assert.match(styles, /\.ptabs\.is-ready \.ptabs-cards \{ display: grid; touch-action: pan-y; \}/);

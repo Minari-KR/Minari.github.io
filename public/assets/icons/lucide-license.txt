@@ -1,8 +1,8 @@
 Lucide Icons
 
 The icons in this directory are from Lucide, an open-source icon library.
-Bundled icons: gamepad-2 (itch.io button), trophy (awards heading), house (project page home button) and calendar (project page development period).
-The trophy, house and calendar icons are from https://github.com/lucide-icons/lucide/tree/main/icons (trophy.svg, house.svg, calendar.svg); only their stroke color was changed.
+Bundled icons: gamepad-2 (itch.io button), house (project page home button) and calendar (project page development period).
+The house and calendar icons are from https://github.com/lucide-icons/lucide/tree/main/icons (house.svg, calendar.svg); only their stroke color was changed.
 Lucide is licensed under the ISC License. Some Lucide icons are derived from Feather Icons and are also covered by the MIT License below.
 
 Lucide ISC License

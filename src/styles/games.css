@@ -12,7 +12,7 @@
   --pack-speed: 32;            /* 게임팩이 1초에 흐르는 거리 (윗줄 오른쪽·아랫줄 왼쪽, 아랫줄은 조금 느림) */
   --pack-tilt: 9;              /* 끌거나 던질 때 게임팩이 기우는 최대 각도(도) */
   --big-pack: 176;             /* 기록 화면: 게임팩 너비 */
-  --m-pack-width: 88;          /* 휴대폰: 게임팩 너비 */
+  --m-pack-width: 112;         /* 휴대폰: 게임팩 너비 (게임 이름 5글자 정도가 한 줄에 들어가는 크기) */
   --m-pack-gap: 16;            /* 휴대폰: 게임팩 사이 간격 */
   --m-big-pack: 112;           /* 휴대폰: 기록 화면 게임팩 너비 */
 
@@ -62,7 +62,7 @@
 /* The label window measured on the shell images: left 11.2%, top 25.9%, 77.6% × 60.4%. */
 .pack-art { position: absolute; left: 10.8%; top: 25.5%; width: 78.4%; height: 61.2%; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 6%; background: var(--lcd-ink); color: var(--lcd-light); }
 .pack-img { width: 100%; height: 100%; object-fit: cover; }
-.pack-name { padding: 8%; font-size: var(--px-pack); line-height: 1.5; text-align: center; word-break: keep-all; }
+.pack-name { padding: 8% 4%; font-size: var(--px-pack); line-height: 1.5; text-align: center; word-break: keep-all; }
 /* Pointing at a cartridge: a down arrow above it and a pixel frame a little outside its edge (notched corners, like old menus). */
 .pack::before { content: "▼"; position: absolute; left: 50%; bottom: 100%; z-index: 2; margin-bottom: 14px; color: var(--lcd-ink); font-size: max(14px, calc(var(--a-pack) * .12)); line-height: 1; opacity: 0; transform: translateX(-50%); }
 .pack::after { content: ""; position: absolute; inset: -10px; z-index: 2; opacity: 0; pointer-events: none; box-shadow: 0 -4px 0 0 var(--lcd-ink), 0 4px 0 0 var(--lcd-ink), -4px 0 0 0 var(--lcd-ink), 4px 0 0 0 var(--lcd-ink); }
