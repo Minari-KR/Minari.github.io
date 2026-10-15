@@ -81,7 +81,7 @@
 .gs-info { display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; }
 .gs-info div:not([hidden]) { display: contents; }
 .gs-info dt, .gs-stat dt { font-size: 16px; line-height: 1.5; }
-.gs-info dd { margin: 0; font-size: 16px; line-height: 1.5; }
+.gs-info dd { margin: 0; font-size: 16px; line-height: 1.5; word-break: keep-all; }
 .gs-stat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .gs-stat dd { margin: 4px 0 0; font-size: 24px; line-height: 1.25; }
 .gs-note { font-size: 16px; line-height: 1.5; }
