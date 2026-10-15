@@ -23,29 +23,31 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // PlayStation Store square art (Battlefield 6, Clair Obscur, The First Descendant); the rest use Steam library or store art.
 // Names, platforms (where the game is released) and genres were checked against official sources on 2026-10-14; hours,
 // play hours come from the user (2026-10-16; a game played on two devices shows their sum, e.g. Blue Archive Steam 24.3 + mobile 47.3);
-// achievements and the one-line review come from the user later and stay '' (hidden on the screen) until then.
+// achievements (2026-10-16, a short record such as a rank, level or ending; '' when the user has none; a line break
+// in the text starts a new line on the screen) and the one-line review,
+// which comes from the user later, stay '' (hidden on the screen) when empty.
 const shells = ['gray', 'yellow', 'purple', 'black'];
 export const games = [
-  ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6],
+  ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6, '총력전 플래티넘\nLv.90 · UID 1109697'],
   ['몬길: STAR DIVE', 'PC, 모바일', '액션 RPG', 'mongil-star-dive', 60.1],
-  ['이터널 리턴', 'PC', 'MOBA, 배틀로얄', 'eternal-return', 7195.6],
-  ['슬레이 더 스파이어', 'PC, 모바일, 콘솔', '덱빌딩 로그라이크', 'slay-the-spire', 25.4],
-  ['슬레이 더 스파이어 2', 'PC', '덱빌딩 로그라이크', 'slay-the-spire-2', 59.1],
+  ['이터널 리턴', 'PC', 'MOBA, 배틀로얄', 'eternal-return', 7195.6, '최고 티어 이터니티\n매 시즌 상위 0.1%'],
+  ['슬레이 더 스파이어', 'PC, 모바일, 콘솔', '덱빌딩 로그라이크', 'slay-the-spire', 25.4, '로그 승천 10 클리어'],
+  ['슬레이 더 스파이어 2', 'PC', '덱빌딩 로그라이크', 'slay-the-spire-2', 59.1, '로그 승천 10 클리어'],
   ['DJMAX RESPECT V', 'PC, 콘솔', '리듬', 'djmax-respect-v', 19.7],
-  ['스텔라 블레이드', '콘솔, PC', '액션 어드벤처', 'stellar-blade', 16.9],
-  ['산나비', 'PC, 콘솔', '액션 플랫포머', 'sanabi', 13.1],
+  ['스텔라 블레이드', '콘솔, PC', '액션 어드벤처', 'stellar-blade', 16.9, '엔딩 클리어'],
+  ['산나비', 'PC, 콘솔', '액션 플랫포머', 'sanabi', 13.1, '엔딩 클리어'],
   ['클레르 옵스퀴르: 33 원정대', 'PC, 콘솔', '턴제 RPG', 'clair-obscur', 24.5],
   ['에이펙스 레전드', 'PC, 콘솔', '배틀로얄 FPS', 'apex-legends', 57.5],
   ['아크 레이더스', 'PC, 콘솔', '익스트랙션 슈터', 'arc-raiders', 19.8],
   ['엘든 링', 'PC, 콘솔', '액션 RPG', 'elden-ring', 25.3],
-  ['프라그마타', 'PC, 콘솔', '액션 어드벤처', 'pragmata', 10.2],
+  ['프라그마타', 'PC, 콘솔', '액션 어드벤처', 'pragmata', 10.2, '엔딩 클리어'],
   ['배틀그라운드', 'PC, 콘솔', '배틀로얄 슈팅', 'pubg', 487.7],
   ['마라톤', 'PC, 콘솔', '익스트랙션 슈터', 'marathon', 39.1],
   ['세피리아', 'PC', '로그라이트 액션', 'sephiria', 19.5],
   ['퍼스트 디센던트', 'PC, 콘솔', '루트 슈터', 'the-first-descendant', 52.2],
-  ['로스트아크', 'PC', 'MMORPG', 'lost-ark', 2285.6],
+  ['로스트아크', 'PC', 'MMORPG', 'lost-ark', 2285.6, 'Lv.1723'],
   ['이스케이프 프롬 타르코프', 'PC', '익스트랙션 FPS', 'escape-from-tarkov', 682.9],
-  ['라이프 이즈 스트레인지', 'PC, 콘솔, 모바일', '어드벤처', 'life-is-strange', 18.9],
+  ['라이프 이즈 스트레인지', 'PC, 콘솔, 모바일', '어드벤처', 'life-is-strange', 18.9, '엔딩 클리어'],
   ['원신', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'genshin-impact', 216.4],
   ['명조: 워더링 웨이브', 'PC, 모바일, 콘솔', '오픈월드 액션 RPG', 'wuthering-waves', 45.6],
   ['명일방주: 엔드필드', 'PC, 모바일, 콘솔', '전략 RPG', 'arknights-endfield', 23.6],
@@ -55,12 +57,12 @@ export const games = [
   ['이환', 'PC, 모바일, 콘솔', '오픈월드 RPG', 'nte', 21.4],
   ['소녀전선2: 망명', 'PC, 모바일', '턴제 전략 RPG', 'girls-frontline-2', 24.9],
   ['트릭컬 리바이브', '모바일', '수집형 RPG', 'trickcal-revive', 32.6],
-].map(([title, platform, genre, image, hours], i) => ({
+].map(([title, platform, genre, image, hours, achievements = ''], i) => ({
   title,
   platform,
   genre,
   hours: hours === undefined ? '' : `${hours.toLocaleString('en-US')}시간`,
-  achievements: '',
+  achievements,
   note: '',
   image: `assets/images/games/${image}.webp`,
   shell: shells[Math.floor(i / 2) % shells.length],

@@ -83,7 +83,9 @@
 .gs-info dt, .gs-stat dt { font-size: 16px; line-height: 1.5; }
 .gs-info dd { margin: 0; font-size: 16px; line-height: 1.5; word-break: keep-all; }
 .gs-stat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.gs-stat dd { margin: 4px 0 0; font-size: 24px; line-height: 1.25; }
+.gs-stat dd { margin: 4px 0 0; font-size: 24px; line-height: 1.25; word-break: keep-all; }
+/* Achievements are short records in words (a rank, a level, an ending), so they read at body size, one part per line. */
+.gs-stat dd[data-field="achievements"] { font-size: 16px; line-height: 1.5; white-space: pre-line; }
 .gs-note { font-size: 16px; line-height: 1.5; }
 .gs-exit { position: absolute; left: 0; right: 0; bottom: 20px; margin: 0; font-size: 16px; line-height: 1.5; text-align: center; pointer-events: none; }
 
@@ -94,8 +96,10 @@
   .gs-detail { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 24px; padding: 24px 20px 64px; }
   .gs-record { width: 100%; text-align: center; }
   .gs-name { font-size: 24px; }
-  /* Platform and genre, play time and achievements: two centred columns each, label above value; one alone takes the row. */
+  /* Platform and genre: two centred columns, label above value (one alone takes the row). */
   .gs-info, .gs-stat { display: flex; justify-content: center; gap: 16px; }
+  /* Play time and achievements stack: a long time such as 7,195.6시간 needs the whole row. */
+  .gs-stat { flex-direction: column; gap: 12px; }
   .gs-info div:not([hidden]), .gs-stat div:not([hidden]) { display: block; flex: 1 1 0; min-width: 0; }
   .gs-info dd, .gs-stat dd { margin-top: 4px; }
 }
