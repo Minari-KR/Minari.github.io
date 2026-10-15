@@ -28,7 +28,7 @@ export const shareImageAlt = 'Minari 박종찬 · 게임 시스템 기획 포트
 // which comes from the user later, stay '' (hidden on the screen) when empty.
 const shells = ['gray', 'yellow', 'purple', 'black'];
 export const games = [
-  ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6, '총력전 플래티넘\nLv.90 · UID 1109697'],
+  ['블루 아카이브', '모바일, PC', '수집형 RPG', 'blue-archive', 71.6, '총력전 플래티넘\nLv.90'],
   ['몬길: STAR DIVE', 'PC, 모바일', '액션 RPG', 'mongil-star-dive', 60.1],
   ['이터널 리턴', 'PC', 'MOBA, 배틀로얄', 'eternal-return', 7195.6, '최고 티어 이터니티\n매 시즌 상위 0.1%'],
   ['슬레이 더 스파이어', 'PC, 모바일, 콘솔', '덱빌딩 로그라이크', 'slay-the-spire', 25.4, '로그 승천 10 클리어'],
