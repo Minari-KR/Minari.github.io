@@ -56,9 +56,10 @@
 .award-top { display: flex; justify-content: center; margin-bottom: var(--gap-group); }
 .award-icon { display: block; width: 48px; height: 48px; image-rendering: pixelated; }
 /* The event reads in the site's type; only the year keeps the screen's pixel font, at the start of the same line. */
-.award-event { font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
+.award-event { font-size: var(--text-body); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .award-year { font-family: "NeoDunggeunmo", var(--font-body); font-weight: 400; font-synthesis: none; }
-.award-name { font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; }
+/* 22px (phone 20px): one step under the project titles, so the card text stays big without levelling with them. */
+.award-name { font-size: 1.375rem; font-weight: 800; line-height: var(--line-heading); letter-spacing: var(--tracking-heading); word-break: keep-all; }
 
 /* Projects: image / heading group (title, meta, award) / buttons */
 .project-image-link { display: block; }
@@ -126,6 +127,7 @@
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
+  .award-name { font-size: 1.25rem; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
   /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
