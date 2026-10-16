@@ -45,9 +45,11 @@
 .gs[data-state="detail"] .pack-rows { opacity: .06; }
 .gs-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* Each row keeps room above its cartridges for the pointer's ▼ and a lifted cartridge; the next row overlaps that room. */
+/* Each row keeps 48px of room above its cartridges for the pointer's ▼ and a lifted cartridge. Its -32px margin overlaps
+   exactly the gap and the bottom padding of the row before, never that row's cartridges, so one row's cartridges sit 48px
+   below the other's. */
 .pack-rows { display: flex; flex-direction: column; gap: calc(var(--row-gap) * 1px); padding: 24px 0 16px; }
-.pack-row { overflow: hidden; margin-top: -32px; padding: 44px 0 16px; cursor: grab; touch-action: pan-y; user-select: none; }
+.pack-row { overflow: hidden; margin-top: -32px; padding: 48px 0 16px; cursor: grab; touch-action: pan-y; user-select: none; }
 .pack-row.is-dragging { cursor: grabbing; }
 .pack-row.is-dragging .pack { pointer-events: none; }
 .pack-track { display: flex; width: max-content; padding: 0 24px; }

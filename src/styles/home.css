@@ -84,7 +84,7 @@
 /* Centred while they fit; once there are more than fit, the row scrolls from its first tab. */
 .ptabs-tab:first-child { margin-left: auto; }
 .ptabs-tab:last-child { margin-right: auto; }
-.ptabs-tab { display: grid; gap: 6px; flex: 0 1 160px; min-width: 112px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); cursor: pointer; }
+.ptabs-tab { display: grid; gap: var(--gap-group); flex: 0 1 160px; min-width: 112px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); cursor: pointer; }
 .ptabs-tab img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; opacity: .8; }
 .ptabs-tab span { word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .ptabs-tab[aria-selected="true"] { color: var(--accent-deep); }
@@ -99,7 +99,7 @@
 .ptabs.is-ready .ptabs-cards > .project:not(.is-current) { visibility: hidden; opacity: 0; }
 
 /* Release app (출시 앱): same layout as a project, with a status badge under its info line */
-.release-status { display: block; width: fit-content; margin: 12px auto 0; padding: 2px 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); }
+.release-status { display: block; width: fit-content; margin: 12px auto 0; padding: var(--gap-tight) 12px; border: 1.5px solid var(--accent-deep); border-radius: 999px; color: var(--accent-deep); font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); }
 .release-image.project-image { aspect-ratio: auto; }
 .release-icon + .project-title { margin-top: var(--gap-block); }
 .release-icon { display: block; width: 128px; height: 128px; margin: 0 auto; border: 1px solid var(--line); border-radius: 22.5%; box-shadow: 0 6px 16px rgba(31, 41, 36, .12); }
@@ -135,7 +135,7 @@
   .project-detail .project-meta > :nth-last-child(2) { display: none; }
   .project-period { display: flex; flex-basis: 100%; justify-content: center; margin-top: var(--gap-group); }
   /* Secondary to the 행사 / 역할 / 팀 line: same size, lighter color, quiet pill. */
-  .period-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border: 1px solid var(--line); border-radius: 999px; background: #f6f7f5; color: var(--muted); font-size: inherit; font-weight: 500; line-height: var(--line-compact); }
+  .period-badge { display: inline-flex; align-items: center; gap: var(--gap-group); padding: var(--gap-tight) 12px; border: 1px solid var(--line); border-radius: 999px; background: #f6f7f5; color: var(--muted); font-size: inherit; font-weight: 500; line-height: var(--line-compact); }
   .period-badge img { display: block; width: 14px; height: 14px; }
   .period-label { display: inline; margin-right: 2px; }
 }
