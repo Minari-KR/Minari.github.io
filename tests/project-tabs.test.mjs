@@ -11,10 +11,11 @@ test('projects show as thumbnail tabs over one large card, and nothing of the ot
   const section = home.slice(home.indexOf('id="projects"'), home.indexOf('</section>', home.indexOf('id="projects"')));
   // One tab per card, in the same order, each pointing at its card; the tabs stay hidden until the script runs.
   const tabs = [...section.matchAll(/<button class="ptabs-tab" type="button" role="tab" id="tab-([a-z-]+)" aria-controls="project-\1" aria-selected="(true|false)">/g)];
-  assert.deepEqual(tabs.map(tab => tab[1]), ['reflectory', 'barrel-good-barrel']);
-  assert.deepEqual(tabs.map(tab => tab[2]), ['true', 'false']);
+  const slugs = ['reflectory', 'barrel-good-barrel', 'aiden-magnus-kartrider'];
+  assert.deepEqual(tabs.map(tab => tab[1]), slugs);
+  assert.deepEqual(tabs.map(tab => tab[2]), ['true', 'false', 'false']);
   assert.match(section, /<div class="ptabs-list" role="tablist" aria-label="프로젝트 고르기" hidden>/);
-  for (const slug of ['reflectory', 'barrel-good-barrel']) assert.match(section, new RegExp(`<article class="project" id="project-${slug}" aria-labelledby="${slug}-title">`));
+  for (const slug of slugs) assert.match(section, new RegExp(`<article class="project" id="project-${slug}" aria-labelledby="${slug}-title">`));
   assert.match(home, /<script src="\.\/assets\/js\/project-tabs\.js\?v=[a-f0-9]{12}" defer><\/script>/);
   // The cards share one place: the others are hidden, not slid to the side, and none of the old slider is left.
   const styles = read('src/styles/home.css');

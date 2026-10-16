@@ -14,7 +14,7 @@ test('email remains a mail link without copy controls or clipboard code', () => 
 
 test('intro, awards and projects follow the single-column order with the approved copy', () => {
   assert.doesNotMatch(template, /생년월일|2003\.02\.26|profile-birthday|게임 기획</);
-  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="games-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"'];
+  const order = ['id="intro-title"', '게임 디자이너</p>', '우송대학교 게임멀티미디어학과', 'class="intro-statement"', 'href="mailto:bkpark0226@naver.com"', 'href="https://minari-kr.itch.io/"', 'id="games-title"', 'id="awards-title"', 'id="projects-title"', 'id="reflectory-title"', 'id="barrel-good-barrel-title"', 'id="aiden-magnus-kartrider-title"'];
   const positions = order.map(marker => template.indexOf(marker));
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
@@ -51,6 +51,14 @@ test('projects open their own pages without JavaScript, and the page has no back
     assert.match(page, /<p class="project-award">[^<]+<\/p>/);
     assert.match(page, /<video controls playsinline preload="none"/);
     assert.match(page, /class="play-link" href="https:\/\/minari-kr\.itch\.io\/[a-z-]+" target="_blank" rel="noopener noreferrer"/);
+  }
+  // The solo fan game (2026-10-16) has no page of its own: its only button, the primary one, opens the YouTube video in a new
+  // tab (the site's security policy keeps YouTube out of the page), and nothing else on its card links anywhere.
+  for (const [slug, video] of [['aiden-magnus-kartrider', 'https://www.youtube.com/watch?v=RrdQxWXoZO4&amp;t=35s']]) {
+    const card = template.slice(template.indexOf(`<article class="project" id="project-${slug}"`), template.indexOf('</article>', template.indexOf(`id="project-${slug}"`)));
+    assert.equal((card.match(/<a /g) || []).length, 1, slug);
+    assert.ok(card.includes(`<a class="action action-primary" href="${video}" target="_blank" rel="noopener noreferrer">플레이 영상</a>`), slug);
+    assert.ok(fs.existsSync(new URL(`../public/assets/images/cards/${slug}-title.webp`, import.meta.url)), slug);
   }
   // The back-to-top button was taken out at the user's request (2026-10-14).
   assert.doesNotMatch(template, /back-to-top|home-actions|circle-arrow-up/);

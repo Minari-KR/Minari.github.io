@@ -35,9 +35,10 @@ test('game packs reject a missing title, an unknown shell, non-text fields and p
 test('the game-play section comes right after the intro: a small game screen of cartridges and a record view', () => {
   const { files, publicFiles } = compileSite(root);
   const home = files.get('index.html');
-  // It follows the intro, above the release app, the awards and the projects; the site is still the portfolio alone.
+  // It follows the intro, above the awards and the projects (the release app, when there is one, sits between those two:
+  // release.test.mjs); the site is still the portfolio alone.
   assert.ok(home.indexOf('</header>') < home.indexOf('id="games"'));
-  for (const later of ['class="section release"', 'id="awards"', 'id="projects"']) assert.ok(home.indexOf('id="games"') < home.indexOf(later), later);
+  for (const later of ['id="awards"', 'id="projects"']) assert.ok(home.indexOf('id="games"') < home.indexOf(later), later);
   assert.match(home, /<h2 class="section-title" id="games-title"><span class="marker">게임 플레이 경험<\/span><\/h2>/);
   assert.match(home, /<div class="gs" data-game-screen data-state="select">/);
   assert.equal((home.match(/<button class="pack" /g) || []).length, 29);
