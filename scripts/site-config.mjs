@@ -80,8 +80,8 @@ export const games = [
 // };
 // Source: C:\Unity Project\zzukzzuk-nyang (README 출시 현황, 스토어/스토어_등록정보.md, 스토어/store-icon-512.png).
 // Google Play closed test started 2026-10-03; add the store link here once the public listing is live.
-// 2026-10-16 (user requests): "비공식 2차 창작 팬게임" and "1인 개발" added to the info line, and the play video on YouTube
-// (opens in a new tab: the site's CSP keeps YouTube out of the page).
+// 2026-10-16 (user requests): "비공식 2차 창작 팬게임" and "1인 개발" added to the info line. A play video link on YouTube
+// (https://www.youtube.com/watch?v=BGQOpXTESr8) was added and then taken out again for now at the user's request.
 export const release = {
   title: '쭉쭉냥 : 고양이 퍼즐',
   status: 'Google Play 정식 출시 예정',
@@ -90,5 +90,5 @@ export const release = {
   imageHeight: 256,
   imageStyle: 'icon',
   meta: ['비공식 2차 창작 팬게임', 'Android', '퍼즐', '1인 개발'],
-  links: [{ label: '플레이 영상', url: 'https://www.youtube.com/watch?v=BGQOpXTESr8' }],
+  links: [],
 };
