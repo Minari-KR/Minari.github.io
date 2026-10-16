@@ -19,6 +19,13 @@ test('intro, awards and projects follow the single-column order with the approve
   assert.ok(positions.every(position => position >= 0), String(positions));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.equal((template.match(/<strong class="award-name">/g) || []).length, 4);
+  // Awards are four identical LCD cards with a pixel game item (CC0, assets/images/awards) and the year.
+  assert.equal((template.match(/<li class="award-card[ "]/g) || []).length, 4);
+  assert.doesNotMatch(template, /is-best/);
+  for (const icon of ['book', 'trophy', 'crown', 'gem']) {
+    assert.ok(template.includes(`src="./assets/images/awards/award-${icon}.png" width="48" height="48" alt="" aria-hidden="true"`), icon);
+    assert.ok(fs.existsSync(new URL(`../public/assets/images/awards/award-${icon}.png`, import.meta.url)), icon);
+  }
   assert.doesNotMatch(template, /role-list/);
   assert.doesNotMatch(template, /section-shortcuts|project-shortcuts|journal|award-project|<dialog/);
 });

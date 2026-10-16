@@ -68,7 +68,7 @@ export const games = [
   shell: shells[Math.floor(i / 2) % shells.length],
 }));
 
-// "출시 앱" section on the home page (shown between the intro and the awards).
+// "출시 앱" section on the home page (shown between the awards and the projects).
 // Keep null until the real information is ready; null means the section is not generated at all.
 // Example shape (all text is escaped; links must be https; image must exist in public/assets/images/):
 // export const release = {
