@@ -8,7 +8,7 @@
   --text-display: 4rem; --text-project: 1.875rem; --text-title: 1.5rem; --text-lead: 1.25rem; --text-body: 1.125rem; --text-meta: 1rem;
   --gap-tight: 4px; --gap-group: 8px; --gap-block: 24px; --gap-actions: 32px; --section-gap: 64px;
   --line-heading: 1.2; --line-compact: 1.5; --line-text: 1.6;
-  --marker: rgba(47, 111, 94, .2); --note-rule: 1px dashed rgba(32, 33, 31, .28);
+  --note-rule: 1px dashed rgba(32, 33, 31, .28);
   position: relative; z-index: 1; box-sizing: border-box; width: min(calc(var(--column) + 2 * var(--box-padding)), calc(100% - 32px)); margin: 40px auto; padding: 64px var(--box-padding); border: 1px solid var(--line); border-radius: 12px; background: #fff; text-align: center;
 }
 
@@ -34,7 +34,9 @@
 /* Sections: the largest gap separates sections; the title sits close to its content. */
 .section { margin-top: var(--section-gap); padding-top: var(--section-gap); border-top: var(--note-rule); }
 .section-title { margin: 0 0 var(--gap-block); color: var(--ink); font-size: var(--text-lead); font-weight: 800; line-height: var(--line-heading); }
-.marker { padding: 0 .2em; background: linear-gradient(transparent 55%, var(--marker) 55%); }
+/* Highlighter stroke (assets/icons/marker.svg): border-image keeps the slanted pen ends (20 units, drawn .7em wide) and stretches
+   only the straight middle, so short and long titles get the same ends. One stroke per line if a title ever wraps. */
+.marker { padding: 0 .3em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 /* Awards: scannable 2 x 2 list */
 .award-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin: 0; padding: 0; list-style: none; }
@@ -49,7 +51,7 @@
 .project-meta { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; margin: var(--gap-group) 0 0; color: var(--body-ink); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); word-break: keep-all; }
 .project-meta > span:not(.meta-sep) { white-space: nowrap; }
 .meta-sep { margin: 0 12px; color: rgba(32, 33, 31, .3); font-weight: 400; }
-.project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .3em; background: linear-gradient(transparent 55%, var(--marker) 55%); color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
+.project-award { display: block; width: fit-content; max-width: 100%; margin: var(--gap-group) auto 0; padding: 0 .4em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; color: var(--accent-deep); font-size: var(--text-body); font-weight: 800; line-height: var(--line-compact); }
 .project-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
 /* Projects (2026-10-14 user choice "썸네일 탭 + 큰 카드"): small title pictures as tabs above one large card

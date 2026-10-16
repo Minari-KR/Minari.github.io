@@ -53,13 +53,27 @@ test('the game-play section comes right after the intro: a small game screen of 
   assert.match(files.get('projects/reflectory.html'), /<title>Reflectory \| 박종찬<\/title>/);
 });
 
-test('stylesheets may only load reviewed local fonts', () => {
+test('stylesheets may only load reviewed local fonts and local SVG icons', () => {
   const { files } = compileSite(root);
   const withCss = css => new Map(files).set('assets/css/fonts-check.css', css);
   assert.doesNotThrow(() => validateFiles(withCss('@font-face { font-family: "A"; src: url("../fonts/neodgm.woff2"); }')));
-  for (const css of ['a { background: url("https://example.com/a.png"); }', 'a { background: url(../images/packs/shell-gray.webp); }', '@font-face { src: url("../fonts/missing.woff2"); }', '@font-face { src: url(\'../fonts/a"b.woff2\'); }', '@import "x.css";']) {
+  assert.doesNotThrow(() => validateFiles(withCss('a { border-image: url("../icons/marker.svg") 0 20 fill; }')));
+  for (const css of ['a { background: url("https://example.com/a.png"); }', 'a { background: url(../images/packs/shell-gray.webp); }', '@font-face { src: url("../fonts/missing.woff2"); }', '@font-face { src: url(\'../fonts/a"b.woff2\'); }', '@import "x.css";', 'a { background: url("../icons/missing.svg"); }', 'a { background: url("../icons/house.png"); }']) {
     assert.throws(() => validateFiles(withCss(css)), /외부 리소스|연결 대상/, css);
   }
+  // An SVG is only a picture: anything that could run code or load something else is refused.
+  for (const svg of ['<svg><script>alert(1)</script></svg>', '<svg onload="x()"/>', '<svg><a href="https://example.com"/></svg>', '<svg><foreignObject/></svg>', '<svg><image xlink:href="a.png"/></svg>']) {
+    assert.throws(() => validateFiles(new Map(files).set('assets/icons/marker.svg', svg)), /SVG에 허용되지 않는/, svg);
+  }
+});
+
+test('section titles and award lines use the drawn highlighter stroke, not a flat band', () => {
+  const styles = fs.readFileSync(new URL('../src/styles/home.css', import.meta.url), 'utf8');
+  const stroke = fs.readFileSync(new URL('../public/assets/icons/marker.svg', import.meta.url), 'utf8');
+  assert.match(styles, /\.marker \{[^}]*border-image: url\("\.\.\/icons\/marker\.svg"\) 0 20 fill \/ 0 \.7em stretch;/);
+  assert.match(styles, /\.project-award \{[^}]*border-image: url\("\.\.\/icons\/marker\.svg"\)/);
+  assert.doesNotMatch(styles, /var\(--marker\)/);
+  assert.match(stroke, /width="120" height="40"/);
 });
 
 test('the game screen moves only without a reduced-motion preference and goes back with a press, Esc, Enter or Space', () => {

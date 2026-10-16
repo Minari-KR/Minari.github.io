@@ -26,6 +26,8 @@ export function validateFiles(files) {
     ids.set(name, new Set(pageIds));
   }
   for (const [name, value] of files) {
+    // Local SVG icons are pictures only: no scripts, event handlers, embedded documents, links or entities.
+    if (name.endsWith('.svg') && /<script|<foreignObject|\son[a-z]+\s*=|href\s*=|<!ENTITY|<!DOCTYPE|<\?xml-stylesheet|javascript:|url\s*\(/i.test(value.toString())) throw new Error(`SVG에 허용되지 않는 내용이 있습니다: ${name}`);
     if (!/\.(html|css|js)$/.test(name)) continue;
     const text = value.toString();
     // High-confidence patterns only; never print matched secrets in an error.
@@ -38,12 +40,13 @@ export function validateFiles(files) {
       const clean = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/"[^"\n]*"|'[^'\n]*'/g, '');
       if ((clean.match(/{/g) || []).length !== (clean.match(/}/g) || []).length) throw new Error(`CSS 괄호 오류: ${name}`);
       if (/@import\b|expression\s*\(/i.test(text)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
-      // The only url() allowed is a reviewed local font next to the stylesheets (assets/fonts/*.woff2).
+      // The only url() allowed is a reviewed local font (assets/fonts/*.woff2) or a local decorative SVG (assets/icons/*.svg,
+      // checked below) next to the stylesheets.
       const code = text.replace(/\/\*[\s\S]*?\*\//g, '');
       const urls = [...code.matchAll(/url\s*\(\s*(["']?)([^"')]*)\1\s*\)/gi)].map(match => match[2]);
       if ((code.match(/url\s*\(/gi) || []).length !== urls.length) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
       for (const ref of urls) {
-        if (!/^\.\.\/fonts\/[a-z0-9_-]+\.woff2$/.test(ref)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
+        if (!/^\.\.\/(?:fonts\/[a-z0-9_-]+\.woff2|icons\/[a-z0-9_-]+\.svg)$/.test(ref)) throw new Error(`CSS 외부 리소스는 별도 검토가 필요합니다: ${name}`);
         const target = path.posix.normalize(path.posix.join(path.posix.dirname(name), ref));
         if (!files.has(target)) throw new Error(`연결 대상이 없습니다: ${name} → ${target}`);
       }
