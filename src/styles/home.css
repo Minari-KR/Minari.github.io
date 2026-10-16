@@ -22,7 +22,7 @@
 .intro-role { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0 0; color: var(--ink); font-size: var(--text-title); font-weight: 800; line-height: var(--line-heading); }
 .intro-role-divider { width: 1px; height: 1em; background: rgba(32, 33, 31, .3); }
 .intro-school { margin: var(--gap-tight) 0 0; color: var(--muted); font-size: var(--text-meta); font-weight: 500; line-height: var(--line-compact); }
-.intro-statement { max-width: 30em; margin: var(--gap-block) auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); }
+.intro-statement { max-width: 30em; margin: var(--gap-block) auto 0; color: var(--body-ink); font-size: var(--text-lead); font-weight: 500; line-height: var(--line-text); text-wrap: balance; }
 .summary-line { display: block; }
 .intro-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: var(--gap-actions); }
 
@@ -86,7 +86,7 @@
 .ptabs-tab:last-child { margin-right: auto; }
 .ptabs-tab { display: grid; gap: 6px; flex: 0 1 160px; min-width: 112px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-meta); font-weight: 800; line-height: var(--line-compact); cursor: pointer; }
 .ptabs-tab img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; opacity: .8; }
-.ptabs-tab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ptabs-tab span { word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .ptabs-tab[aria-selected="true"] { color: var(--accent-deep); }
 .ptabs-tab[aria-selected="true"] img { outline: 2px solid var(--accent-deep); outline-offset: 2px; opacity: 1; }
 /* More tabs than fit: the row flows sideways on its own (project-tabs.js moves .ptabs-track) and fades out at both edges. */
@@ -120,14 +120,14 @@
   .ptabs-list.is-looping .ptabs-tab { width: 120px; }
   .page { --box-padding: 20px; --text-display: 2.75rem; --text-project: 1.5rem; --text-title: 1.25rem; --text-lead: 1.125rem; --text-body: 1rem; --text-meta: .875rem; --gap-block: 16px; --gap-actions: 24px; --section-gap: 48px; width: calc(100% - 16px); margin: 8px auto 24px; padding: 48px var(--box-padding); border-radius: 10px; }
   .intro-role { margin-top: 8px; }
-  .meta-sep { margin: 0 6px; }
+  .meta-sep { margin: 0 3px; }
   .release-icon { width: 112px; height: 112px; }
   /* Keep the project info line on one line on phones: text scales with the screen width. */
-  .project-meta { flex-wrap: nowrap; font-size: clamp(.6875rem, 3.45vw, var(--text-meta)); }
+  .project-meta { flex-wrap: nowrap; font-size: clamp(.75rem, 3.6vw, var(--text-meta)); letter-spacing: -.02em; }
   .intro-actions .action { flex: 1 1 100%; }
   .award-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .award-card { padding: 16px; }
-  .award-name { font-size: 1.25rem; }
+  .award-name { font-size: 1.125rem; }
   .project-actions .action { flex: 1 1 0; }
   .project-detail h1 { font-size: 1.875rem; }
   /* Detail pages add a development period; on phones it moves to its own line under 행사 / 역할 / 팀. */
