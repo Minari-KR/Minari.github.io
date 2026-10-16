@@ -37,6 +37,13 @@
 /* Highlighter stroke (assets/icons/marker.svg): border-image keeps the slanted pen ends (20 units, drawn .7em wide) and stretches
    only the straight middle, so short and long titles get the same ends. One stroke per line if a title ever wraps. */
 .marker { padding: 0 .3em; border: 0 solid transparent; border-image: url("../icons/marker.svg") 0 20 fill / 0 .7em stretch; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Key words inside the intro sentence: no padding so the particles stay attached; the stroke reaches past the word instead. */
+.intro-statement .marker { padding: 0; border-image-outset: 0 .15em; }
+/* The four key words step in the site green from lighter to deeper, in sentence order (아이디어 → 재미). */
+.marker-step-1 { border-image-source: url("../icons/marker-step-1.svg"); }
+.marker-step-2 { border-image-source: url("../icons/marker-step-2.svg"); }
+.marker-step-3 { border-image-source: url("../icons/marker-step-3.svg"); }
+.marker-step-4 { border-image-source: url("../icons/marker-step-4.svg"); }
 
 /* Awards: scannable 2 x 2 list */
 .award-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin: 0; padding: 0; list-style: none; }

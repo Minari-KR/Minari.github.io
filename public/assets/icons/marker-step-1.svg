@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40" aria-hidden="true">
+  <!-- Highlighter stroke, step 1 of 4 for the intro sentence (the site green, lighter to deeper), drawn for this site. Stretched by CSS border-image:
+       the outer 20 units on each side are the slanted pen ends and keep their shape; the straight middle stretches.
+       It covers only the lower part of the line (y 21.5-38.5) and stays light so the title's letters keep their contrast. -->
+  <path fill="#2f6f5e" fill-opacity=".14" transform="matrix(1 0 0 .944 0 4.5)" d="M4.5 21.6C9 19.6 14 18.9 20 18.8L100 18.5C106.5 18.4 112 18.9 116.2 20.4L118 23.4 116.6 26.8 117.8 30.6C113 33.6 107 35 100 35.1L20 35.6C13.5 35.8 8 35.6 3.2 34.4L1.6 30.4 3.4 26.6 2.2 23.8Z"/>
+</svg>

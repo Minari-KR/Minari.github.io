@@ -74,6 +74,14 @@ test('section titles and award lines use the drawn highlighter stroke, not a fla
   assert.match(styles, /\.project-award \{[^}]*border-image: url\("\.\.\/icons\/marker\.svg"\)/);
   assert.doesNotMatch(styles, /var\(--marker\)/);
   assert.match(stroke, /width="120" height="40"/);
+  // The intro's four key words get the same stroke in four colour steps, in sentence order.
+  const home = fs.readFileSync(new URL('../src/templates/home.html', import.meta.url), 'utf8');
+  const words = ['아이디어', '프로토타입', '플레이', '재미'];
+  words.forEach((word, i) => {
+    assert.match(home, new RegExp(`<span class="marker marker-step-${i + 1}">${word}</span>`));
+    assert.ok(styles.includes(`.marker-step-${i + 1} { border-image-source: url("../icons/marker-step-${i + 1}.svg"); }`), word);
+    assert.ok(fs.existsSync(new URL(`../public/assets/icons/marker-step-${i + 1}.svg`, import.meta.url)));
+  });
 });
 
 test('the game screen moves only without a reduced-motion preference and goes back with a press, Esc, Enter or Space', () => {
